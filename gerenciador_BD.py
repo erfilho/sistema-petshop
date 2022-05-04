@@ -28,16 +28,13 @@ class BD():
         BD.desconecta_bd(self)
         
     def verifica_senha(self, cpf, senha):
-        print(cpf, senha)
         BD.conecta_bd(self)
         
         self.cursor.execute(""" SELECT * FROM Funcionarios
                                 WHERE FUN_CPF == (?) AND FUN_SENHA = (?);""", (cpf, senha))
 
         lista = self.cursor.fetchall()
-        if lista == "[]":
-            print()
-        print(lista)
+
         BD.desconecta_bd(self)
         return lista
     

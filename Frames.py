@@ -34,7 +34,7 @@ def login(self):
         self.label2 = Label(self.frame_1, text="Senha")
         self.label2.place(relx= 0.47, rely = 0.3)
         
-        self.et_Senha = Entry(self.frame_1)
+        self.et_Senha = Entry(self.frame_1, show='*')
         self.et_Senha.place(relx= 0.4, rely = 0.35)
 
         #Criando os Botões
@@ -45,7 +45,6 @@ def Estoquista(self):
     self.FR_root_1 = Frame(self.root, background = fundo2, highlightbackground = borda, borderwidth=0.01, highlightthickness=2)
     self.FR_root_1.place(relx = 0.01, rely = 0.01, relheight = 0.98, relwidth= 0.3)
     
-    print("teste4")
     self.root.title("Estoquista")
     atual_frame = self.FR_root_1
     
@@ -153,7 +152,9 @@ def Logout(self):
 def muda_tela(self, lista):
     for i in lista:
             cargo = i[3]
-    if cargo == 'ESTOQUISTA':
+    if lista == []:
+        self.msgLimpar = messagebox.showerror('ERRO', 'Funcionário não encontrado. \n      Tente novamente.')
+    elif(cargo == 'ESTOQUISTA'):
         self.atual_frame.destroy()
         Estoquista(self)
     elif(cargo == 'RECEPCIONISTA'):
@@ -162,5 +163,4 @@ def muda_tela(self, lista):
     elif(cargo == 'CAIXA'):
         self.atual_frame.destroy()
         Caixa(self)
-    elif():
-        self.msgLimpar = messagebox.showerror('ERRO', 'Funcionário não encontrado')
+       
