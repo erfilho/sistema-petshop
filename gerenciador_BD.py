@@ -35,9 +35,9 @@ class BD():
                                 WHERE FUN_CPF == (?) AND FUN_SENHA = (?);""", (cpf, senha))
 
         lista = self.cursor.fetchall()
+        if lista == "[]":
+            print()
         print(lista)
-        if lista == " ":
-            print("teste1")
         BD.desconecta_bd(self)
         return lista
     
