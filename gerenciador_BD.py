@@ -30,7 +30,7 @@ class BD():
     def verifica_senha(self, cpf, senha):
         BD.conecta_bd(self)
         
-        self.cursor.execute(""" SELECT * FROM Funcionarios
+        self.cursor.execute(""" SELECT FUN_CARGO, FUN_NOME, FUN_CPF FROM Funcionarios
                                 WHERE FUN_CPF == (?) AND FUN_SENHA = (?);""", (cpf, senha))
 
         lista = self.cursor.fetchall()

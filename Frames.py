@@ -41,7 +41,7 @@ def login(self):
         self.bt_OK = Button(self.frame_1, text="OK", command = lambda: muda_tela(self, gerenciador_BD.BD.verifica_senha(self, self.et_cpf.get(), self.et_Senha.get())))
         self.bt_OK.place(relx= 0.47, rely = 0.42)
 
-def Estoquista(self):
+def Estoquista(self, lista):
     self.FR_root_1 = Frame(self.root, background = fundo2, highlightbackground = borda, borderwidth=0.01, highlightthickness=2)
     self.FR_root_1.place(relx = 0.01, rely = 0.01, relheight = 0.98, relwidth= 0.3)
     
@@ -53,13 +53,19 @@ def Estoquista(self):
     
     self.LB_saudacao = Label(self.FR_dados_ator, text = "Bom dia", background = fundo3)
     self.LB_saudacao.place(relx = 0.02, rely = 0.02)
+    self.LB_nome = Label(self.FR_dados_ator, text = lista[1], background = fundo3)
+    self.LB_nome.place(relx = 0.4, rely = 0.02)
     
     self.LB_cpf = Label(self.FR_dados_ator, text = "CPF", background = fundo3)
     self.LB_cpf.place(relx = 0.02, rely = 0.4)
+    self.LB_cpf_f = Label(self.FR_dados_ator, text = lista[2], background = fundo3)
+    self.LB_cpf_f.place(relx = 0.4, rely = 0.4)
     
     self.LB_cargo = Label(self.FR_dados_ator, text = "CARGO", background = fundo3)
     self.LB_cargo.place(relx = 0.02, rely = 0.73)
-
+    self.LB_cargo_f = Label(self.FR_dados_ator, text = lista[0], background = fundo3)
+    self.LB_cargo_f.place(relx = 0.4, rely = 0.73)
+    
     self.LB_label1 = Label(self.FR_root_1, text = "Selecione a opção de Cadastro", background = fundo2)
     self.LB_label1.place(relx = 0.02, rely = 0.22)
     
@@ -72,7 +78,7 @@ def Estoquista(self):
     self.bt_OK = Button(self.FR_root_1 , text="Logout", command = lambda: Logout(self))
     self.bt_OK.place(relx= 0.69, rely = 0.93)
 
-def Recepcionista(self):
+def Recepcionista(self, lista):
     self.FR_root_2 = Frame(self.root, background = fundo2, highlightbackground = borda, borderwidth=0.01, highlightthickness=2)
     self.FR_root_2.place(relx = 0.01, rely = 0.01, relheight = 0.98, relwidth= 0.3)
 
@@ -84,13 +90,19 @@ def Recepcionista(self):
     
     self.LB_saudacao = Label(self.FR_dados_ator, text = "Bom dia", background = fundo3)
     self.LB_saudacao.place(relx = 0.02, rely = 0.02)
+    self.LB_nome = Label(self.FR_dados_ator, text = lista[1], background = fundo3)
+    self.LB_nome.place(relx = 0.4, rely = 0.02)
     
     self.LB_cpf = Label(self.FR_dados_ator, text = "CPF", background = fundo3)
     self.LB_cpf.place(relx = 0.02, rely = 0.4)
+    self.LB_cpf_f = Label(self.FR_dados_ator, text = lista[2], background = fundo3)
+    self.LB_cpf_f.place(relx = 0.4, rely = 0.4)
     
     self.LB_cargo = Label(self.FR_dados_ator, text = "CARGO", background = fundo3)
     self.LB_cargo.place(relx = 0.02, rely = 0.73)
-
+    self.LB_cargo_f = Label(self.FR_dados_ator, text = lista[0], background = fundo3)
+    self.LB_cargo_f.place(relx = 0.4, rely = 0.73)
+    
     self.LB_label1 = Label(self.FR_root_2, text = "Cadastro", background = fundo2)
     self.LB_label1.place(relx = 0.02, rely = 0.22)
     
@@ -112,11 +124,11 @@ def Recepcionista(self):
     self.bt_OK = Button(self.FR_root_2, text="Logout", command = lambda: Logout(self))
     self.bt_OK.place(relx= 0.69, rely = 0.93)
     
-def Caixa(self):
+def Caixa(self, lista):
     
     self.FR_root_3 = Frame(self.root, background = fundo2, highlightbackground = borda, borderwidth=0.01, highlightthickness=2)
     self.FR_root_3.place(relx = 0.01, rely = 0.01, relheight = 0.98, relwidth= 0.3)
-
+    
     self.root.title("Caixa")
     self.atual_frame = self.FR_root_3
 
@@ -125,13 +137,19 @@ def Caixa(self):
 
     self.LB_saudacao = Label(self.FR_dados_ator, text = "Bom dia", background = fundo3)
     self.LB_saudacao.place(relx = 0.02, rely = 0.02)
-
+    self.LB_nome = Label(self.FR_dados_ator, text = lista[1], background = fundo3)
+    self.LB_nome.place(relx = 0.4, rely = 0.02)
+    
     self.LB_cpf = Label(self.FR_dados_ator, text = "CPF", background = fundo3)
     self.LB_cpf.place(relx = 0.02, rely = 0.4)
-
+    self.LB_cpf_f = Label(self.FR_dados_ator, text = lista[2], background = fundo3)
+    self.LB_cpf_f.place(relx = 0.4, rely = 0.4)
+    
     self.LB_cargo = Label(self.FR_dados_ator, text = "CARGO", background = fundo3)
     self.LB_cargo.place(relx = 0.02, rely = 0.73)
-
+    self.LB_cargo_f = Label(self.FR_dados_ator, text = lista[0], background = fundo3)
+    self.LB_cargo_f.place(relx = 0.4, rely = 0.73)
+    
     self.LB_label1 = Label(self.FR_root_3, text = "Vendas", background = fundo2)
     self.LB_label1.place(relx = 0.02, rely = 0.22)
 
@@ -151,16 +169,16 @@ def Logout(self):
 
 def muda_tela(self, lista):
     for i in lista:
-            cargo = i[3]
+            cargo = i[0]
     if lista == []:
         self.msgLimpar = messagebox.showerror('ERRO', 'Funcionário não encontrado. \n      Tente novamente.')
     elif(cargo == 'ESTOQUISTA'):
         self.atual_frame.destroy()
-        Estoquista(self)
+        Estoquista(self, i)
     elif(cargo == 'RECEPCIONISTA'):
         self.atual_frame.destroy()
-        Recepcionista(self)
+        Recepcionista(self, i)
     elif(cargo == 'CAIXA'):
         self.atual_frame.destroy()
-        Caixa(self)
+        Caixa(self, i)
        
