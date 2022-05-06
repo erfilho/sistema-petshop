@@ -1,8 +1,5 @@
-
-from contextlib import nullcontext
 import sqlite3
 
- 
 class BD():
 
     def conecta_bd(self):
@@ -37,7 +34,3 @@ class BD():
 
         BD.desconecta_bd(self)
         return lista
-    
-    
-    
-

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from ast import Return
 from tkinter import *
 import Frames
 
@@ -19,10 +18,8 @@ class Aplication():
         self.root.mainloop()               
     def tela(self):
         self.root.title("teste")
-        self.root.configure(background="#14568F")
+        self.root.configure(background=fundo1)
         self.root.resizable(False, False)
         self.root.geometry("800x500")        
-    
-
 
 Aplication()
