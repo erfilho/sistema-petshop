@@ -3,10 +3,7 @@
 from tkinter import *
 import Frames
 
-fundo1 = '#4B0082'
-fundo2 = '#7B68EE'
-fundo3 = '#8A2BE2'
-borda = '#BA55D3'
+fundo1 = '#EF8D6A'
 
 root = Tk()
          
