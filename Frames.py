@@ -335,22 +335,155 @@ def Cadastro_Pet(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
-    self.bt_salvar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    self.bt_cancelar = Button(self.FR_root_ator_2, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
-    self.bt_salvar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
 def Cadastro_Cliente(self):
     self.FR_root_ator_3 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_3.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     
-    self.frame_funcionalidade = self.FR_root_ator_3
-
     self.LB_label1 = Label(self.FR_root_ator_3, text = "Cadastro Clientes", background = fundo3)
     self.LB_label1.pack()
+    
+    self.frame_funcionalidade = self.FR_root_ator_3
 
+    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro.png")
+    self.img_fundo2 = PhotoImage(file="Imagens/fundo_entry_cadastro_P.png")
+    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
+    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
+    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+
+
+    #entradas
+    #codigo do Cliente
+    #label
+    self.label_Codigo = Label(self.FR_root_ator_3, text="Código", font=fonte, background=fundo3)
+    self.label_Codigo.place(relx= 0.1, rely = 0.05)
+    #imagem de fundo
+    self.fundo_Codigo = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_Codigo.place(relx= 0.05, rely = 0.1, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_codigo = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    self.et_codigo.focus()
+    
+
+    #nome do Cliente
+    #label
+    self.label_Nome = Label(self.FR_root_ator_3, text="Nome", font=fonte, background=fundo3)
+    self.label_Nome.place(relx= 0.1, rely = 0.21)
+    #imagem de fundo
+    self.fundo_Nome = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_Nome.place(relx= 0.05, rely = 0.25, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_Nome = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Nome.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.43)
+    
+    #cpf do Cliente
+    #label
+    self.label_CPF = Label(self.FR_root_ator_3, text="CPF", font=fonte, background=fundo3)
+    self.label_CPF.place(relx= 0.1, rely = 0.355)
+    #imagem de fundo
+    self.fundo_CPF = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_CPF.place(relx= 0.05, rely = 0.4, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_CPF = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_CPF.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.43)
+
+    #data de nascimento do Cliente
+    #label
+    self.label_data_nascimento = Label(self.FR_root_ator_3, text="Data de Nascimento", font=fonte, background=fundo3)
+    self.label_data_nascimento.place(relx= 0.1, rely = 0.52)
+    #imagem de fundo
+    self.fundo_data_nascimento = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_data_nascimento.place(relx= 0.05, rely = 0.57, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_data_nascimento = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_data_nascimento.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.43)
+      
+    #Logradouro
+    #label
+    self.label_Logradouro = Label(self.FR_root_ator_3, text="Logradouro", font=fonte, background=fundo3)
+    self.label_Logradouro.place(relx= 0.1, rely = 0.68)
+    #imagem de fundo
+    self.fundo_Logradouro = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_Logradouro.place(relx= 0.05, rely = 0.72, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_Logradouro = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Logradouro.place(relx= 0.065, rely = 0.733, relheight= 0.075, relwidth=0.43)
+    
+    #Cidade
+    #label
+    self.label_Cidade = Label(self.FR_root_ator_3, text="Cidade", font=fonte, background=fundo3)
+    self.label_Cidade.place(relx= 0.6, rely = 0.05)
+    #imagem de fundo
+    self.fundo_Cidade = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_Cidade.place(relx= 0.53, rely = 0.1, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_Cidade = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Cidade.place(relx= 0.545, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    
+    #Bairro
+    #label
+    self.label_Bairro = Label(self.FR_root_ator_3, text="Bairro", font=fonte, background=fundo3)
+    self.label_Bairro.place(relx= 0.6, rely = 0.21)
+    #imagem de fundo
+    self.fundo_Bairro = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_Bairro.place(relx= 0.53, rely = 0.25, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_Bairro = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Bairro.place(relx= 0.545, rely = 0.265, relheight= 0.075, relwidth=0.43)
+    
+    #UF
+    #label
+    self.label_UF = Label(self.FR_root_ator_3, text="UF", font=fonte, background=fundo3)
+    self.label_UF.place(relx= 0.6, rely = 0.355)
+    #imagem de fundo
+    self.fundo_UF = Label(self.FR_root_ator_3, image= self.img_fundo2)
+    self.fundo_UF.place(relx= 0.53, rely = 0.4, relheight=0.11, relwidth=0.21)
+    #entry
+    self.et_UF = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_UF.place(relx= 0.545, rely = 0.415, relheight= 0.075, relwidth=0.185)
+    
+    #Celular
+    #label
+    self.label_Celular = Label(self.FR_root_ator_3, text="Celular", font=fonte, background=fundo3)
+    self.label_Celular.place(relx= 0.6, rely = 0.52)
+    #imagem de fundo
+    self.fundo_Celular = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_Celular.place(relx= 0.53, rely = 0.57, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_Celular = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Celular.place(relx= 0.545, rely = 0.585, relheight= 0.075, relwidth=0.43)
+    
+    #email
+    #label
+    self.label_Email = Label(self.FR_root_ator_3, text="E-Mail", font=fonte, background=fundo3)
+    self.label_Email.place(relx= 0.6, rely = 0.68)
+    #imagem de fundo
+    self.fundo_Email = Label(self.FR_root_ator_3, image= self.img_fundo)
+    self.fundo_Email.place(relx= 0.53, rely = 0.72, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_Email = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Email.place(relx= 0.545, rely = 0.735, relheight= 0.075, relwidth=0.43)
+    
+    #Botões
+    #Salvar
+    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Cancelar
+    self.bt_cancelar = Button(self.FR_root_ator_3, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Limpar
+    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
 def Vendas(self):
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
