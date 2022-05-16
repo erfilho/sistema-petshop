@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from email.mime import image
+from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
 import gerenciador_BD
@@ -84,8 +84,8 @@ def Estoquista(self, lista):
     self.OP_Cadastro.place(relx = 0.03, rely = 0.38)
     self.OP_Cadastro.config(background=option, highlightbackground = "#000000", foreground=texto)
     
-    self.bt_OK = Button(self.FR_root_1 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
-    self.bt_OK.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
+    self.bt_logout = Button(self.FR_root_1 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
+    self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
 
 def Recepcionista(self, lista):
     self.FR_root_2 = Frame(self.root, background= fundo2, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -131,8 +131,8 @@ def Recepcionista(self, lista):
     self.OP_Vendas = OptionMenu(self.FR_root_2, self.value_inside2, *lista_recepcionista2, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside2.get()))
     self.OP_Vendas.place(relx = 0.03, rely = 0.48)
     
-    self.bt_OK = Button(self.FR_root_2 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
-    self.bt_OK.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
+    self.bt_logout = Button(self.FR_root_2 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
+    self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
     
 def Caixa(self, lista):
     
@@ -168,8 +168,8 @@ def Caixa(self, lista):
     self.OP_Vendas = OptionMenu(self.FR_root_3, self.value_inside, *lista_caixa, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside.get()))
     self.OP_Vendas.place(relx = 0.03, rely = 0.35)
 
-    self.bt_OK = Button(self.FR_root_3 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
-    self.bt_OK.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
+    self.bt_logout = Button(self.FR_root_3 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
+    self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
 
 def Cadastro_Produto(self):
     self.FR_root_ator_1 = Frame(self.root, background= fundo3, highlightbackground = '#000000', borderwidth=0.01, highlightthickness=2)
@@ -483,24 +483,207 @@ def Cadastro_Cliente(self):
     #Limpar
     self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
-    
-def Vendas(self):
-    self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
-    self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
-    
-    self.frame_funcionalidade = self.FR_root_ator_4
-
-    self.LB_label1 = Label(self.FR_root_ator_4, text = "Vendas", background = fundo3)
-    self.LB_label1.pack()
-
+   
 def Venda_Pet(self):
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     
-    self.frame_funcionalidade = self.FR_root_ator_4
-
     self.LB_label1 = Label(self.FR_root_ator_4, text = "Venda Pet", background = fundo3)
     self.LB_label1.pack()
+    
+    self.frame_funcionalidade = self.FR_root_ator_4
+
+    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro_P.png")
+    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
+    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
+    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+    self.img_bt_reservar = PhotoImage(file="Imagens/botao_reservar_pet.png")
+    
+    #entradas
+    #codigo do Cliente
+    #label
+    self.label_Codigo_pet = Label(self.FR_root_ator_4, text="Código do Pet", font=fonte, background=fundo3)
+    self.label_Codigo_pet.place(relx= 0.05, rely = 0.05)
+    #imagem de fundo
+    self.fundo_Codigo_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_Codigo_pet.place(relx= 0.05, rely = 0.1, relheight=0.11, relwidth=0.21)
+    #entry
+    self.et_codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_pet.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_codigo_pet.focus()
+    #bind da Entry
+    self.et_codigo_pet.bind('<FocusIn>',lista_pest_venda(self))
+    self.et_codigo_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-PET"))
+        
+    #label
+    self.label_Codigo_dono = Label(self.FR_root_ator_4, text="Código do Dono", font=fonte, background=fundo3)
+    self.label_Codigo_dono.place(relx= 0.05, rely = 0.21)
+    #imagem de fundo
+    self.fundo_Codigo_dono = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_Codigo_dono.place(relx= 0.05, rely = 0.25, relheight=0.11, relwidth=0.21)
+    #entry
+    self.et_codigo_dono = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_dono.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.185)
+    #bind da entry
+    self.et_codigo_dono.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-DONO"))
+    
+    #label
+    self.label_Codigo_venda_pet = Label(self.FR_root_ator_4, text="Código de Venda", font=fonte, background=fundo3)
+    self.label_Codigo_venda_pet.place(relx= 0.02, rely = 0.355)
+    #imagem de fundo
+    self.fundo_Codigo_venda_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_Codigo_venda_pet.place(relx= 0.05, rely = 0.4, relheight=0.11, relwidth=0.21)
+    #entry
+    self.et_codigo_venda_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_venda_pet.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.185)   
+    #bind da entry
+    self.et_codigo_venda_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "NA"))
+    
+    #Botões
+    #Salvar
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Cancelar
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Limpar
+    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Reservar Pet
+    self.bt_reservar = Button(self.FR_root_ator_4, image= self.img_bt_reservar, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Encomenda"))
+    self.bt_reservar.place(relx= 0.02, rely = 0.7, relheight= 0.115, relwidth=0.28)
+    
+def Encomenda_Pet(self):
+    self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+    self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
+    self.LB_label1 = Label(self.FR_root_ator_4, text = "Encomeda de Pet", background = fundo3)
+    self.LB_label1.pack()
+    
+    self.frame_funcionalidade = self.FR_root_ator_4
+
+    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro.png")
+    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
+    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
+    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+    
+    #entradas
+    #codigo do Cliente
+    #label
+    self.label_Codigo = Label(self.FR_root_ator_4, text="Código", font=fonte, background=fundo3)
+    self.label_Codigo.place(relx= 0.1, rely = 0.05)
+    #imagem de fundo
+    self.fundo_Codigo = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_Codigo.place(relx= 0.05, rely = 0.1, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_codigo = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    self.et_codigo.focus()
+    
+
+    #Codigo do Cliente
+    #label
+    self.label_Codigo_cli = Label(self.FR_root_ator_4, text="Código do Cliente", font=fonte, background=fundo3)
+    self.label_Codigo_cli.place(relx= 0.1, rely = 0.21)
+    #imagem de fundo
+    self.fundo_Codigo_cli = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_Codigo_cli.place(relx= 0.05, rely = 0.25, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_Codigo_cli = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_cli.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.43)
+    
+    #raca desejada
+    #label
+    self.label_raca = Label(self.FR_root_ator_4, text="Raça Desejada", font=fonte, background=fundo3)
+    self.label_raca.place(relx= 0.1, rely = 0.355)
+    #imagem de fundo
+    self.fundo_raca = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_raca.place(relx= 0.05, rely = 0.4, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_raca = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_raca.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.43)
+
+    #Sexo desejado
+    #label
+    self.label_sexo = Label(self.FR_root_ator_4, text="Sexo Desejado", font=fonte, background=fundo3)
+    self.label_sexo.place(relx= 0.1, rely = 0.52)
+    #imagem de fundo
+    self.fundo_sexo = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_sexo.place(relx= 0.05, rely = 0.57, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_sexo = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_sexo.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.43)
+      
+    #Idade maxima
+    #label
+    self.label_idade = Label(self.FR_root_ator_4, text="Idade máxima", font=fonte, background=fundo3)
+    self.label_idade.place(relx= 0.1, rely = 0.68)
+    #imagem de fundo
+    self.fundo_idade = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_idade.place(relx= 0.05, rely = 0.72, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_idade = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_idade.place(relx= 0.065, rely = 0.733, relheight= 0.075, relwidth=0.43)
+    
+    #Valor Maximo
+    #label
+    self.label_valor = Label(self.FR_root_ator_4, text="Valor Máximo", font=fonte, background=fundo3)
+    self.label_valor.place(relx= 0.6, rely = 0.05)
+    #imagem de fundo
+    self.fundo_valor = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_valor.place(relx= 0.53, rely = 0.1, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_valor = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_valor.place(relx= 0.545, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    
+    #codigo pet
+    #label
+    self.label_codigo_pet = Label(self.FR_root_ator_4, text="Código do Pet", font=fonte, background=fundo3)
+    self.label_codigo_pet.place(relx= 0.6, rely = 0.21)
+    #imagem de fundo
+    self.fundo_codigo_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_codigo_pet.place(relx= 0.53, rely = 0.25, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_pet.place(relx= 0.545, rely = 0.265, relheight= 0.075, relwidth=0.43)
+    
+    #codigo encomenda
+    #label
+    self.label_codigo_encomenda = Label(self.FR_root_ator_4, text="Código de encomenda Pet", font=fonte, background=fundo3)
+    self.label_codigo_encomenda.place(relx= 0.55, rely = 0.355)
+    #imagem de fundo
+    self.fundo_codigo_encomenda  = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_codigo_encomenda.place(relx= 0.53, rely = 0.4, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_codigo_encomenda = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_encomenda .place(relx= 0.545, rely = 0.415, relheight= 0.075, relwidth=0.43)
+    
+    #Botões
+    #Salvar
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Cancelar
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0,command= lambda: muda_frame_funcionalidade(self, "Pets"))
+    self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Limpar
+    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
+
+def Vendas(self):
+    self.FR_root_ator_5 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+    self.FR_root_ator_5.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
+    
+    self.frame_funcionalidade = self.FR_root_ator_5
+
+    self.LB_label1 = Label(self.FR_root_ator_5, text = "Vendas", background = fundo3)
+    self.LB_label1.pack()
+
+def print_teste(self):
+        print("teste")
 
 def muda_frame_funcionalidade(self, frame):
     if frame == "Produto":
@@ -517,7 +700,10 @@ def muda_frame_funcionalidade(self, frame):
         Venda_Pet(self)  
     elif(frame == "Produtos"):
         self.frame_funcionalidade.destroy()
-        Vendas(self)   
+        Vendas(self)
+    elif(frame == "Encomenda"):
+        self.frame_funcionalidade.destroy()
+        Encomenda_Pet(self)  
         
 def Logout(self):
     self.atual_frame.destroy()
@@ -538,4 +724,64 @@ def muda_tela_ator(self, lista):
     elif(cargo == 'CAIXA'):
         self.atual_frame.destroy()
         Caixa(self, i)
+
+def muda_lista_venda_pet(self, opcao):
+    if(opcao == "COD-PET"):
+        self.atual_lista.destroy()
+        lista_pest_venda(self)
+    elif(opcao == "COD-DONO"):
+        self.atual_lista.destroy()
+        lista_donos(self)
+    elif(opcao == "NA"):
+        self.atual_lista.destroy()
+
+def lista_pest_venda(self):
+        self.FR_lista1 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+        self.FR_lista1.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
+        
+        self.atual_lista = self.FR_lista1
+        
+        self.lista1 = ttk.Treeview(self.FR_lista1, height=3, columns=("col1", "col2", "col3", "col4", "col5"))
+        self.lista1.heading("#0", text="")
+        self.lista1.heading("#1", text="Codigo")
+        self.lista1.heading("#2", text="Raça")
+        self.lista1.heading("#3", text="Sexo")
+        self.lista1.heading("#4", text="Idade")
+        self.lista1.heading("#5", text="Valor")
+        
+        self.lista1.column("#0",width=0)
+        self.lista1.column("#1",width=50)
+        self.lista1.column("#2",width=70)
+        self.lista1.column("#3",width=25)
+        self.lista1.column("#4",width=25)
+        self.lista1.column("#5",width=30)
+        
+        
+        self.label_Codigo_venda_pet = Label(self.FR_lista1, text="Pets disponíveis para venda", font=fonte, background="#ffffff")
+        self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
+        
+        self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
+        
+def lista_donos(self):
+        self.FR_lista2 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+        self.FR_lista2.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
+        
+        self.atual_lista = self.FR_lista2
+        
+        self.lista1 = ttk.Treeview(self.FR_lista2, height=3, columns=("col1", "col2", "col3"))
+        self.lista1.heading("#0", text="")
+        self.lista1.heading("#1", text="Codigo")
+        self.lista1.heading("#2", text="Nome")
+        self.lista1.heading("#3", text="Contato")
+        
+        self.lista1.column("#0",width=1)
+        self.lista1.column("#1",width=60)
+        self.lista1.column("#2",width=150)
+        self.lista1.column("#3",width=100)
+        
+        
+        self.label_Codigo_venda_pet = Label(self.FR_lista2, text="Lista Clientes Cadastrados", font=fonte, background="#ffffff")
+        self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
+        
+        self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
         

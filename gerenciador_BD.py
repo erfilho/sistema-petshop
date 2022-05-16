@@ -3,7 +3,6 @@
 import sqlite3
 
 class BD():
-
     def conecta_bd(self):
         self.conecta = sqlite3.connect("pet_shop.db")
         self.cursor = self.conecta.cursor(); print("Conectando")

@@ -5,7 +5,6 @@ import Frames
 
 fundo1 = '#EF8D6A'
 
-
 root = Tk()
          
 class Aplication(): 
