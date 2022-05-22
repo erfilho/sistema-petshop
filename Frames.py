@@ -114,7 +114,7 @@ def Recepcionista(self, lista):
     self.LB_label1 = Label(self.FR_root_2, text = "Cadastros", background = fundo2)
     self.LB_label1.place(relx = 0.02, rely = 0.3)
     
-    lista_recepcionista1 = ["Clientes"]
+    lista_recepcionista1 = ["Clientes", "Pet"]
     self.value_inside1 = StringVar()
     self.value_inside1.set(lista_recepcionista1[0])
     

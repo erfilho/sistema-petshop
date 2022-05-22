@@ -9,22 +9,7 @@ class BD():
         
     def desconecta_bd(self):
         self.conecta.close(); print("Desconectando")
-        
-    def dados(self, senha, cpf):
-        print(senha, cpf)
-        
-    def AllData(self):
-        BD.conecta_bd(self)
-        
-        self.cursor.execute("""
-                    SELECT * FROM Funcionarios;
-                    """)
-
-        for linha in self.cursor.fetchall():
-            print(linha)
-            
-        BD.desconecta_bd(self)
-        
+             
     def verifica_senha(self, cpf, senha):
         BD.conecta_bd(self)
         
@@ -35,3 +20,30 @@ class BD():
 
         BD.desconecta_bd(self)
         return lista
+
+    def monta_produto(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS  Produtos (
+                PROD_CODIGO INTEGER PRIMARY KEY,
+                PROD_NOME CHAR(40) NOT NULL,
+                PROD_PRECO REAL 
+            );    
+        """)
+        self.conecta.commit()
+        BD.desconecta_bd(self)
+    
+    def monta_pet_venda(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS  PetVenda (
+                PET_V_CODIGO INTEGER(4) PRIMARY KEY,
+                PET_V_NOME CHAR(30) NOT NULL,
+                PET_V_IDADE INTEGER(3), 
+                PET_V_SEXO CHAR(1),
+                PET_V_RACA CHAR(30) NOT NULL,
+                PET_V_PRECO REAL
+                
+                
+            );    
+        """)
+        self.conecta.commit()
+        BD.desconecta_bd(self)
