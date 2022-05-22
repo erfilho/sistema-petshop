@@ -33,6 +33,7 @@ class BD():
         BD.desconecta_bd(self)
     
     def monta_pet_venda(self):
+        
         BD.conecta_bd(self)
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS  PetVenda (
                 PET_V_CODIGO INTEGER(4) PRIMARY KEY,
@@ -40,9 +41,39 @@ class BD():
                 PET_V_IDADE INTEGER(3), 
                 PET_V_SEXO CHAR(1),
                 PET_V_RACA CHAR(30) NOT NULL,
-                PET_V_PRECO REAL
-                
-                
+                PET_V_PRECO REAL NOT NULL 
+            );    
+        """)
+        self.conecta.commit()
+        BD.desconecta_bd(self)
+        
+    def monta_pet_cliente(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS  PetCliente (
+                PET_C_CODIGO INTEGER(4) PRIMARY KEY,
+                PET_C_NOME CHAR(30) NOT NULL,
+                PET_C_IDADE INTEGER(3), 
+                PET_C_SEXO CHAR(1),
+                PET_C_RACA CHAR(30) NOT NULL,
+                PET_C_CODIGO_DONO REAL INTEGER(4) NOT NULL    
+            );    
+        """)
+        self.conecta.commit()
+        BD.desconecta_bd(self) 
+        
+    def monta_cliente(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS Clientes (
+                CLI_CODIGO INTEGER(4) PRIMARY KEY,
+                CLI__NOME CHAR(30) NOT NULL,
+                CLI_CPF INTEGER(11) NOT NULL,
+                CLI_DATA_NASCIMENTO INTEGER(8), 
+                CLI_LOGRADOURO CHAR(30),
+                CLI_CIDADE CHAR(30),
+                CLI_BAIRRO CHAR(30),   
+                CLI_UF CHAR(2),
+                CLI_CELULAR INTEGER(11) NOT NULL,
+                CLI_EMAIL CHAR(30) NOT NULL
             );    
         """)
         self.conecta.commit()
