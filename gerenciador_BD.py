@@ -78,3 +78,30 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self)
+        
+    def monta_venda_pets(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS VendaPet (
+                VEND_CODIGO INTEGER(4) PRIMARY KEY,
+                VEND_CODIGO_DONO INTEGER(4) NOT NULL,
+                VEND_CODIGO_PET INTERGER(4) NOT NULL   
+            );    
+        """)
+        self.conecta.commit()
+        BD.desconecta_bd(self)
+        
+    def monta_encomenda_pet(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS EncomendaPet (
+                ENC_CODIGO INTEGER(4) PRIMARY KEY,
+                ENC_CODIGO_CLIENTE CHAR(30) NOT NULL,
+                ENC_RACA INTEGER(11) NOT NULL,
+                ENC_SEXO INTEGER(8), 
+                ENC_IDADE CHAR(30),
+                ENC_VALOR CHAR(30),
+                ENC_PET CHAR(30)  
+            );    
+        """)
+        self.conecta.commit()
+        BD.desconecta_bd(self) 
+    

@@ -570,19 +570,18 @@ def Encomenda_Pet(self):
     self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
     
     #entradas
-    #codigo do Cliente
-    #label
-    self.label_Codigo = Label(self.FR_root_ator_4, text="Código", font=fonte, background=fundo3)
-    self.label_Codigo.place(relx= 0.1, rely = 0.05)
-    #imagem de fundo
-    self.fundo_Codigo = Label(self.FR_root_ator_4, image= self.img_fundo)
-    self.fundo_Codigo.place(relx= 0.05, rely = 0.1, relheight=0.115, relwidth=0.46)
-    #entry
-    self.et_codigo = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
-    self.et_codigo.focus()
     
-
+    #codigo encomenda
+    #label
+    self.label_codigo_encomenda = Label(self.FR_root_ator_4, text="Código de encomenda Pet", font=fonte, background=fundo3)
+    self.label_codigo_encomenda.place(relx= 0.1, rely = 0.05)
+    #imagem de fundo
+    self.fundo_codigo_encomenda  = Label(self.FR_root_ator_4, image= self.img_fundo)
+    self.fundo_codigo_encomenda.place(relx= 0.05, rely = 0.1, relheight=0.115, relwidth=0.46)
+    #entry
+    self.et_codigo_encomenda = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_encomenda .place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    
     #Codigo do Cliente
     #label
     self.label_Codigo_cli = Label(self.FR_root_ator_4, text="Código do Cliente", font=fonte, background=fundo3)
@@ -593,7 +592,7 @@ def Encomenda_Pet(self):
     #entry
     self.et_Codigo_cli = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo_cli.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.43)
-    
+
     #raca desejada
     #label
     self.label_raca = Label(self.FR_root_ator_4, text="Raça Desejada", font=fonte, background=fundo3)
@@ -648,18 +647,7 @@ def Encomenda_Pet(self):
     #entry
     self.et_codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_codigo_pet.place(relx= 0.545, rely = 0.265, relheight= 0.075, relwidth=0.43)
-    
-    #codigo encomenda
-    #label
-    self.label_codigo_encomenda = Label(self.FR_root_ator_4, text="Código de encomenda Pet", font=fonte, background=fundo3)
-    self.label_codigo_encomenda.place(relx= 0.55, rely = 0.355)
-    #imagem de fundo
-    self.fundo_codigo_encomenda  = Label(self.FR_root_ator_4, image= self.img_fundo)
-    self.fundo_codigo_encomenda.place(relx= 0.53, rely = 0.4, relheight=0.115, relwidth=0.46)
-    #entry
-    self.et_codigo_encomenda = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_encomenda .place(relx= 0.545, rely = 0.415, relheight= 0.075, relwidth=0.43)
-    
+
     #Botões
     #Salvar
     self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
