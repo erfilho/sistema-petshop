@@ -21,10 +21,10 @@ def login(self):
     self.img_cpf = PhotoImage(file="Imagens/login_textBox_1.png")
     self.img_senha = PhotoImage(file="Imagens/login_textBox_1.png")
     self.img_botao = PhotoImage(file="Imagens/login_botao_1.png")
-    
+
     self.fundo = Label(self.frame_1, image= self.img_fundo)
     self.fundo.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=1.0)
-
+    
     self.root.title("login")
     self.atual_frame = self.frame_1
     
@@ -497,7 +497,7 @@ def Venda_Pet(self):
     self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
     self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
     self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
-    self.img_bt_reservar = PhotoImage(file="Imagens/botao_reservar_pet.png")
+    self.img_bt_encomenda = PhotoImage(file="Imagens/botao_encomenda.png")
     
     #entradas
     #codigo do Cliente
@@ -552,8 +552,8 @@ def Venda_Pet(self):
     self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
-    #Reservar Pet
-    self.bt_reservar = Button(self.FR_root_ator_4, image= self.img_bt_reservar, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Encomenda"))
+    #Encomendar Pet
+    self.bt_reservar = Button(self.FR_root_ator_4, image= self.img_bt_encomenda, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Encomenda"))
     self.bt_reservar.place(relx= 0.02, rely = 0.7, relheight= 0.115, relwidth=0.28)
     
 def Encomenda_Pet(self):
@@ -665,11 +665,142 @@ def Vendas(self):
     self.FR_root_ator_5 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_5.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     
-    self.frame_funcionalidade = self.FR_root_ator_5
-
+    self.FR_lista_compra = Frame(self.FR_root_ator_5, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+    self.FR_lista_compra.place(relx = 0.01, rely = 0.25, relheight = 0.6, relwidth= 0.98)
+    
     self.LB_label1 = Label(self.FR_root_ator_5, text = "Vendas", background = fundo3)
     self.LB_label1.pack()
+    
+    self.frame_funcionalidade = self.FR_root_ator_5
+    
+    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro_P.png")
+    self.img_bt_finalizar = PhotoImage(file="Imagens/botao_finalizar.png")
+    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
+    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+    self.img_bt_adicionar = PhotoImage(file="Imagens/botao_adicionar.png")
+    
+    #entradas
+    #codigo do Produto
+    #label
+    self.label_Codigo_produto = Label(self.FR_root_ator_5, text="Código do Produto", font=(fonte, 10), background=fundo3)
+    self.label_Codigo_produto.place(relx= 0.02, rely = 0.05)
+    #imagem de fundo
+    self.fundo_Codigo_produto = Label(self.FR_root_ator_5, image= self.img_fundo)
+    self.fundo_Codigo_produto.place(relx= 0.05, rely = 0.1, relheight=0.11, relwidth=0.21)
+    #entry
+    self.et_codigo_produto = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_produto.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_codigo_produto.focus()
+    
+    #codigo do Produto
+    #label
+    self.label_Codigo_pet = Label(self.FR_root_ator_5, text="Código do Pet", font=(fonte, 10), background=fundo3)
+    self.label_Codigo_pet.place(relx= 0.3, rely = 0.05)
+    #imagem de fundo
+    self.fundo_Codigo_pet = Label(self.FR_root_ator_5, image= self.img_fundo)
+    self.fundo_Codigo_pet.place(relx= 0.3, rely = 0.1, relheight=0.11, relwidth=0.21)
+    #entry
+    self.et_codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_pet.place(relx= 0.315, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    
+    #codigo de encomenda
+    #label
+    self.label_Codigo_pet = Label(self.FR_root_ator_5, text="Código da Encomenda", font=(fonte, 10), background=fundo3)
+    self.label_Codigo_pet.place(relx= 0.55, rely = 0.05)
+    #imagem de fundoS
+    self.fundo_Codigo_pet = Label(self.FR_root_ator_5, image= self.img_fundo)
+    self.fundo_Codigo_pet.place(relx= 0.55, rely = 0.1, relheight=0.11, relwidth=0.21)
+    #entry
+    self.et_codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo_pet.place(relx= 0.565, rely = 0.115, relheight= 0.075, relwidth=0.185)
 
+    self.lista1 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
+    self.lista1.heading("#0", text="")
+    self.lista1.heading("#1", text="Codigo")
+    self.lista1.heading("#2", text="Nome")
+    self.lista1.heading("#3", text="Valor")
+    
+    self.lista1.column("#0",width=1)
+    self.lista1.column("#1",width=60)
+    self.lista1.column("#2",width=150)
+    self.lista1.column("#3",width=100)
+    
+    self.lista1.place(relx = 0.0, rely = 0.0, relheight= 0.8, relwidth=1.0)
+    
+    self.lista2 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
+    self.lista2.heading("#0", text="")
+    self.lista2.heading("#1", text="")
+    self.lista2.heading("#2", text="")
+    self.lista2.heading("#3", text="Total")
+    
+    self.lista2.column("#0",width=1)
+    self.lista2.column("#1",width=60)
+    self.lista2.column("#2",width=150)
+    self.lista2.column("#3",width=100)
+    
+    self.lista2.place(relx = 0.0, rely = 0.8, relheight= 0.2, relwidth=1.0)
+    
+    #Botões
+    #Finalizar
+    self.bt_finalizar = Button(self.FR_root_ator_5, image= self.img_bt_finalizar, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Nota"))
+    self.bt_finalizar.place(relx= 0.68, rely = 0.87, relheight= 0.11, relwidth=0.29)
+    
+    #Cancelar
+    self.bt_cancelar = Button(self.FR_root_ator_5, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Limpar
+    self.bt_limpar = Button(self.FR_root_ator_5, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    
+    #Adicionar
+    self.bt_limpar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar.place(relx= 0.79, rely = 0.09, relheight= 0.115, relwidth=0.175)
+
+def Nota_fiscal(self):
+    self.FR_root_ator_6 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+    self.FR_root_ator_6.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
+    self.FR_lista_nota = Frame(self.FR_root_ator_6, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+    self.FR_lista_nota.place(relx = 0.01, rely = 0.05, relheight = 0.8, relwidth= 0.98)
+    
+    self.LB_label1 = Label(self.FR_root_ator_6, text = "Nota Fiscal", background = fundo3)
+    self.LB_label1.pack()
+    
+    self.frame_funcionalidade = self.FR_root_ator_6
+    
+    self.img_ok = PhotoImage(file="Imagens/botao_OK.png")
+    
+    self.lista1 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
+    self.lista1.heading("#0", text="")
+    self.lista1.heading("#1", text="Codigo")
+    self.lista1.heading("#2", text="Nome")
+    self.lista1.heading("#3", text="Valor")
+    
+    self.lista1.column("#0",width=1)
+    self.lista1.column("#1",width=60)
+    self.lista1.column("#2",width=150)
+    self.lista1.column("#3",width=100)
+    
+    self.lista1.place(relx = 0.0, rely = 0.0, relheight= 0.85, relwidth=1.0)
+    
+    self.lista2 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
+    self.lista2.heading("#0", text="")
+    self.lista2.heading("#1", text="")
+    self.lista2.heading("#2", text="")
+    self.lista2.heading("#3", text="Total")
+    
+    self.lista2.column("#0",width=1)
+    self.lista2.column("#1",width=60)
+    self.lista2.column("#2",width=150)
+    self.lista2.column("#3",width=100)
+    
+    self.lista2.place(relx = 0.00, rely = 0.85, relheight= 0.15, relwidth=1.0)
+    
+    #Botões
+    #Salvar
+    self.bt_salvar = Button(self.FR_root_ator_6, image= self.img_ok, borderwidth = 0, highlightthickness = 0,command= lambda: muda_frame_funcionalidade(self, "Produtos"))
+    self.bt_salvar.place(relx= 0.8, rely = 0.86, relheight= 0.115, relwidth=0.175)
+    
 def print_teste(self):
         print("teste")
 
@@ -692,6 +823,9 @@ def muda_frame_funcionalidade(self, frame):
     elif(frame == "Encomenda"):
         self.frame_funcionalidade.destroy()
         Encomenda_Pet(self)  
+    elif(frame == "Nota"):
+        self.frame_funcionalidade.destroy()
+        Nota_fiscal(self)
         
 def Logout(self):
     self.atual_frame.destroy()
@@ -771,5 +905,4 @@ def lista_donos(self):
         self.label_Codigo_venda_pet = Label(self.FR_lista2, text="Lista Clientes Cadastrados", font=fonte, background="#ffffff")
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
         
-        self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
-        
+        self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0) 
