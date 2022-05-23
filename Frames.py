@@ -120,6 +120,7 @@ def Recepcionista(self, lista):
     
     self.OP_Cadastro = OptionMenu(self.FR_root_2, self.value_inside1, *lista_recepcionista1, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside1.get()))
     self.OP_Cadastro.place(relx = 0.03, rely = 0.35)
+    self.OP_Cadastro.config(background=option, highlightbackground = "#000000", foreground=texto)
     
     self.LB_label1 = Label(self.FR_root_2, text = "Vendas", background = fundo2)
     self.LB_label1.place(relx = 0.02, rely = 0.43)
@@ -130,6 +131,7 @@ def Recepcionista(self, lista):
     
     self.OP_Vendas = OptionMenu(self.FR_root_2, self.value_inside2, *lista_recepcionista2, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside2.get()))
     self.OP_Vendas.place(relx = 0.03, rely = 0.48)
+    self.OP_Vendas.config(background=option, highlightbackground = "#000000", foreground=texto)
     
     self.bt_logout = Button(self.FR_root_2 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
     self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
@@ -167,7 +169,8 @@ def Caixa(self, lista):
     self.value_inside.set(lista_caixa[0])
     self.OP_Vendas = OptionMenu(self.FR_root_3, self.value_inside, *lista_caixa, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside.get()))
     self.OP_Vendas.place(relx = 0.03, rely = 0.35)
-
+    self.OP_Vendas.config(background=option, highlightbackground = "#000000", foreground=texto)
+    
     self.bt_logout = Button(self.FR_root_3 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
     self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
 
