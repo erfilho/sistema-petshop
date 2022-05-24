@@ -1,8 +1,14 @@
-# PetShopT
+# Sistema de vendas em um petshop
+
 Engenharia de Software
+
 TRABALHO N2 - Gestão de Configuração, Implementação, Testes e Implantação
 
 Equipe 01: Sistema de Vendas em um PetShop
+### Membros da equipe:
+- Francisco Alan do Nascimento Marinho
+- Francisco Erineldo Xavier Filho
+- Janiel de Oliveira Silva
 
 Logins Implementados:
 
@@ -17,5 +23,3 @@ senha: janiel123
 03- CAIXA
 login: 00344455566
 senha: erineldo123
-
-OBS: O projeto ainda vai ser organizado segundo as especificações exigidas.
