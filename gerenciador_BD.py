@@ -59,6 +59,19 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self)
+    
+    # Added by Erineldo 24/05
+    # Função para cadastro de pets
+    def cad_pet(self, codigo, nome, idade, sexo, raca, preco):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            INSERT INTO PetVenda
+            VALUES (
+                ?, ?, ?, ?, ?, ?
+            );
+        """, (codigo, nome, idade, sexo, raca, preco))
+        self.conecta.commit()
+        BD.desconecta_bd(self)
         
     def monta_pet_cliente(self):
         BD.conecta_bd(self)
@@ -76,9 +89,11 @@ class BD():
         
     def monta_cliente(self):
         BD.conecta_bd(self)
+        # Mod by Erinedo 24/05
+        # Correção ortográfica - CLI__NOME -> CLI_NOME 
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS Clientes (
                 CLI_CODIGO INTEGER(4) PRIMARY KEY,
-                CLI__NOME CHAR(30) NOT NULL,
+                CLI_NOME CHAR(30) NOT NULL,
                 CLI_CPF INTEGER(11) NOT NULL,
                 CLI_DATA_NASCIMENTO INTEGER(8), 
                 CLI_LOGRADOURO CHAR(30),
@@ -89,6 +104,18 @@ class BD():
                 CLI_EMAIL CHAR(30) NOT NULL
             );    
         """)
+        self.conecta.commit()
+        BD.desconecta_bd(self)
+
+    # Added by Erineldo 24/05
+    # Função para cadastro de clientes
+    def cad_cliente(self, codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            INSERT INTO Clientes VALUES(
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            )   
+        ;""", (codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email))
         self.conecta.commit()
         BD.desconecta_bd(self)
         
