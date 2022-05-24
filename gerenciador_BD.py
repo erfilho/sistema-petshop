@@ -31,6 +31,19 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self)
+
+    # Added by Erineldo 24/05
+    # Inserção de produtos
+    def cad_produto(self, codigo, nome, preco):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            INSERT INTO Produtos (PROD_CODIGO, PROD_NOME, PROD_PRECO)
+            VALUES (
+                ?, ?, ?
+            );
+        """, (codigo, nome, preco))
+        self.conecta.commit()
+        BD.desconecta_bd(self)
     
     def monta_pet_venda(self):
         
@@ -104,4 +117,15 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self) 
+    # Added by Erineldo - 24/05
+    # Função para listar os produtos
+    def teste_insertion(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            SELECT * FROM Produtos;
+        """)
+        listagem = self.cursor.fetchall()
+        print(listagem)
+        self.conecta.commit()
+        BD.desconecta_bd(self)
     

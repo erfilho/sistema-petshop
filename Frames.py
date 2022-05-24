@@ -196,9 +196,10 @@ def Cadastro_Produto(self):
     self.fundo_Codigo = Label(self.FR_root_ator_1, image= self.img_fundo)
     self.fundo_Codigo.place(relx= 0.05, rely = 0.15, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_cpf = Entry(self.FR_root_ator_1, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_cpf.place(relx= 0.065, rely = 0.165, relheight= 0.075, relwidth=0.43)
-    self.et_cpf.focus()
+    # Mod by Erineldo - Nome não compatível
+    self.et_codigo = Entry(self.FR_root_ator_1, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_codigo.place(relx= 0.065, rely = 0.165, relheight= 0.075, relwidth=0.43)
+    self.et_codigo.focus()
     
     #nome do produto
     #label
@@ -224,16 +225,19 @@ def Cadastro_Produto(self):
     
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    # Mod by Erineldo - Added cadastro produto
+    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_produto(self, self.et_codigo.get(), self.et_Nome.get(), self.et_Preco.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
-    self.bt_salvar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
+    # Mod by Erineldo - Nomes de botões iguais
+    self.bt_cancelar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
-    self.bt_salvar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32) 
+    # Mod by Erineldo - Nomes de botões iguais
+    self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_insertion(self))
+    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32) 
 
 def Cadastro_Pet(self):
     self.FR_root_ator_2 = Frame(self.root, background= fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
