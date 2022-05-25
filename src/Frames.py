@@ -4,7 +4,7 @@ from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
 import gerenciador_BD
-
+from pathlib import Path
 fundo1 = '#E85B28'
 fundo2 = '#EE6D3D'
 fundo3 = '#EF8D6A'
@@ -17,10 +17,10 @@ def login(self):
     self.frame_1 = Frame(self.root, highlightbackground="#000000", borderwidth=0.01, highlightthickness=2)
     self.frame_1.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=1.0)
 
-    self.img_fundo = PhotoImage(file="Imagens/login_fundo_1.png")
-    self.img_cpf = PhotoImage(file="Imagens/login_textBox_1.png")
-    self.img_senha = PhotoImage(file="Imagens/login_textBox_1.png")
-    self.img_botao = PhotoImage(file="Imagens/login_botao_1.png")
+    self.img_fundo = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "login_fundo_1.png"))
+    self.img_cpf = PhotoImage  (file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "login_textBox_1.png"))
+    self.img_senha = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "login_textBox_1.png"))
+    self.img_botao = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "login_botao_1.png"))
 
     self.fundo = Label(self.frame_1, image= self.img_fundo)
     self.fundo.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=1.0)
@@ -53,8 +53,8 @@ def Estoquista(self, lista):
     self.FR_root_1 = Frame(self.root, background= "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_1.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth= 0.346)
     
-    self.img_fundo_funcionario = PhotoImage(file="Imagens/atores_fundo.png")
-    self.img_logout = PhotoImage(file="Imagens/logout.png")
+    self.img_fundo_funcionario = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "atores_fundo.png"))
+    self.img_logout = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "logout.png"))
     
     self.fundo_estoquista = Label(self.FR_root_1, image= self.img_fundo_funcionario)
     self.fundo_estoquista.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=0.98)
@@ -91,8 +91,8 @@ def Recepcionista(self, lista):
     self.FR_root_2 = Frame(self.root, background= fundo2, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_2.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth= 0.346)
     
-    self.img_fundo_funcionario = PhotoImage(file="Imagens/atores_fundo.png")
-    self.img_logout = PhotoImage(file="Imagens/logout.png")
+    self.img_fundo_funcionario = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "atores_fundo.png"))
+    self.img_logout = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "logout.png"))
     
     self.fundo_recepcionista = Label(self.FR_root_2, image= self.img_fundo_funcionario)
     self.fundo_recepcionista.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=0.98)
@@ -141,8 +141,8 @@ def Caixa(self, lista):
     self.FR_root_3 = Frame(self.root, background= fundo2, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_3.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth= 0.346)
     
-    self.img_fundo_funcionario = PhotoImage(file="Imagens/atores_fundo.png")
-    self.img_logout = PhotoImage(file="Imagens/logout.png")
+    self.img_fundo_funcionario = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "atores_fundo.png"))
+    self.img_logout = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "logout.png"))
     
     self.fundo_recepcionista = Label(self.FR_root_3, image= self.img_fundo_funcionario)
     self.fundo_recepcionista.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=0.98)
@@ -182,10 +182,10 @@ def Cadastro_Produto(self):
     self.LB_label1.pack()   
     self.frame_funcionalidade = self.FR_root_ator_1
     
-    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro.png")
-    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
-    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
-    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+    self.img_fundo = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro.png"))
+    self.img_bt_salvar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_salvar.png"))
+    self.img_bt_cancelar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_cancelar.png"))
+    self.img_bt_limpar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_limpar.png"))
     
     #entradas
     #codigo do produto
@@ -248,11 +248,11 @@ def Cadastro_Pet(self):
     
     self.frame_funcionalidade = self.FR_root_ator_2
 
-    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro.png")
-    self.img_fundo2 = PhotoImage(file="Imagens/fundo_entry_cadastro_P.png")
-    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
-    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
-    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+    self.img_fundo = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro.png"))
+    self.img_fundo2 = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro_P.png"))
+    self.img_bt_salvar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_salvar.png"))
+    self.img_bt_cancelar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_cancelar.png"))
+    self.img_bt_limpar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_limpar.png"))
     
     #entradas
     #codigo do pet
@@ -358,11 +358,11 @@ def Cadastro_Cliente(self):
     
     self.frame_funcionalidade = self.FR_root_ator_3
 
-    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro.png")
-    self.img_fundo2 = PhotoImage(file="Imagens/fundo_entry_cadastro_P.png")
-    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
-    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
-    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+    self.img_fundo = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro.png"))
+    self.img_fundo2 = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro_P.png"))
+    self.img_bt_salvar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_salvar.png"))
+    self.img_bt_cancelar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_cancelar.png"))
+    self.img_bt_limpar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_limpar.png"))
 
 
     #entradas
@@ -500,11 +500,11 @@ def Venda_Pet(self):
     
     self.frame_funcionalidade = self.FR_root_ator_4
 
-    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro_P.png")
-    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
-    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
-    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
-    self.img_bt_encomenda = PhotoImage(file="Imagens/botao_encomenda.png")
+    self.img_fundo = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro_P.png"))
+    self.img_bt_salvar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_salvar.png"))
+    self.img_bt_cancelar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_cancelar.png"))
+    self.img_bt_limpar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_limpar.png"))
+    self.img_bt_encomenda = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_encomenda.png"))
     
     #entradas
     #codigo do Cliente
@@ -571,10 +571,10 @@ def Encomenda_Pet(self):
     
     self.frame_funcionalidade = self.FR_root_ator_4
 
-    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro.png")
-    self.img_bt_salvar = PhotoImage(file="Imagens/botao_salvar.png")
-    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
-    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
+    self.img_fundo = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro.png"))
+    self.img_bt_salvar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_salvar.png"))
+    self.img_bt_cancelar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_cancelar.png"))
+    self.img_bt_limpar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_limpar.png"))
     
     #entradas
     
@@ -680,11 +680,11 @@ def Vendas(self):
     
     self.frame_funcionalidade = self.FR_root_ator_5
     
-    self.img_fundo = PhotoImage(file="Imagens/fundo_entry_cadastro_P.png")
-    self.img_bt_finalizar = PhotoImage(file="Imagens/botao_finalizar.png")
-    self.img_bt_cancelar = PhotoImage(file="Imagens/botao_cancelar.png")
-    self.img_bt_limpar = PhotoImage(file="Imagens/botao_limpar.png")
-    self.img_bt_adicionar = PhotoImage(file="Imagens/botao_adicionar.png")
+    self.img_fundo = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "fundo_entry_cadastro_P.png"))
+    self.img_bt_finalizar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_finalizar.png"))
+    self.img_bt_cancelar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_cancelar.png"))
+    self.img_bt_limpar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_limpar.png"))
+    self.img_bt_adicionar = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_adicionar.png"))
     
     #entradas
     #codigo do Produto
@@ -775,7 +775,7 @@ def Nota_fiscal(self):
     
     self.frame_funcionalidade = self.FR_root_ator_6
     
-    self.img_ok = PhotoImage(file="Imagens/botao_OK.png")
+    self.img_ok = PhotoImage(file= Path(Path.home(),"sistema-petshop", "src", "Imagens", "botao_OK.png"))
     
     self.lista1 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
     self.lista1.heading("#0", text="")

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import sqlite3
+from pathlib import Path
 
 class BD():
     def conecta_bd(self):
-        self.conecta = sqlite3.connect("pet_shop.db")
+        self.conecta = sqlite3.connect(Path(Path.home(),"sistema-petshop", "src","pet_shop.db"))
         self.cursor = self.conecta.cursor(); print("Conectando")
         
     def desconecta_bd(self):
