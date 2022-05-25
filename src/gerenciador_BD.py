@@ -153,7 +153,7 @@ class BD():
     def teste_insertion(self):
         BD.conecta_bd(self)
         self.cursor.execute("""
-            SELECT * FROM Produtos;
+            SELECT * FROM Clientes;
         """)
         listagem = self.cursor.fetchall()
         print(listagem)

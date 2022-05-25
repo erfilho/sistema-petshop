@@ -378,9 +378,9 @@ def Cadastro_Cliente(self):
     self.fundo_Codigo = Label(self.FR_root_ator_3, image= self.img_fundo)
     self.fundo_Codigo.place(relx= 0.05, rely = 0.1, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
-    self.et_codigo.focus()
+    self.et_Codigo = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    self.et_Codigo.focus()
     
 
     #nome do Cliente
@@ -413,8 +413,8 @@ def Cadastro_Cliente(self):
     self.fundo_data_nascimento = Label(self.FR_root_ator_3, image= self.img_fundo)
     self.fundo_data_nascimento.place(relx= 0.05, rely = 0.57, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_data_nascimento = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_data_nascimento.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.43)
+    self.et_Data_nascimento = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Data_nascimento.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.43)
       
     #Logradouro
     #label
@@ -484,7 +484,7 @@ def Cadastro_Cliente(self):
     
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_cliente(self, self.et_Codigo.get(), self.et_Nome.get(), self.et_CPF.get(), self.et_Data_nascimento.get(), self.et_Logradouro.get(), self.et_Cidade.get(), self.et_Bairro.get(), self.et_UF.get(), self.et_Celular.get(), self.et_Email.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -492,7 +492,7 @@ def Cadastro_Cliente(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_insertion(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
    
 def Venda_Pet(self):
