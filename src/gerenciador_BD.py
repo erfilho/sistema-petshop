@@ -271,3 +271,13 @@ class BD():
         listagem = self.cursor.fetchall()
         print(listagem)
         BD.desconecta_bd(self)
+
+    def get_pets_venda(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            SELECT PET_V_CODIGO, PET_V_IDADE, PET_V_SEXO, PET_V_RACA, PET_V_PRECO FROM PetVenda
+        ;""")
+        self.conecta.commit()
+        listagem = self.cursor.fetchall()
+        BD.desconecta_bd(self)
+        return listagem

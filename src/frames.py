@@ -253,7 +253,7 @@ def Cadastro_Produto(self):
     # Mod by Erineldo - Nomes de botões iguais
     self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_produtos(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32) 
-    
+
 # Added by Erineldo 26/05
 # Função que vai limpar os campos de entrada dos campos de clientes
 def limpa_campos_pet(self):
@@ -561,7 +561,7 @@ def Venda_Pet(self):
     self.et_Codigo_pet.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
     self.et_Codigo_pet.focus()
     #bind da Entry
-    self.et_Codigo_pet.bind('<FocusIn>',lista_pest_venda(self))
+    self.et_Codigo_pet.bind('<FocusIn>',lista_pets_venda(self))
     self.et_Codigo_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-PET"))
         
     #label
@@ -898,17 +898,19 @@ def muda_tela_ator(self, lista):
         self.atual_frame.destroy()
         Caixa(self, i)
 
+# Mod by Erineldo 26/05
+# Correção de erros de nomenclatura
 def muda_lista_venda_pet(self, opcao):
     if(opcao == "COD-PET"):
         self.atual_lista.destroy()
-        lista_pest_venda(self)
+        lista_pets_venda(self)
     elif(opcao == "COD-DONO"):
         self.atual_lista.destroy()
         lista_donos(self)
     elif(opcao == "NA"):
         self.atual_lista.destroy()
 
-def lista_pest_venda(self):
+def lista_pets_venda(self):
         self.FR_lista1 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
         self.FR_lista1.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
         
@@ -917,9 +919,9 @@ def lista_pest_venda(self):
         self.lista1 = ttk.Treeview(self.FR_lista1, height=3, columns=("col1", "col2", "col3", "col4", "col5"))
         self.lista1.heading("#0", text="")
         self.lista1.heading("#1", text="Codigo")
-        self.lista1.heading("#2", text="Raça")
+        self.lista1.heading("#2", text="Idade")
         self.lista1.heading("#3", text="Sexo")
-        self.lista1.heading("#4", text="Idade")
+        self.lista1.heading("#4", text="Raça")
         self.lista1.heading("#5", text="Valor")
         
         self.lista1.column("#0",width=0)
@@ -928,7 +930,14 @@ def lista_pest_venda(self):
         self.lista1.column("#3",width=25)
         self.lista1.column("#4",width=25)
         self.lista1.column("#5",width=30)
-        
+
+        # Inserir os dados na tabela
+        # tree.insert('', tkinter.END, values=data)
+        # Modded by Erineldo 26/05
+        # Adicionada a listagem de pets disponíveis para venda
+        dados = gerenciador_BD.BD.get_pets_venda(self)
+        for i in dados:
+            self.lista1.insert('', tkinter.END, values=i)
         
         self.label_Codigo_venda_pet = Label(self.FR_lista1, text="Pets disponíveis para venda", font=fonte, background="#ffffff")
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
