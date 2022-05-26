@@ -63,19 +63,6 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self)
-    
-    # Added by Erineldo 24/05
-    # Função para cadastro de pets
-    def cad_pet(self, codigo, nome, idade, sexo, raca, preco):
-        BD.conecta_bd(self)
-        self.cursor.execute("""
-            INSERT INTO PetVenda
-            VALUES (
-                ?, ?, ?, ?, ?, ?
-            );
-        """, (codigo, nome, idade, sexo, raca, preco))
-        self.conecta.commit()
-        BD.desconecta_bd(self)
         
     def monta_pet_cliente(self):
         BD.conecta_bd(self)
@@ -148,15 +135,65 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self) 
+        
     # Added by Erineldo - 24/05
-    # Função para listar os produtos
-    def teste_insertion(self):
+    # Função para listar os pets
+    def teste_Pets(self):
         BD.conecta_bd(self)
         self.cursor.execute("""
-            SELECT * FROM Clientes;
+            SELECT * FROM PetVenda;
         """)
         listagem = self.cursor.fetchall()
         print(listagem)
+        self.cursor.execute("""
+            SELECT * FROM PetCliente;
+        """)
+        self.conecta.commit()
+        listagem = self.cursor.fetchall()
+        print(listagem)
+        BD.desconecta_bd(self)
+
+    # Added by Erineldo - 26/05
+    # Função para listar os clientes
+    def teste_Clientes(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            SELECT * FROM Clientes
+        """)
+        self.conecta.commit()
+        listagem = self.cursor.fetchall()
+        print(listagem)
+        BD.desconecta_bd(self)
+
+    # Added by Erineldo - 26/05
+    # Função para listar os produtos
+    def teste_Produtos(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            SELECT * From Clientes
+        """)
+        self.conecta.commit()
+        listagem = self.cursor.fetchall()
+        print(listagem)
+        BD.desconecta_bd(self)
+
+    # Mod by Erineldo 25/05
+    # Função para cadastro de pets
+    def cad_pet(self, codigo, nome, idade, sexo, codigo_dono, raca, preco, checkbox):
+        BD.conecta_bd(self)
+        if(checkbox == 1):
+            self.cursor.execute("""
+                INSERT INTO PetVenda
+                VALUES (
+                    ?, ?, ?, ?, ?, ?
+                );
+            """, (codigo, nome, idade, sexo, raca, preco))
+        else:
+            self.cursor.execute("""
+                INSERT INTO PetCliente
+                VALUES (
+                    ?, ?, ?, ?, ?, ?
+                )
+            """, (codigo, nome, idade, sexo, raca, codigo_dono))
         self.conecta.commit()
         BD.desconecta_bd(self)
-    

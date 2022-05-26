@@ -3,6 +3,7 @@
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
+import tkinter
 import gerenciador_BD
 import os
 from pathlib import Path
@@ -201,9 +202,9 @@ def Cadastro_Produto(self):
     self.fundo_Codigo.place(relx= 0.05, rely = 0.15, relheight=0.115, relwidth=0.46)
     #entry
     # Mod by Erineldo - Nome não compatível
-    self.et_codigo = Entry(self.FR_root_ator_1, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.165, relheight= 0.075, relwidth=0.43)
-    self.et_codigo.focus()
+    self.et_Codigo = Entry(self.FR_root_ator_1, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo.place(relx= 0.065, rely = 0.165, relheight= 0.075, relwidth=0.43)
+    self.et_Codigo.focus()
     
     #nome do produto
     #label
@@ -230,7 +231,7 @@ def Cadastro_Produto(self):
     #Botões
     #Salvar
     # Mod by Erineldo - Added cadastro produto
-    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_produto(self, self.et_codigo.get(), self.et_Nome.get(), self.et_Preco.get()))
+    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_produto(self, self.et_Codigo.get(), self.et_Nome.get(), self.et_Preco.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -240,7 +241,7 @@ def Cadastro_Produto(self):
     
     #Limpar
     # Mod by Erineldo - Nomes de botões iguais
-    self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_insertion(self))
+    self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Produtos(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32) 
 
 def Cadastro_Pet(self):
@@ -267,82 +268,83 @@ def Cadastro_Pet(self):
     self.fundo_Codigo = Label(self.FR_root_ator_2, image= self.img_fundo)
     self.fundo_Codigo.place(relx= 0.05, rely = 0.1, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
-    self.et_codigo.focus()
+    self.et_Codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    self.et_Codigo.focus()
     
     #nome do pet
     #label
-    self.fundo_Codigo = Label(self.FR_root_ator_2, text="Nome do Pet", font=fonte, background=fundo3)
-    self.fundo_Codigo.place(relx= 0.1, rely = 0.21)
+    self.fundo_Nome = Label(self.FR_root_ator_2, text="Nome do Pet", font=fonte, background=fundo3)
+    self.fundo_Nome.place(relx= 0.1, rely = 0.21)
     #imagem de fundo
-    self.fundo_Codigo = Label(self.FR_root_ator_2, image= self.img_fundo)
-    self.fundo_Codigo.place(relx= 0.05, rely = 0.25, relheight=0.115, relwidth=0.46)
+    self.fundo_Nome = Label(self.FR_root_ator_2, image= self.img_fundo)
+    self.fundo_Nome.place(relx= 0.05, rely = 0.25, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.43)
+    self.et_Nome = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Nome.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.43)
     
     #idade do pet
     #label
-    self.fundo_Codigo = Label(self.FR_root_ator_2, text="Idade do Pet", font=fonte, background=fundo3)
-    self.fundo_Codigo.place(relx= 0.1, rely = 0.355)
+    self.fundo_Idade = Label(self.FR_root_ator_2, text="Idade do Pet", font=fonte, background=fundo3)
+    self.fundo_Idade.place(relx= 0.1, rely = 0.355)
     #imagem de fundo
-    self.fundo_Codigo = Label(self.FR_root_ator_2, image= self.img_fundo)
-    self.fundo_Codigo.place(relx= 0.05, rely = 0.4, relheight=0.115, relwidth=0.46)
+    self.fundo_Idade = Label(self.FR_root_ator_2, image= self.img_fundo)
+    self.fundo_Idade.place(relx= 0.05, rely = 0.4, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.43)
+    self.et_Idade = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Idade.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.43)
     
     #Sexo
     #label
-    self.fundo_Codigo = Label(self.FR_root_ator_2, text="Sexo", font=fonte, background=fundo3)
-    self.fundo_Codigo.place(relx= 0.1, rely = 0.52)
+    self.fundo_Sexo = Label(self.FR_root_ator_2, text="Sexo", font=fonte, background=fundo3)
+    self.fundo_Sexo.place(relx= 0.1, rely = 0.52)
     #imagem de fundo
-    self.fundo_Codigo = Label(self.FR_root_ator_2, image= self.img_fundo2)
-    self.fundo_Codigo.place(relx= 0.05, rely = 0.57, relheight=0.11, relwidth=0.21)
+    self.fundo_Sexo = Label(self.FR_root_ator_2, image= self.img_fundo2)
+    self.fundo_Sexo.place(relx= 0.05, rely = 0.57, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.185)
+    self.et_Sexo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Sexo.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.185)
     
     #Codigo dono
     #label
-    self.fundo_Codigo = Label(self.FR_root_ator_2, text="Código do Dono", font=fonte, background=fundo3)
-    self.fundo_Codigo.place(relx= 0.4, rely = 0.52)
+    self.fundo_Codigo_Dono = Label(self.FR_root_ator_2, text="Código do Dono", font=fonte, background=fundo3)
+    self.fundo_Codigo_Dono.place(relx= 0.4, rely = 0.52)
     #imagem de fundo
-    self.fundo_Codigo = Label(self.FR_root_ator_2, image= self.img_fundo)
-    self.fundo_Codigo.place(relx= 0.37, rely = 0.57, relheight=0.115, relwidth=0.46)
+    self.fundo_Codigo_Dono = Label(self.FR_root_ator_2, image= self.img_fundo)
+    self.fundo_Codigo_Dono.place(relx= 0.37, rely = 0.57, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.385, rely = 0.585, relheight= 0.075, relwidth=0.43)
+    self.et_Codigo_Dono = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_Dono.place(relx= 0.385, rely = 0.585, relheight= 0.075, relwidth=0.43)
     
     #Raça
     #label
-    self.fundo_Codigo = Label(self.FR_root_ator_2, text="Raça", font=fonte, background=fundo3)
-    self.fundo_Codigo.place(relx= 0.1, rely = 0.68)
+    self.fundo_Raca = Label(self.FR_root_ator_2, text="Raça", font=fonte, background=fundo3)
+    self.fundo_Raca.place(relx= 0.1, rely = 0.68)
     #imagem de fundo
-    self.fundo_Codigo = Label(self.FR_root_ator_2, image= self.img_fundo2)
-    self.fundo_Codigo.place(relx= 0.05, rely = 0.72, relheight=0.11, relwidth=0.21)
+    self.fundo_Raca = Label(self.FR_root_ator_2, image= self.img_fundo2)
+    self.fundo_Raca.place(relx= 0.05, rely = 0.72, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.065, rely = 0.733, relheight= 0.075, relwidth=0.185)
+    self.et_Raca = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Raca.place(relx= 0.065, rely = 0.733, relheight= 0.075, relwidth=0.185)
     
     #Preço
     #label
-    self.fundo_Codigo = Label(self.FR_root_ator_2, text="Preço", font=fonte, background=fundo3)
-    self.fundo_Codigo.place(relx= 0.4, rely = 0.68)
+    self.fundo_Preco = Label(self.FR_root_ator_2, text="Preço", font=fonte, background=fundo3)
+    self.fundo_Preco.place(relx= 0.4, rely = 0.68)
     #imagem de fundo
-    self.fundo_Codigo = Label(self.FR_root_ator_2, image= self.img_fundo2)
-    self.fundo_Codigo.place(relx= 0.37, rely = 0.72, relheight=0.11, relwidth=0.21)
+    self.fundo_Preco = Label(self.FR_root_ator_2, image= self.img_fundo2)
+    self.fundo_Preco.place(relx= 0.37, rely = 0.72, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo.place(relx= 0.39, rely = 0.733, relheight= 0.075, relwidth=0.185)
+    self.et_Preco = Entry(self.FR_root_ator_2, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Preco.place(relx= 0.39, rely = 0.733, relheight= 0.075, relwidth=0.185)
     
     #checkButton
-    self.CB_pet_para_venda = Checkbutton(self.FR_root_ator_2, text= 'Pet para Venda', onvalue= 1 , offvalue= 0, background=fundo3, highlightbackground = fundo3)
+    self.valor_Checkbox = tkinter.IntVar()
+    self.CB_pet_para_venda = Checkbutton(self.FR_root_ator_2, variable= self.valor_Checkbox, text= 'Pet para Venda', onvalue= 1 , offvalue= 0, background=fundo3, highlightbackground = fundo3)
     self.CB_pet_para_venda.place(relx= 0.6, rely = 0.28)
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_pet(self, self.et_Codigo.get(), self.et_Nome.get(), self.et_Idade.get(), self.et_Sexo.get(), self.et_Codigo_Dono.get(), self.et_Raca.get(), self.et_Preco.get(), self.valor_Checkbox.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -350,7 +352,7 @@ def Cadastro_Pet(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Pets(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
 def Cadastro_Cliente(self):
@@ -492,7 +494,7 @@ def Cadastro_Cliente(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_insertion(self))
+    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Clientes(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
    
 def Venda_Pet(self):
@@ -519,12 +521,12 @@ def Venda_Pet(self):
     self.fundo_Codigo_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_Codigo_pet.place(relx= 0.05, rely = 0.1, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_pet.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
-    self.et_codigo_pet.focus()
+    self.et_Codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_pet.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_pet.focus()
     #bind da Entry
-    self.et_codigo_pet.bind('<FocusIn>',lista_pest_venda(self))
-    self.et_codigo_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-PET"))
+    self.et_Codigo_pet.bind('<FocusIn>',lista_pest_venda(self))
+    self.et_Codigo_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-PET"))
         
     #label
     self.label_Codigo_dono = Label(self.FR_root_ator_4, text="Código do Dono", font=fonte, background=fundo3)
@@ -533,10 +535,10 @@ def Venda_Pet(self):
     self.fundo_Codigo_dono = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_Codigo_dono.place(relx= 0.05, rely = 0.25, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo_dono = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_dono.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_dono = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_dono.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.185)
     #bind da entry
-    self.et_codigo_dono.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-DONO"))
+    self.et_Codigo_dono.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-DONO"))
     
     #label
     self.label_Codigo_venda_pet = Label(self.FR_root_ator_4, text="Código de Venda", font=fonte, background=fundo3)
@@ -545,10 +547,10 @@ def Venda_Pet(self):
     self.fundo_Codigo_venda_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_Codigo_venda_pet.place(relx= 0.05, rely = 0.4, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo_venda_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_venda_pet.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.185)   
+    self.et_Codigo_venda_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_venda_pet.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.185)   
     #bind da entry
-    self.et_codigo_venda_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "NA"))
+    self.et_Codigo_venda_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "NA"))
     
     #Botões
     #Salvar
@@ -590,8 +592,8 @@ def Encomenda_Pet(self):
     self.fundo_codigo_encomenda  = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_codigo_encomenda.place(relx= 0.05, rely = 0.1, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_codigo_encomenda = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_encomenda .place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    self.et_Codigo_encomenda = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_encomenda .place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
     
     #Codigo do Cliente
     #label
@@ -656,8 +658,8 @@ def Encomenda_Pet(self):
     self.fundo_codigo_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_codigo_pet.place(relx= 0.53, rely = 0.25, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_pet.place(relx= 0.545, rely = 0.265, relheight= 0.075, relwidth=0.43)
+    self.et_Codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_pet.place(relx= 0.545, rely = 0.265, relheight= 0.075, relwidth=0.43)
 
     #Botões
     #Salvar
@@ -699,9 +701,9 @@ def Vendas(self):
     self.fundo_Codigo_produto = Label(self.FR_root_ator_5, image= self.img_fundo)
     self.fundo_Codigo_produto.place(relx= 0.05, rely = 0.1, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo_produto = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_produto.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
-    self.et_codigo_produto.focus()
+    self.et_Codigo_produto = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_produto.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_produto.focus()
     
     #codigo do Produto
     #label
@@ -711,8 +713,8 @@ def Vendas(self):
     self.fundo_Codigo_pet = Label(self.FR_root_ator_5, image= self.img_fundo)
     self.fundo_Codigo_pet.place(relx= 0.3, rely = 0.1, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_pet.place(relx= 0.315, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_pet.place(relx= 0.315, rely = 0.115, relheight= 0.075, relwidth=0.185)
     
     #codigo de encomenda
     #label
@@ -722,8 +724,8 @@ def Vendas(self):
     self.fundo_Codigo_pet = Label(self.FR_root_ator_5, image= self.img_fundo)
     self.fundo_Codigo_pet.place(relx= 0.55, rely = 0.1, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_codigo_pet.place(relx= 0.565, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_pet.place(relx= 0.565, rely = 0.115, relheight= 0.075, relwidth=0.185)
 
     self.lista1 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
     self.lista1.heading("#0", text="")
