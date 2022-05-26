@@ -272,6 +272,8 @@ class BD():
         print(listagem)
         BD.desconecta_bd(self)
 
+    # Added by Erineldo 26/05
+    # Função que vai listar os pets disponíveis para a venda
     def get_pets_venda(self):
         BD.conecta_bd(self)
         self.cursor.execute("""
