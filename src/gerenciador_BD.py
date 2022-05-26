@@ -2,6 +2,8 @@
 
 import sqlite3
 import os
+from tkinter import *
+from tkinter import messagebox
 from pathlib import Path
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -21,7 +23,6 @@ class BD():
                                 WHERE FUN_CPF == (?) AND FUN_SENHA = (?);""", (cpf, senha))
 
         lista = self.cursor.fetchall()
-
         BD.desconecta_bd(self)
         return lista
 
@@ -102,12 +103,29 @@ class BD():
     # Função para cadastro de clientes
     def cad_cliente(self, codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email):
         BD.conecta_bd(self)
+
+        # Verifica se já existe um cliente cadastrado com o mesmo código
         self.cursor.execute("""
-            INSERT INTO Clientes VALUES(
-                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-            )   
-        ;""", (codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email))
+            SELECT * FROM Clientes
+        ;""")
         self.conecta.commit()
+        clientes = self.cursor.fetchall()
+
+        cnt = 0
+        for i in clientes:
+            if(i[0] == int(codigo)):
+                cnt = 1
+
+        if(cnt == 0):
+            self.cursor.execute("""
+                INSERT INTO Clientes VALUES(
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                )   
+            ;""", (codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email))
+            self.conecta.commit()
+        else:
+            self.msgErro = messagebox.showerror('ERRO', 'Cliente já cadastrado.\n      Tente novamente.')
+            
         BD.desconecta_bd(self)
         
     def monta_venda_pets(self):
@@ -135,7 +153,7 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self) 
-        
+
     # Added by Erineldo - 24/05
     # Função para listar os pets
     def teste_Pets(self):

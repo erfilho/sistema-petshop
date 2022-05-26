@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
-import Frames
+import frames
 
 fundo1 = '#EF8D6A'
 
@@ -11,7 +11,7 @@ class Aplication():
     def __init__(self):
         self.root = root
         self.tela()
-        Frames.login(self)
+        frames.login(self)
         self.root.mainloop()               
     def tela(self):
         self.root.title("teste")
