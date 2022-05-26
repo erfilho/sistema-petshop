@@ -11,10 +11,60 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 class BD():
     def conecta_bd(self):
         self.conecta = sqlite3.connect(Path(ROOT_DIR, "pet_shop.db"))
-        self.cursor = self.conecta.cursor(); print("Conectando")
+        self.cursor = self.conecta.cursor();
+        print("Conectando")
         
     def desconecta_bd(self):
-        self.conecta.close(); print("Desconectando")
+        self.conecta.close()
+        print("Desconectando")
+
+    # Mod by Erineldo 26/05
+    # Função para verificar a existência de registros duplicados
+    def verifica_Codigos(self, codigo, tipo):
+        BD.conecta_bd(self)
+        if(tipo == 'clientes'):
+            self.cursor.execute("""
+                SELECT * FROM Clientes
+            ;""")
+            self.conecta.commit()
+        elif(tipo == 'pets_vendas'):
+            self.cursor.execute("""
+                SELECT * FROM PetVenda
+            ;""")
+            self.conecta.commit()
+        elif(tipo == 'pets_clientes'):
+            self.cursor.execute("""
+                SELECT * FROM PetCliente
+            ;""")
+            self.conecta.commit()
+        elif(tipo == 'produtos'):
+            self.cursor.execute("""
+                SELECT * FROM Produtos
+            ;""")
+            self.conecta.commit()
+        else: 
+            return 0
+        lista = self.cursor.fetchall()
+        BD.desconecta_bd(self)
+        for i in lista:
+            if(i[0] == int(codigo)):
+                return 1
+    
+    # Added by Erineldo 26/05
+    # Função que verifica se existe algum cpf duplicado na hora do cadastro de clientes
+    def verifica_cpf(self, cpf):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            SELECT CLI_CPF FROM Clientes
+        ;""")
+        self.conecta.commit()
+        lista = self.cursor.fetchall()
+        ret = 0
+        for i in lista:
+            if(i[0] == int(cpf)):
+                ret = 1
+        BD.desconecta_bd(self)
+        return ret
              
     def verifica_senha(self, cpf, senha):
         BD.conecta_bd(self)
@@ -36,22 +86,8 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self)
-
-    # Added by Erineldo 24/05
-    # Inserção de produtos
-    def cad_produto(self, codigo, nome, preco):
-        BD.conecta_bd(self)
-        self.cursor.execute("""
-            INSERT INTO Produtos (PROD_CODIGO, PROD_NOME, PROD_PRECO)
-            VALUES (
-                ?, ?, ?
-            );
-        """, (codigo, nome, preco))
-        self.conecta.commit()
-        BD.desconecta_bd(self)
     
     def monta_pet_venda(self):
-        
         BD.conecta_bd(self)
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS  PetVenda (
                 PET_V_CODIGO INTEGER(4) PRIMARY KEY,
@@ -99,35 +135,6 @@ class BD():
         self.conecta.commit()
         BD.desconecta_bd(self)
 
-    # Added by Erineldo 24/05
-    # Função para cadastro de clientes
-    def cad_cliente(self, codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email):
-        BD.conecta_bd(self)
-
-        # Verifica se já existe um cliente cadastrado com o mesmo código
-        self.cursor.execute("""
-            SELECT * FROM Clientes
-        ;""")
-        self.conecta.commit()
-        clientes = self.cursor.fetchall()
-
-        cnt = 0
-        for i in clientes:
-            if(i[0] == int(codigo)):
-                cnt = 1
-
-        if(cnt == 0):
-            self.cursor.execute("""
-                INSERT INTO Clientes VALUES(
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-                )   
-            ;""", (codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email))
-            self.conecta.commit()
-        else:
-            self.msgErro = messagebox.showerror('ERRO', 'Cliente já cadastrado.\n      Tente novamente.')
-            
-        BD.desconecta_bd(self)
-        
     def monta_venda_pets(self):
         BD.conecta_bd(self)
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS VendaPet (
@@ -153,6 +160,76 @@ class BD():
         """)
         self.conecta.commit()
         BD.desconecta_bd(self) 
+
+    # Mod by Erineldo 26/05
+    # Função para cadastro de clientes
+    def cad_cliente(self, codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email):
+        # Verifica se já existe um cliente cadastrado com o mesmo código
+        if(BD.verifica_Codigos(self, codigo, 'clientes')):
+            self.msgErro = messagebox.showerror('ERRO', 'Código já cadastrado.\n      Tente novamente.')
+        else:
+            if(BD.verifica_cpf(self, cpf)):
+                self.msgErro = messagebox.showerror('ERRO', 'CPF já cadastrado.\n     Tente novamente.')
+            else:
+                BD.conecta_bd(self)
+                self.cursor.execute("""
+                    INSERT INTO Clientes VALUES(
+                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                    )   
+                ;""", (codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email))
+                self.conecta.commit()
+                BD.desconecta_bd(self)
+
+    # Mod by Erineldo 26/05
+    # Inserção de produtos
+    def cad_produto(self, codigo, nome, preco):
+        # Veridica se já existe um produto cadastrado com o mesmo código
+        cnt = BD.verifica_Codigos(self, codigo, 'produtos')
+        if(cnt):  
+            self.msgErro = messagebox.showerror('ERRO', 'Código já cadastrado.\n     Tente novamente.')
+        else:
+            BD.conecta_bd(self)
+            self.cursor.execute("""
+                INSERT INTO Produtos (PROD_CODIGO, PROD_NOME, PROD_PRECO)
+                VALUES (
+                    ?, ?, ?
+                );
+            """, (codigo, nome, preco))
+            self.conecta.commit()  
+            BD.desconecta_bd(self)
+
+    # Mod by Erineldo 25/05
+    # Função para cadastro de pets
+    def cad_pet(self, codigo, nome, idade, sexo, codigo_dono, raca, preco, checkbox):
+        if(checkbox == 1):
+            # Verifica se já existe um pet para venda cadastrado com o mesmo código
+            cnt = BD.verifica_Codigos(self, codigo, 'pets_vendas')
+            if(cnt):
+                self.msgErro = messagebox.showerror('ERRO', 'Código já cadastrado.\n     Tente novamente.')
+            else:
+                BD.conecta_bd(self)
+                self.cursor.execute("""
+                    INSERT INTO PetVenda
+                    VALUES (
+                        ?, ?, ?, ?, ?, ?
+                    );
+                """, (codigo, nome, idade, sexo, raca, preco))
+                self.conecta.commit()
+                BD.desconecta_bd(self)
+        else:
+            # Verifica se já existe um pet de cliente cadastrado com o mesmo código
+            cnt = BD.verifica_Codigos(self, codigo, 'pets_clientes')
+            if(cnt):
+                self.msgErro = messagebox.showerror('ERRO', 'Código já cadastrado.\n     Tente novamente.')
+            else:
+                self.cursor.execute("""
+                    INSERT INTO PetCliente
+                    VALUES (
+                        ?, ?, ?, ?, ?, ?
+                    )
+                """, (codigo, nome, idade, sexo, raca, codigo_dono))
+                self.conecta.commit()
+                BD.desconecta_bd(self)
 
     # Added by Erineldo - 24/05
     # Função para listar os pets
@@ -193,25 +270,4 @@ class BD():
         self.conecta.commit()
         listagem = self.cursor.fetchall()
         print(listagem)
-        BD.desconecta_bd(self)
-
-    # Mod by Erineldo 25/05
-    # Função para cadastro de pets
-    def cad_pet(self, codigo, nome, idade, sexo, codigo_dono, raca, preco, checkbox):
-        BD.conecta_bd(self)
-        if(checkbox == 1):
-            self.cursor.execute("""
-                INSERT INTO PetVenda
-                VALUES (
-                    ?, ?, ?, ?, ?, ?
-                );
-            """, (codigo, nome, idade, sexo, raca, preco))
-        else:
-            self.cursor.execute("""
-                INSERT INTO PetCliente
-                VALUES (
-                    ?, ?, ?, ?, ?, ?
-                )
-            """, (codigo, nome, idade, sexo, raca, codigo_dono))
-        self.conecta.commit()
         BD.desconecta_bd(self)
