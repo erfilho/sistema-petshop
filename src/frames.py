@@ -4,6 +4,9 @@ from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
 import tkinter
+from click import command
+
+from numpy import complexfloating
 import gerenciador_BD
 import os
 from pathlib import Path
@@ -179,6 +182,13 @@ def Caixa(self, lista):
     self.bt_logout = Button(self.FR_root_3 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
     self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
 
+# Added by Erineldo 26/05 
+# Função que vai limpar os campos de entrada do cadastro de produtos
+def limpa_campos_produtos(self):
+    self.et_Codigo.delete(0, 'end')
+    self.et_Nome.delete(0, 'end')
+    self.et_Preco.delete(0, 'end')
+
 def Cadastro_Produto(self):
     self.FR_root_ator_1 = Frame(self.root, background= fundo3, highlightbackground = '#000000', borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_1.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
@@ -241,8 +251,20 @@ def Cadastro_Produto(self):
     
     #Limpar
     # Mod by Erineldo - Nomes de botões iguais
-    self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Produtos(self))
+    self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_produtos(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32) 
+    
+# Added by Erineldo 26/05
+# Função que vai limpar os campos de entrada dos campos de clientes
+def limpa_campos_pet(self):
+    self.et_Codigo.delete(0, 'end')
+    self.et_Nome.delete(0, 'end')
+    self.et_Idade.delete(0, 'end')
+    self.et_Sexo.delete(0, 'end')
+    self.et_Codigo_Dono.delete(0, 'end')
+    self.et_Raca.delete(0, 'end')
+    self.et_Preco.delete(0, 'end')
+    self.CB_pet_para_venda.deselect()
 
 def Cadastro_Pet(self):
     self.FR_root_ator_2 = Frame(self.root, background= fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -353,9 +375,23 @@ def Cadastro_Pet(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Pets(self))
+    self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_pet(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
-    
+
+# Added by Erineldo 26/05
+# Função que limpa os campos de entrada de dados no cadastro de clientes
+def limpa_campos_clientes(self):
+    self.et_Codigo.delete(0, 'end')
+    self.et_Nome.delete(0, 'end')
+    self.et_CPF.delete(0, 'end')
+    self.et_Data_nascimento.delete(0, 'end')
+    self.et_Logradouro.delete(0, 'end')
+    self.et_Cidade.delete(0, 'end')
+    self.et_Bairro.delete(0, 'end')
+    self.et_UF.delete(0, 'end')
+    self.et_Celular.delete(0, 'end')
+    self.et_Email.delete(0, 'end')
+
 def Cadastro_Cliente(self):
     self.FR_root_ator_3 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_3.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
@@ -495,9 +531,8 @@ def Cadastro_Cliente(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Clientes(self))
+    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_clientes(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
-   
 def Venda_Pet(self):
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
@@ -768,8 +803,10 @@ def Vendas(self):
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Adicionar
-    self.bt_limpar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0)
-    self.bt_limpar.place(relx= 0.79, rely = 0.09, relheight= 0.115, relwidth=0.175)
+    # Modded by Erineldo 26/05
+    # Corrigindo erros de nomenclatura bt_limpar->bt_adicionar
+    self.bt_adicionar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0)
+    self.bt_adicionar.place(relx= 0.79, rely = 0.09, relheight= 0.115, relwidth=0.175)
 
 def Nota_fiscal(self):
     self.FR_root_ator_6 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
