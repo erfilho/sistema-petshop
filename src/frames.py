@@ -33,6 +33,7 @@ def login(self):
     self.fundo = Label(self.frame_1, image= self.img_fundo)
     self.fundo.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=1.0)
     
+    # Added by Erineldo - 27/05
     # Adicionado ícone para a janela
     self.root.title("Petshop Mundocão - Login")
     self.root.iconphoto(False, PhotoImage(file= Path(ROOT_DIR, "img", "ico", "window_icon.png")))
@@ -56,7 +57,7 @@ def login(self):
     self.et_Senha.place(relx= 0.615, rely = 0.495, relheight= 0.08, relwidth=0.285)
     
     #Criando os Botões
-    self.bt_OK = Button(self.frame_1, text="OK", image= self.img_botao, borderwidth = 0, highlightthickness = 0, command = lambda: muda_tela_ator(self, gerenciador_BD.BD.verifica_senha(self, self.et_cpf.get(), self.et_Senha.get())))
+    self.bt_OK = Button(self.frame_1, text="OK", image= self.img_botao, borderwidth = 0, highlightthickness = 0, command= lambda: muda_tela_ator(self, gerenciador_BD.BD.verifica_senha(self, self.et_cpf.get(), self.et_Senha.get())))
     self.bt_OK.place(relx= 0.65, rely = 0.7, relheight= 0.11, relwidth=0.18)
 
 def Estoquista(self, lista):
@@ -606,6 +607,17 @@ def Venda_Pet(self):
     #Encomendar Pet
     self.bt_reservar = Button(self.FR_root_ator_4, image= self.img_bt_encomenda, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Encomenda"))
     self.bt_reservar.place(relx= 0.02, rely = 0.7, relheight= 0.115, relwidth=0.28)
+
+# Added by Erineldo - 27/05
+# Função para limpar os campos de entrada do cadastro de encomendas de pet
+def limpa_campos_encomenda(self):
+    self.et_Codigo_encomenda.delete(0, 'end')
+    self.et_Codigo_cli.delete(0, 'end')
+    self.et_Raca.delete(0, 'end')
+    self.et_Sexo.delete(0, 'end')
+    self.et_Idade.delete(0, 'end')
+    self.et_Valor.delete(0, 'end')
+    self.et_Codigo_pet.delete(0, 'end')
     
 def Encomenda_Pet(self):
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -652,8 +664,8 @@ def Encomenda_Pet(self):
     self.fundo_raca = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_raca.place(relx= 0.05, rely = 0.4, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_raca = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_raca.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.43)
+    self.et_Raca = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Raca.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.43)
 
     #Sexo desejado
     #label
@@ -663,8 +675,8 @@ def Encomenda_Pet(self):
     self.fundo_sexo = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_sexo.place(relx= 0.05, rely = 0.57, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_sexo = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_sexo.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.43)
+    self.et_Sexo = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Sexo.place(relx= 0.065, rely = 0.585, relheight= 0.075, relwidth=0.43)
       
     #Idade maxima
     #label
@@ -674,8 +686,8 @@ def Encomenda_Pet(self):
     self.fundo_idade = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_idade.place(relx= 0.05, rely = 0.72, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_idade = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_idade.place(relx= 0.065, rely = 0.733, relheight= 0.075, relwidth=0.43)
+    self.et_Idade = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Idade.place(relx= 0.065, rely = 0.733, relheight= 0.075, relwidth=0.43)
     
     #Valor Maximo
     #label
@@ -685,8 +697,8 @@ def Encomenda_Pet(self):
     self.fundo_valor = Label(self.FR_root_ator_4, image= self.img_fundo)
     self.fundo_valor.place(relx= 0.53, rely = 0.1, relheight=0.115, relwidth=0.46)
     #entry
-    self.et_valor = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_valor.place(relx= 0.545, rely = 0.115, relheight= 0.075, relwidth=0.43)
+    self.et_Valor = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Valor.place(relx= 0.545, rely = 0.115, relheight= 0.075, relwidth=0.43)
     
     #codigo pet
     #label
@@ -701,7 +713,7 @@ def Encomenda_Pet(self):
 
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_encomenda(self, self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get(), self.et_Codigo_pet.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -709,8 +721,15 @@ def Encomenda_Pet(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_encomenda(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
+
+# Added by Erineldo 27/05
+# Função que limpa os dados dos campos de entrada da tela de vendas
+def limpa_campos_vendas(self):
+    self.et_Codigo_produto.delete(0, 'end')
+    self.et_Codigo_pet.delete(0, 'end')
+    self.et_Codigo_encomenda.delete(0, 'end')
 
 def Vendas(self):
     self.FR_root_ator_5 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -756,14 +775,16 @@ def Vendas(self):
     
     #codigo de encomenda
     #label
-    self.label_Codigo_pet = Label(self.FR_root_ator_5, text="Código da Encomenda", font=(fonte, 10), background=fundo3)
-    self.label_Codigo_pet.place(relx= 0.55, rely = 0.05)
+    # Mod by Erineldo - 27/05
+    # Correção de nomenclatura Codigo_pet -> Codigo_encomenda
+    self.label_Codigo_encomenda = Label(self.FR_root_ator_5, text="Código da Encomenda", font=(fonte, 10), background=fundo3)
+    self.label_Codigo_encomenda.place(relx= 0.55, rely = 0.05)
     #imagem de fundoS
-    self.fundo_Codigo_pet = Label(self.FR_root_ator_5, image= self.img_fundo)
-    self.fundo_Codigo_pet.place(relx= 0.55, rely = 0.1, relheight=0.11, relwidth=0.21)
+    self.fundo_Codigo_encomenda = Label(self.FR_root_ator_5, image= self.img_fundo)
+    self.fundo_Codigo_encomenda.place(relx= 0.55, rely = 0.1, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_Codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_Codigo_pet.place(relx= 0.565, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_encomenda = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_encomenda.place(relx= 0.565, rely = 0.115, relheight= 0.075, relwidth=0.185)
 
     self.lista1 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
     self.lista1.heading("#0", text="")
@@ -801,7 +822,7 @@ def Vendas(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_5, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar = Button(self.FR_root_ator_5, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_vendas(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Adicionar
@@ -912,12 +933,6 @@ def muda_lista_venda_pet(self, opcao):
     elif(opcao == "NA"):
         self.atual_lista.destroy()
 
-def item_Selecionado(self):
-    print("Item selecionado")
-    for item in self.lista1.selection():
-        item_text = self.lista1.item(item, "values")
-        print(item_text)
-
 def lista_pets_venda(self):
         self.FR_lista1 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
         self.FR_lista1.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
@@ -978,8 +993,6 @@ def lista_donos(self):
         dados = gerenciador_BD.BD.get_clientes(self)
         for cliente in dados:
             self.lista1.insert('', tkinter.END, values=cliente)
-
-        self.lista1.bind('<<TreeviewSelect>>', item_Selecionado(self))
 
         
         self.label_Codigo_venda_pet = Label(self.FR_lista2, text="Lista Clientes Cadastrados", font=fonte, background="#ffffff")

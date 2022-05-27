@@ -42,6 +42,11 @@ class BD():
                 SELECT * FROM Produtos
             ;""")
             self.conecta.commit()
+        elif(tipo == 'encomenda_pet'):
+            self.cursor.execute("""
+                SELECT * FROM EncomendaPet
+            ;""")
+            self.conecta.commit()
         else: 
             return 0
         lista = self.cursor.fetchall()
@@ -227,9 +232,27 @@ class BD():
                     VALUES (
                         ?, ?, ?, ?, ?, ?
                     )
-                """, (codigo, nome, idade, sexo, raca, codigo_dono))
+                ;""", (codigo, nome, idade, sexo, raca, codigo_dono))
                 self.conecta.commit()
                 BD.desconecta_bd(self)
+
+    # Added by Erineldo -27/05
+    # Função que vai cadastrar uma encomenda
+    def cad_encomenda(self, codigo, codigo_cli, raca, sexo, idade, valor, pet):
+        # Veridica se já existe alguma encomenda com o mesmo código
+        cnt = BD.verifica_Codigos(self, codigo, 'encomenda_pet')
+        if(cnt):
+            self.msgErro = messagebox.showerror('ERRO', 'Código já cadastrado.\n     Tente novamente.')
+        else:
+            BD.conecta_bd(self)
+            self.cursor.execute("""
+                INSERT INTO EncomendaPet
+                VALUES (
+                    ?, ?, ?, ?, ?, ?, ?
+                )
+            ;""", (codigo, codigo_cli, raca, sexo, idade, valor, pet))
+            self.conecta.commit()
+            BD.desconecta_bd(self)
 
     # Added by Erineldo - 24/05
     # Função para listar os pets
