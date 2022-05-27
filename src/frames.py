@@ -33,7 +33,9 @@ def login(self):
     self.fundo = Label(self.frame_1, image= self.img_fundo)
     self.fundo.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=1.0)
     
-    self.root.title("login")
+    # Adicionado ícone para a janela
+    self.root.title("Petshop Mundocão - Login")
+    self.root.iconphoto(False, PhotoImage(file= Path(ROOT_DIR, "img", "ico", "window_icon.png")))
     self.atual_frame = self.frame_1
     
     #Criando Entradas
