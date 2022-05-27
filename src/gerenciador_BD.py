@@ -253,7 +253,7 @@ class BD():
     def teste_Clientes(self):
         BD.conecta_bd(self)
         self.cursor.execute("""
-            DELETE FROM Clientes
+            SELECT * FROM Clientes
         ;""")
         self.conecta.commit()
         listagem = self.cursor.fetchall()
