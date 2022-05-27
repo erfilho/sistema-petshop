@@ -14,7 +14,7 @@ class Aplication():
         frames.login(self)
         self.root.mainloop()               
     def tela(self):
-        self.root.title("teste")
+        self.root.title("Petshop Mundocão")
         self.root.configure(background=fundo1)
         self.root.resizable(False, False)
         self.root.geometry("800x500")        

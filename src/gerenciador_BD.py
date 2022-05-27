@@ -237,12 +237,12 @@ class BD():
         BD.conecta_bd(self)
         self.cursor.execute("""
             SELECT * FROM PetVenda;
-        """)
+        ;""")
         listagem = self.cursor.fetchall()
         print(listagem)
         self.cursor.execute("""
-            SELECT * FROM PetCliente;
-        """)
+            SELECT * FROM PetCliente
+        ;""")
         self.conecta.commit()
         listagem = self.cursor.fetchall()
         print(listagem)
@@ -253,8 +253,8 @@ class BD():
     def teste_Clientes(self):
         BD.conecta_bd(self)
         self.cursor.execute("""
-            SELECT * FROM Clientes
-        """)
+            DELETE FROM Clientes
+        ;""")
         self.conecta.commit()
         listagem = self.cursor.fetchall()
         print(listagem)
@@ -265,8 +265,8 @@ class BD():
     def teste_Produtos(self):
         BD.conecta_bd(self)
         self.cursor.execute("""
-            SELECT * From Clientes
-        """)
+            SELECT * From Produtos
+        ;""")
         self.conecta.commit()
         listagem = self.cursor.fetchall()
         print(listagem)
@@ -278,6 +278,18 @@ class BD():
         BD.conecta_bd(self)
         self.cursor.execute("""
             SELECT PET_V_CODIGO, PET_V_IDADE, PET_V_SEXO, PET_V_RACA, PET_V_PRECO FROM PetVenda
+        ;""")
+        self.conecta.commit()
+        listagem = self.cursor.fetchall()
+        BD.desconecta_bd(self)
+        return listagem
+
+    # Added by Erineldo 27/05
+    # Função que vai listar os clientes
+    def get_clientes(self):
+        BD.conecta_bd(self)
+        self.cursor.execute("""
+            SELECT CLI_CODIGO, CLI_NOME, CLI_CELULAR FROM Clientes 
         ;""")
         self.conecta.commit()
         listagem = self.cursor.fetchall()

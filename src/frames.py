@@ -562,7 +562,7 @@ def Venda_Pet(self):
     self.et_Codigo_pet.focus()
     #bind da Entry
     self.et_Codigo_pet.bind('<FocusIn>',lista_pets_venda(self))
-    self.et_Codigo_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-PET"))
+    self.et_Codigo_pet.bind('<Button-1>', lambda x: muda_lista_venda_pet(self, "COD-PET"))
         
     #label
     self.label_Codigo_dono = Label(self.FR_root_ator_4, text="Código do Dono", font=fonte, background=fundo3)
@@ -574,7 +574,7 @@ def Venda_Pet(self):
     self.et_Codigo_dono = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo_dono.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.185)
     #bind da entry
-    self.et_Codigo_dono.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "COD-DONO"))
+    self.et_Codigo_dono.bind('<Button-1>', lambda x: muda_lista_venda_pet(self, "COD-DONO"))
     
     #label
     self.label_Codigo_venda_pet = Label(self.FR_root_ator_4, text="Código de Venda", font=fonte, background=fundo3)
@@ -594,7 +594,7 @@ def Venda_Pet(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Clientes(self))
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -910,6 +910,12 @@ def muda_lista_venda_pet(self, opcao):
     elif(opcao == "NA"):
         self.atual_lista.destroy()
 
+def item_Selecionado(self):
+    print("Item selecionado")
+    for item in self.lista1.selection():
+        item_text = self.lista1.item(item, "values")
+        print(item_text)
+
 def lista_pets_venda(self):
         self.FR_lista1 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
         self.FR_lista1.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
@@ -924,11 +930,13 @@ def lista_pets_venda(self):
         self.lista1.heading("#4", text="Raça")
         self.lista1.heading("#5", text="Valor")
         
+        # Modded by Erineldo 27/05
+        # Modificado tamanho das colunas
         self.lista1.column("#0",width=0)
-        self.lista1.column("#1",width=50)
-        self.lista1.column("#2",width=70)
-        self.lista1.column("#3",width=25)
-        self.lista1.column("#4",width=25)
+        self.lista1.column("#1",width=25)
+        self.lista1.column("#2",width=30)
+        self.lista1.column("#3",width=20)
+        self.lista1.column("#4",width=40)
         self.lista1.column("#5",width=30)
 
         # Inserir os dados na tabela
@@ -936,8 +944,8 @@ def lista_pets_venda(self):
         # Modded by Erineldo 26/05
         # Adicionada a listagem de pets disponíveis para venda
         dados = gerenciador_BD.BD.get_pets_venda(self)
-        for i in dados:
-            self.lista1.insert('', tkinter.END, values=i)
+        for pet_venda in dados:
+            self.lista1.insert('', tkinter.END, values=pet_venda)
         
         self.label_Codigo_venda_pet = Label(self.FR_lista1, text="Pets disponíveis para venda", font=fonte, background="#ffffff")
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
@@ -956,11 +964,21 @@ def lista_donos(self):
         self.lista1.heading("#2", text="Nome")
         self.lista1.heading("#3", text="Contato")
         
+        # Modded by Erineldo 27/05
+        # Modificado o tamanho das colunas
         self.lista1.column("#0",width=1)
         self.lista1.column("#1",width=60)
-        self.lista1.column("#2",width=150)
-        self.lista1.column("#3",width=100)
+        self.lista1.column("#2",width=120)
+        self.lista1.column("#3",width=130)
         
+        # Added by Erineldo 27/05
+        # Listagem de clientes
+        dados = gerenciador_BD.BD.get_clientes(self)
+        for cliente in dados:
+            self.lista1.insert('', tkinter.END, values=cliente)
+
+        self.lista1.bind('<<TreeviewSelect>>', item_Selecionado(self))
+
         
         self.label_Codigo_venda_pet = Label(self.FR_lista2, text="Lista Clientes Cadastrados", font=fonte, background="#ffffff")
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
