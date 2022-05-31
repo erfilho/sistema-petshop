@@ -166,8 +166,9 @@ class BD():
         self.conecta.commit()
         BD.desconecta_bd(self) 
 
-    # Mod by Erineldo 26/05
+    # Mod by Erineldo 31/05
     # Função para cadastro de clientes
+    # Adicionada verificação se foi realmente cadastrado
     def cad_cliente(self, codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email):
         # Verifica se já existe um cliente cadastrado com o mesmo código
         if(BD.verifica_Codigos(self, codigo, 'clientes')):
@@ -183,6 +184,8 @@ class BD():
                     )   
                 ;""", (codigo, nome, cpf, data_n, logradouro, cidade, bairro, uf, cel, email))
                 self.conecta.commit()
+                if(BD.verifica_cpf(self, cpf)):
+                    self.msgSucesso = messagebox.showinfo('CONCLUÍDO', 'Cliente cadastrado com sucesso!')
                 BD.desconecta_bd(self)
 
     # Mod by Erineldo 26/05
@@ -200,7 +203,9 @@ class BD():
                     ?, ?, ?
                 );
             """, (codigo, nome, preco))
-            self.conecta.commit()  
+            self.conecta.commit()
+            if(BD.verifica_Codigos(self, codigo, 'produtos')):
+                self.msgSucesso = messagebox.showinfo('CONCLUÍDO', 'Produto cadastrado com sucesso!')
             BD.desconecta_bd(self)
 
     # Mod by Erineldo 25/05
@@ -220,6 +225,8 @@ class BD():
                     );
                 """, (codigo, nome, idade, sexo, raca, preco))
                 self.conecta.commit()
+            if(BD.verifica_Codigos(self, codigo, 'pets_vendas')):
+                self.msgSucesso = messagebox.showinfo('CONCLUÍDO', 'Pet para venda cadastrado com sucesso!')
                 BD.desconecta_bd(self)
         else:
             # Verifica se já existe um pet de cliente cadastrado com o mesmo código
@@ -234,6 +241,8 @@ class BD():
                     )
                 ;""", (codigo, nome, idade, sexo, raca, codigo_dono))
                 self.conecta.commit()
+            if(BD.verifica_Codigos(self, codigo, 'pets_clientes')):
+                self.msgSucesso = messagebox.showinfo('CONCLUÍDO', 'Pet para venda cadastrado com sucesso!')
                 BD.desconecta_bd(self)
 
     # Added by Erineldo -27/05
@@ -252,6 +261,8 @@ class BD():
                 )
             ;""", (codigo, codigo_cli, raca, sexo, idade, valor, pet))
             self.conecta.commit()
+            if(BD.verifica_Codigos(self, codigo, 'encomenda_pet')):
+                self.msgSucesso = messagebox.showinfo('CONCLUÍDO', 'Encomenda de pet cadastrada com sucesso!')
             BD.desconecta_bd(self)
 
     # Added by Erineldo - 24/05
