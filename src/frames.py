@@ -185,12 +185,15 @@ def Caixa(self, lista):
     self.bt_logout = Button(self.FR_root_3 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
     self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
 
-# Added by Erineldo 26/05 
+# Moddded by Erineldo - 01/06
 # Função que vai limpar os campos de entrada do cadastro de produtos
+# Caixa de confirmaçãopara limpeza dos campos
 def limpa_campos_produtos(self):
-    self.et_Codigo.delete(0, 'end')
-    self.et_Nome.delete(0, 'end')
-    self.et_Preco.delete(0, 'end')
+    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+    if(self.msgBox):
+        self.et_Codigo.delete(0, 'end')
+        self.et_Nome.delete(0, 'end')
+        self.et_Preco.delete(0, 'end')
 
 def Cadastro_Produto(self):
     self.FR_root_ator_1 = Frame(self.root, background= fundo3, highlightbackground = '#000000', borderwidth=0.01, highlightthickness=2)
@@ -257,17 +260,20 @@ def Cadastro_Produto(self):
     self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_produtos(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32) 
 
-# Added by Erineldo 26/05
+# Modded by Erineldo - 01/06
 # Função que vai limpar os campos de entrada dos campos de clientes
+# Adicionado caixa para confirmação de limpeza dos campos
 def limpa_campos_pet(self):
-    self.et_Codigo.delete(0, 'end')
-    self.et_Nome.delete(0, 'end')
-    self.et_Idade.delete(0, 'end')
-    self.et_Sexo.delete(0, 'end')
-    self.et_Codigo_Dono.delete(0, 'end')
-    self.et_Raca.delete(0, 'end')
-    self.et_Preco.delete(0, 'end')
-    self.CB_pet_para_venda.deselect()
+    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+    if(self.msgBox):
+        self.et_Codigo.delete(0, 'end')
+        self.et_Nome.delete(0, 'end')
+        self.et_Idade.delete(0, 'end')
+        self.et_Sexo.delete(0, 'end')
+        self.et_Codigo_Dono.delete(0, 'end')
+        self.et_Raca.delete(0, 'end')
+        self.et_Preco.delete(0, 'end')
+        self.CB_pet_para_venda.deselect()
 
 def Cadastro_Pet(self):
     self.FR_root_ator_2 = Frame(self.root, background= fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -381,19 +387,22 @@ def Cadastro_Pet(self):
     self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_pet(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
 
-# Added by Erineldo 26/05
+# Modded by Erineldo - 01/06
 # Função que limpa os campos de entrada de dados no cadastro de clientes
+# Adicionada caixa de confirmação para limpeza dos campos
 def limpa_campos_clientes(self):
-    self.et_Codigo.delete(0, 'end')
-    self.et_Nome.delete(0, 'end')
-    self.et_CPF.delete(0, 'end')
-    self.et_Data_nascimento.delete(0, 'end')
-    self.et_Logradouro.delete(0, 'end')
-    self.et_Cidade.delete(0, 'end')
-    self.et_Bairro.delete(0, 'end')
-    self.et_UF.delete(0, 'end')
-    self.et_Celular.delete(0, 'end')
-    self.et_Email.delete(0, 'end')
+    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+    if(self.msgBox):
+        self.et_Codigo.delete(0, 'end')
+        self.et_Nome.delete(0, 'end')
+        self.et_CPF.delete(0, 'end')
+        self.et_Data_nascimento.delete(0, 'end')
+        self.et_Logradouro.delete(0, 'end')
+        self.et_Cidade.delete(0, 'end')
+        self.et_Bairro.delete(0, 'end')
+        self.et_UF.delete(0, 'end')
+        self.et_Celular.delete(0, 'end')
+        self.et_Email.delete(0, 'end')
 
 def Cadastro_Cliente(self):
     self.FR_root_ator_3 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -608,16 +617,19 @@ def Venda_Pet(self):
     self.bt_reservar = Button(self.FR_root_ator_4, image= self.img_bt_encomenda, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Encomenda"))
     self.bt_reservar.place(relx= 0.02, rely = 0.7, relheight= 0.115, relwidth=0.28)
 
-# Added by Erineldo - 27/05
+# Modded by Erineldo - 01/06
 # Função para limpar os campos de entrada do cadastro de encomendas de pet
+# Adicionada caixa de confirmação para a limpea dos campos
 def limpa_campos_encomenda(self):
-    self.et_Codigo_encomenda.delete(0, 'end')
-    self.et_Codigo_cli.delete(0, 'end')
-    self.et_Raca.delete(0, 'end')
-    self.et_Sexo.delete(0, 'end')
-    self.et_Idade.delete(0, 'end')
-    self.et_Valor.delete(0, 'end')
-    self.et_Codigo_pet.delete(0, 'end')
+    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+    if(self.msgBox == 'yes'):
+        self.et_Codigo_encomenda.delete(0, 'end')
+        self.et_Codigo_cli.delete(0, 'end')
+        self.et_Raca.delete(0, 'end')
+        self.et_Sexo.delete(0, 'end')
+        self.et_Idade.delete(0, 'end')
+        self.et_Valor.delete(0, 'end')
+        self.et_Codigo_pet.delete(0, 'end')
     
 def Encomenda_Pet(self):
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -724,12 +736,15 @@ def Encomenda_Pet(self):
     self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_encomenda(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
 
-# Added by Erineldo 27/05
+# Mode by Erineldo 01/06
 # Função que limpa os dados dos campos de entrada da tela de vendas
+# Caixa de confirmação
 def limpa_campos_vendas(self):
-    self.et_Codigo_produto.delete(0, 'end')
-    self.et_Codigo_pet.delete(0, 'end')
-    self.et_Codigo_encomenda.delete(0, 'end')
+    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+    if(self.msgBox == 'yes'):
+        self.et_Codigo_produto.delete(0, 'end')
+        self.et_Codigo_pet.delete(0, 'end')
+        self.et_Codigo_encomenda.delete(0, 'end')
 
 def Vendas(self):
     self.FR_root_ator_5 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
