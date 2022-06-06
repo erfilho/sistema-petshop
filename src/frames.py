@@ -394,6 +394,15 @@ def limpa_campos_clientes(self):
     self.et_Celular.delete(0, 'end')
     self.et_Email.delete(0, 'end')
 
+def limpa_campos_vendaPet_CODPet(self):
+    self.et_Codigo_pet.delete(0, 'end')
+def limpa_campos_vendaPet_CODDono(self):
+    self.et_Codigo_dono.delete(0, 'end')
+def limpa_campos_vendaPet(self):
+    self.et_Codigo_venda_pet.delete(0, 'end')
+    limpa_campos_vendaPet_CODPet(self)
+    limpa_campos_vendaPet_CODDono(self)
+
 def Cadastro_Cliente(self):
     self.FR_root_ator_3 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_3.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
@@ -600,7 +609,7 @@ def Venda_Pet(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda : limpa_campos_vendaPet(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Encomendar Pet
@@ -853,9 +862,6 @@ def Nota_fiscal(self):
     #Salvar
     self.bt_salvar = Button(self.FR_root_ator_6, image= self.img_ok, borderwidth = 0, highlightthickness = 0,command= lambda: muda_frame_funcionalidade(self, "Produtos"))
     self.bt_salvar.place(relx= 0.8, rely = 0.86, relheight= 0.115, relwidth=0.175)
-    
-def print_teste(self):
-        print("teste")
 
 def muda_frame_funcionalidade(self, frame):
     if frame == "Produto":
@@ -912,8 +918,18 @@ def muda_lista_venda_pet(self, opcao):
     elif(opcao == "NA"):
         self.atual_lista.destroy()
 
+def duploClick_CODPet(self):
+        limpa_campos_vendaPet_CODPet(self)
+        for i in self.lista1.selection():
+            col1, col2, col3, col4, col5 = self.lista1.item(i, 'values')
+            self.et_Codigo_pet.insert(END, col1)
+def duploClick_CODDono(self):
+        limpa_campos_vendaPet_CODDono(self)
+        for i in self.lista1.selection():
+            col1, col2, col3 = self.lista1.item(i, 'values')
+            self.et_Codigo_dono.insert(END, col1)
+
 def item_Selecionado(self):
-    print("Item selecionado")
     for item in self.lista1.selection():
         item_text = self.lista1.item(item, "values")
         print(item_text)
@@ -954,6 +970,8 @@ def lista_pets_venda(self):
         
         self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
         
+        self.lista1.bind('<Double-1>', lambda x: duploClick_CODPet(self))
+        
 def lista_donos(self):
         self.FR_lista2 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
         self.FR_lista2.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
@@ -986,3 +1004,5 @@ def lista_donos(self):
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
         
         self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0) 
+        
+        self.lista1.bind('<Double-1>', lambda x: duploClick_CODDono(self))
