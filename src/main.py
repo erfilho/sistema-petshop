@@ -11,7 +11,7 @@ class Aplication():
     def __init__(self):
         self.root = root
         self.tela()
-        frames.login(self)
+        frames.Login(self)
         self.root.mainloop()               
     def tela(self):
         self.root.title("Petshop Mundocão")

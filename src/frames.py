@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
-
-from tkinter import ttk
-from tkinter import *
-from tkinter import messagebox
 import tkinter
-from click import command
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
 
-from numpy import complexfloating
-import gerenciador_BD
+# Importação do arquivo de funções auxiliares
+import func as aux
+# Importação do arquivo de controle do banco de dados
+import control_db as cdb
+
 import os
 from pathlib import Path
 
@@ -21,7 +21,8 @@ borda = '#BA55D3'
 fonte = "Jura"
 texto = '#ffffff'
 
-def login(self):
+def Login(self):
+    ctrl = cdb.Controler()
     self.frame_1 = Frame(self.root, highlightbackground="#000000", borderwidth=0.01, highlightthickness=2)
     self.frame_1.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=1.0)
 
@@ -37,10 +38,9 @@ def login(self):
     # Adicionado ícone para a janela
     self.root.title("Petshop Mundocão - Login")
     self.root.iconphoto(False, PhotoImage(file= Path(ROOT_DIR, "img", "ico", "window_icon.png")))
-    self.atual_frame = self.frame_1
+    self.frame_atual = self.frame_1
     
     #Criando Entradas
-
     #CPF
     self.fundo_cpf = Label(self.frame_1, image= self.img_cpf)
     self.fundo_cpf.place(relx= 0.6, rely = 0.3, relheight=0.12, relwidth=0.32)
@@ -57,7 +57,7 @@ def login(self):
     self.et_Senha.place(relx= 0.615, rely = 0.495, relheight= 0.08, relwidth=0.285)
     
     #Criando os Botões
-    self.bt_OK = Button(self.frame_1, text="OK", image= self.img_botao, borderwidth = 0, highlightthickness = 0, command= lambda: muda_tela_ator(self, gerenciador_BD.BD.verifica_senha(self, self.et_cpf.get(), self.et_Senha.get())))
+    self.bt_OK = Button(self.frame_1, text="OK", image= self.img_botao, borderwidth = 0, highlightthickness = 0, command= lambda: aux.muda_tela(self, ctrl.check_senha(self.et_cpf.get(), self.et_Senha.get())))
     self.bt_OK.place(relx= 0.65, rely = 0.7, relheight= 0.11, relwidth=0.18)
 
 def Estoquista(self, lista):
@@ -71,7 +71,7 @@ def Estoquista(self, lista):
     self.fundo_estoquista.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=0.98)
     
     self.root.title("Estoquista")
-    self.atual_frame = self.FR_root_1
+    self.frame_atual = self.FR_root_1
     
     Cadastro_Produto(self)
     
@@ -91,11 +91,11 @@ def Estoquista(self, lista):
     self.value_inside = StringVar()
     self.value_inside.set(self.lista_estoquista[0])
     
-    self.OP_Cadastro = OptionMenu(self.FR_root_1, self.value_inside, *self.lista_estoquista, command = lambda x: muda_frame_funcionalidade(self, self.value_inside.get()))
+    self.OP_Cadastro = OptionMenu(self.FR_root_1, self.value_inside, *self.lista_estoquista, command = lambda x: aux.muda_funcionalidade(self, self.value_inside.get()))
     self.OP_Cadastro.place(relx = 0.03, rely = 0.38)
     self.OP_Cadastro.config(background=option, highlightbackground = "#000000", foreground=texto)
     
-    self.bt_logout = Button(self.FR_root_1 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
+    self.bt_logout = Button(self.FR_root_1 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: aux.logout(self))
     self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
 
 def Recepcionista(self, lista):
@@ -109,7 +109,7 @@ def Recepcionista(self, lista):
     self.fundo_recepcionista.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=0.98)
     
     self.root.title("Recepcionista")
-    self.atual_frame = self.FR_root_2
+    self.frame_atual = self.FR_root_2
     
     Cadastro_Cliente(self)
     
@@ -129,7 +129,7 @@ def Recepcionista(self, lista):
     self.value_inside1 = StringVar()
     self.value_inside1.set(lista_recepcionista1[0])
     
-    self.OP_Cadastro = OptionMenu(self.FR_root_2, self.value_inside1, *lista_recepcionista1, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside1.get()))
+    self.OP_Cadastro = OptionMenu(self.FR_root_2, self.value_inside1, *lista_recepcionista1, command = lambda x:  aux.muda_funcionalidade(self, self.value_inside1.get()))
     self.OP_Cadastro.place(relx = 0.03, rely = 0.35)
     self.OP_Cadastro.config(background=option, highlightbackground = "#000000", foreground=texto)
     
@@ -140,11 +140,11 @@ def Recepcionista(self, lista):
     self.value_inside2 = StringVar()
     self.value_inside2.set(lista_recepcionista2[0])
     
-    self.OP_Vendas = OptionMenu(self.FR_root_2, self.value_inside2, *lista_recepcionista2, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside2.get()))
+    self.OP_Vendas = OptionMenu(self.FR_root_2, self.value_inside2, *lista_recepcionista2, command = lambda x:  aux.muda_funcionalidade(self, self.value_inside2.get()))
     self.OP_Vendas.place(relx = 0.03, rely = 0.48)
     self.OP_Vendas.config(background=option, highlightbackground = "#000000", foreground=texto)
     
-    self.bt_logout = Button(self.FR_root_2 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
+    self.bt_logout = Button(self.FR_root_2 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: aux.logout(self))
     self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
     
 def Caixa(self, lista):
@@ -159,7 +159,7 @@ def Caixa(self, lista):
     self.fundo_recepcionista.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=0.98)
     
     self.root.title("Caixa")
-    self.atual_frame = self.FR_root_3
+    self.frame_atual = self.FR_root_3
 
     Vendas(self)
 
@@ -178,24 +178,17 @@ def Caixa(self, lista):
     lista_caixa = ["Produtos"]
     self.value_inside = StringVar()
     self.value_inside.set(lista_caixa[0])
-    self.OP_Vendas = OptionMenu(self.FR_root_3, self.value_inside, *lista_caixa, command = lambda x:  muda_frame_funcionalidade(self, self.value_inside.get()))
+    self.OP_Vendas = OptionMenu(self.FR_root_3, self.value_inside, *lista_caixa, command = lambda x:  aux.muda_funcionalidade(self, self.value_inside.get()))
     self.OP_Vendas.place(relx = 0.03, rely = 0.35)
     self.OP_Vendas.config(background=option, highlightbackground = "#000000", foreground=texto)
     
-    self.bt_logout = Button(self.FR_root_3 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: Logout(self))
+    self.bt_logout = Button(self.FR_root_3 , text="Logout", image= self.img_logout, borderwidth = 0, highlightthickness = 0, command = lambda: aux.logout(self))
     self.bt_logout.place(relx= 0.4, rely = 0.89, relheight= 0.11, relwidth=0.55)
 
-# Moddded by Erineldo - 01/06
-# Função que vai limpar os campos de entrada do cadastro de produtos
-# Caixa de confirmaçãopara limpeza dos campos
-def limpa_campos_produtos(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
-        self.et_Codigo.delete(0, 'end')
-        self.et_Nome.delete(0, 'end')
-        self.et_Preco.delete(0, 'end')
-
 def Cadastro_Produto(self):
+    # Criação da variável que vai controlar os cadastros no banco de dados
+    factory = cdb.Factory()
+
     self.FR_root_ator_1 = Frame(self.root, background= fundo3, highlightbackground = '#000000', borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_1.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     
@@ -247,7 +240,7 @@ def Cadastro_Produto(self):
     #Botões
     #Salvar
     # Mod by Erineldo - Added cadastro produto
-    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_produto(self, self.et_Codigo.get(), self.et_Nome.get(), self.et_Preco.get()))
+    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.produtos_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Preco.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -257,25 +250,13 @@ def Cadastro_Produto(self):
     
     #Limpar
     # Mod by Erineldo - Nomes de botões iguais
-    self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_produtos(self))
-    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32) 
-
-# Modded by Erineldo - 01/06
-# Função que vai limpar os campos de entrada dos campos de clientes
-# Adicionado caixa para confirmação de limpeza dos campos
-def limpa_campos_pet(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
-        self.et_Codigo.delete(0, 'end')
-        self.et_Nome.delete(0, 'end')
-        self.et_Idade.delete(0, 'end')
-        self.et_Sexo.delete(0, 'end')
-        self.et_Codigo_Dono.delete(0, 'end')
-        self.et_Raca.delete(0, 'end')
-        self.et_Preco.delete(0, 'end')
-        self.CB_pet_para_venda.deselect()
+    self.bt_limpar = Button(self.FR_root_ator_1, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.clean_produtos(self))
+    self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
 
 def Cadastro_Pet(self):
+    # Criação da variável que vai controlar os cadastros no banco de dados
+    factory = cdb.Factory()
+
     self.FR_root_ator_2 = Frame(self.root, background= fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_2.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     
@@ -376,7 +357,7 @@ def Cadastro_Pet(self):
 
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_pet(self, self.et_Codigo.get(), self.et_Nome.get(), self.et_Idade.get(), self.et_Sexo.get(), self.et_Codigo_Dono.get(), self.et_Raca.get(), self.et_Preco.get(), self.valor_Checkbox.get()))
+    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.pet_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Idade.get(), self.et_Sexo.get(), self.et_Codigo_Dono.get(), self.et_Raca.get(), self.et_Preco.get(), self.valor_Checkbox.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -384,27 +365,13 @@ def Cadastro_Pet(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_pet(self))
+    self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.clean_pets(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
 
-# Modded by Erineldo - 01/06
-# Função que limpa os campos de entrada de dados no cadastro de clientes
-# Adicionada caixa de confirmação para limpeza dos campos
-def limpa_campos_clientes(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
-        self.et_Codigo.delete(0, 'end')
-        self.et_Nome.delete(0, 'end')
-        self.et_CPF.delete(0, 'end')
-        self.et_Data_nascimento.delete(0, 'end')
-        self.et_Logradouro.delete(0, 'end')
-        self.et_Cidade.delete(0, 'end')
-        self.et_Bairro.delete(0, 'end')
-        self.et_UF.delete(0, 'end')
-        self.et_Celular.delete(0, 'end')
-        self.et_Email.delete(0, 'end')
-
 def Cadastro_Cliente(self):
+    # Criação da variável que vai controlar os cadastros no banco de dados
+    factory = cdb.Factory()
+    
     self.FR_root_ator_3 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_3.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     
@@ -419,7 +386,6 @@ def Cadastro_Cliente(self):
     self.img_bt_cancelar = PhotoImage(file= Path(ROOT_DIR, "img", "botao_cancelar.png"))
     self.img_bt_limpar = PhotoImage(file= Path(ROOT_DIR, "img", "botao_limpar.png"))
 
-
     #entradas
     #codigo do Cliente
     #label
@@ -432,7 +398,6 @@ def Cadastro_Cliente(self):
     self.et_Codigo = Entry(self.FR_root_ator_3, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
     self.et_Codigo.focus()
-    
 
     #nome do Cliente
     #label
@@ -535,7 +500,7 @@ def Cadastro_Cliente(self):
     
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_cliente(self, self.et_Codigo.get(), self.et_Nome.get(), self.et_CPF.get(), self.et_Data_nascimento.get(), self.et_Logradouro.get(), self.et_Cidade.get(), self.et_Bairro.get(), self.et_UF.get(), self.et_Celular.get(), self.et_Email.get()))
+    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.cliente_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_CPF.get(), self.et_Data_nascimento.get(), self.et_Logradouro.get(), self.et_Cidade.get(), self.et_Bairro.get(), self.et_UF.get(), self.et_Celular.get(), self.et_Email.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -543,8 +508,9 @@ def Cadastro_Cliente(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_clientes(self))
+    self.bt_limpar = Button(self.FR_root_ator_3, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.clean_clientes(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
+
 def Venda_Pet(self):
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
@@ -574,7 +540,7 @@ def Venda_Pet(self):
     self.et_Codigo_pet.focus()
     #bind da Entry
     self.et_Codigo_pet.bind('<FocusIn>',lista_pets_venda(self))
-    self.et_Codigo_pet.bind('<Button-1>', lambda x: muda_lista_venda_pet(self, "COD-PET"))
+    self.et_Codigo_pet.bind('<Button-1>', lambda x: aux.muda_venda_pet(self, "COD-PET"))
         
     #label
     self.label_Codigo_dono = Label(self.FR_root_ator_4, text="Código do Dono", font=fonte, background=fundo3)
@@ -586,7 +552,7 @@ def Venda_Pet(self):
     self.et_Codigo_dono = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo_dono.place(relx= 0.065, rely = 0.265, relheight= 0.075, relwidth=0.185)
     #bind da entry
-    self.et_Codigo_dono.bind('<Button-1>', lambda x: muda_lista_venda_pet(self, "COD-DONO"))
+    self.et_Codigo_dono.bind('<Button-1>', lambda x: aux.muda_venda_pet(self, "COD-DONO"))
     
     #label
     self.label_Codigo_venda_pet = Label(self.FR_root_ator_4, text="Código de Venda", font=fonte, background=fundo3)
@@ -598,7 +564,7 @@ def Venda_Pet(self):
     self.et_Codigo_venda_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo_venda_pet.place(relx= 0.065, rely = 0.415, relheight= 0.075, relwidth=0.185)   
     #bind da entry
-    self.et_Codigo_venda_pet.bind('<Button-1>',lambda x: muda_lista_venda_pet(self, "NA"))
+    self.et_Codigo_venda_pet.bind('<Button-1>',lambda x: aux.muda_venda_pet(self, "NA"))
     
     #Botões
     #Salvar
@@ -606,7 +572,7 @@ def Venda_Pet(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.teste_Clientes(self))
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -614,24 +580,13 @@ def Venda_Pet(self):
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Encomendar Pet
-    self.bt_reservar = Button(self.FR_root_ator_4, image= self.img_bt_encomenda, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Encomenda"))
+    self.bt_reservar = Button(self.FR_root_ator_4, image= self.img_bt_encomenda, borderwidth = 0, highlightthickness = 0, command= lambda: aux.muda_funcionalidade(self, "Encomenda"))
     self.bt_reservar.place(relx= 0.02, rely = 0.7, relheight= 0.115, relwidth=0.28)
-
-# Modded by Erineldo - 01/06
-# Função para limpar os campos de entrada do cadastro de encomendas de pet
-# Adicionada caixa de confirmação para a limpea dos campos
-def limpa_campos_encomenda(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox == 'yes'):
-        self.et_Codigo_encomenda.delete(0, 'end')
-        self.et_Codigo_cli.delete(0, 'end')
-        self.et_Raca.delete(0, 'end')
-        self.et_Sexo.delete(0, 'end')
-        self.et_Idade.delete(0, 'end')
-        self.et_Valor.delete(0, 'end')
-        self.et_Codigo_pet.delete(0, 'end')
     
 def Encomenda_Pet(self):
+    # Criação da variável que vai controlar os cadastros no banco de dados
+    factory = cdb.Factory()
+    
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     self.LB_label1 = Label(self.FR_root_ator_4, text = "Encomeda de Pet", background = fundo3)
@@ -725,26 +680,16 @@ def Encomenda_Pet(self):
 
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: gerenciador_BD.BD.cad_encomenda(self, self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get(), self.et_Codigo_pet.get()))
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.encomenda_fac(self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get(), self.et_Codigo_pet.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0,command= lambda: muda_frame_funcionalidade(self, "Pets"))
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0,command= lambda: aux.muda_funcionalidade(self, "Pets"))
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_encomenda(self))
+    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.clean_encomendas(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
-
-# Mode by Erineldo 01/06
-# Função que limpa os dados dos campos de entrada da tela de vendas
-# Caixa de confirmação
-def limpa_campos_vendas(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox == 'yes'):
-        self.et_Codigo_produto.delete(0, 'end')
-        self.et_Codigo_pet.delete(0, 'end')
-        self.et_Codigo_encomenda.delete(0, 'end')
 
 def Vendas(self):
     self.FR_root_ator_5 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -829,7 +774,7 @@ def Vendas(self):
     
     #Botões
     #Finalizar
-    self.bt_finalizar = Button(self.FR_root_ator_5, image= self.img_bt_finalizar, borderwidth = 0, highlightthickness = 0, command= lambda: muda_frame_funcionalidade(self, "Nota"))
+    self.bt_finalizar = Button(self.FR_root_ator_5, image= self.img_bt_finalizar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.muda_funcionalidade(self, "Nota"))
     self.bt_finalizar.place(relx= 0.68, rely = 0.87, relheight= 0.11, relwidth=0.29)
     
     #Cancelar
@@ -837,7 +782,7 @@ def Vendas(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_5, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: limpa_campos_vendas(self))
+    self.bt_limpar = Button(self.FR_root_ator_5, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.clean_vendas(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Adicionar
@@ -887,68 +832,12 @@ def Nota_fiscal(self):
     
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_6, image= self.img_ok, borderwidth = 0, highlightthickness = 0,command= lambda: muda_frame_funcionalidade(self, "Produtos"))
+    self.bt_salvar = Button(self.FR_root_ator_6, image= self.img_ok, borderwidth = 0, highlightthickness = 0,command= lambda: aux.muda_funcionalidade(self, "Produtos"))
     self.bt_salvar.place(relx= 0.8, rely = 0.86, relheight= 0.115, relwidth=0.175)
-    
-def print_teste(self):
-        print("teste")
-
-def muda_frame_funcionalidade(self, frame):
-    if frame == "Produto":
-        self.frame_funcionalidade.destroy()
-        Cadastro_Produto(self)
-    elif(frame == "Pet"):
-        self.frame_funcionalidade.destroy()
-        Cadastro_Pet(self)
-    elif(frame == "Clientes"):
-        self.frame_funcionalidade.destroy()
-        Cadastro_Cliente(self)
-    elif(frame == "Pets"):
-        self.frame_funcionalidade.destroy()
-        Venda_Pet(self)  
-    elif(frame == "Produtos"):
-        self.frame_funcionalidade.destroy()
-        Vendas(self)
-    elif(frame == "Encomenda"):
-        self.frame_funcionalidade.destroy()
-        Encomenda_Pet(self)  
-    elif(frame == "Nota"):
-        self.frame_funcionalidade.destroy()
-        Nota_fiscal(self)
-        
-def Logout(self):
-    self.atual_frame.destroy()
-    self.frame_funcionalidade.destroy()
-    login(self)
-
-def muda_tela_ator(self, lista):
-    for i in lista:
-            cargo = i[0]
-    if lista == []:
-        self.msgLimpar = messagebox.showerror('ERRO', 'Funcionário não encontrado. \n      Tente novamente.')
-    elif(cargo == 'ESTOQUISTA'):
-        self.atual_frame.destroy()  
-        Estoquista(self, i)
-    elif(cargo == 'RECEPCIONISTA'):
-        self.atual_frame.destroy()  
-        Recepcionista(self, i)
-    elif(cargo == 'CAIXA'):
-        self.atual_frame.destroy()
-        Caixa(self, i)
-
-# Mod by Erineldo 26/05
-# Correção de erros de nomenclatura
-def muda_lista_venda_pet(self, opcao):
-    if(opcao == "COD-PET"):
-        self.atual_lista.destroy()
-        lista_pets_venda(self)
-    elif(opcao == "COD-DONO"):
-        self.atual_lista.destroy()
-        lista_donos(self)
-    elif(opcao == "NA"):
-        self.atual_lista.destroy()
 
 def lista_pets_venda(self):
+        lists = cdb.Lists()
+
         self.FR_lista1 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
         self.FR_lista1.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
         
@@ -975,7 +864,7 @@ def lista_pets_venda(self):
         # tree.insert('', tkinter.END, values=data)
         # Modded by Erineldo 26/05
         # Adicionada a listagem de pets disponíveis para venda
-        dados = gerenciador_BD.BD.get_pets_venda(self)
+        dados = lists.pets_venda_list()
         for pet_venda in dados:
             self.lista1.insert('', tkinter.END, values=pet_venda)
         
@@ -985,6 +874,7 @@ def lista_pets_venda(self):
         self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
         
 def lista_donos(self):
+        lists = cdb.Lists()
         self.FR_lista2 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
         self.FR_lista2.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
         
@@ -1003,12 +893,11 @@ def lista_donos(self):
         self.lista1.column("#2",width=120)
         self.lista1.column("#3",width=130)
         
-        # Added by Erineldo 27/05
+        # Modded by Erineldo 27/05
         # Listagem de clientes
-        dados = gerenciador_BD.BD.get_clientes(self)
+        dados = lists.clientes_list()
         for cliente in dados:
             self.lista1.insert('', tkinter.END, values=cliente)
-
         
         self.label_Codigo_venda_pet = Label(self.FR_lista2, text="Lista Clientes Cadastrados", font=fonte, background="#ffffff")
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
