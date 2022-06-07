@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
-import frames
+import frames as frames
 
 fundo1 = '#EF8D6A'
 

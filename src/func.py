@@ -2,7 +2,7 @@
 from email import message_from_string
 from tkinter import messagebox
 # Importa o módulo de exibição das telas
-import frames
+import frames as frames
 # Importa o módulo para verificação de dados com expressões regulares
 import re
 
