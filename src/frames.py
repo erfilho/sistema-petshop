@@ -368,6 +368,35 @@ def Cadastro_Pet(self):
     self.bt_limpar = Button(self.FR_root_ator_2, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.clean_pets(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
 
+<<<<<<< HEAD
+=======
+# Modded by Erineldo - 01/06
+# Função que limpa os campos de entrada de dados no cadastro de clientes
+# Adicionada caixa de confirmação para limpeza dos campos
+def limpa_campos_clientes(self):
+    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+    if(self.msgBox):
+        self.et_Codigo.delete(0, 'end')
+        self.et_Nome.delete(0, 'end')
+        self.et_CPF.delete(0, 'end')
+        self.et_Data_nascimento.delete(0, 'end')
+        self.et_Logradouro.delete(0, 'end')
+        self.et_Cidade.delete(0, 'end')
+        self.et_Bairro.delete(0, 'end')
+        self.et_UF.delete(0, 'end')
+        self.et_Celular.delete(0, 'end')
+        self.et_Email.delete(0, 'end')
+
+def limpa_campos_vendaPet_CODPet(self):
+    self.et_Codigo_pet.delete(0, 'end')
+def limpa_campos_vendaPet_CODDono(self):
+    self.et_Codigo_dono.delete(0, 'end')
+def limpa_campos_vendaPet(self):
+    self.et_Codigo_venda_pet.delete(0, 'end')
+    limpa_campos_vendaPet_CODPet(self)
+    limpa_campos_vendaPet_CODDono(self)
+
+>>>>>>> 66929dbe37d89b068634be2d5ae5653b2e6242d8
 def Cadastro_Cliente(self):
     # Criação da variável que vai controlar os cadastros no banco de dados
     factory = cdb.Factory()
@@ -576,7 +605,7 @@ def Venda_Pet(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda : limpa_campos_vendaPet(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Encomendar Pet
@@ -834,6 +863,80 @@ def Nota_fiscal(self):
     #Salvar
     self.bt_salvar = Button(self.FR_root_ator_6, image= self.img_ok, borderwidth = 0, highlightthickness = 0,command= lambda: aux.muda_funcionalidade(self, "Produtos"))
     self.bt_salvar.place(relx= 0.8, rely = 0.86, relheight= 0.115, relwidth=0.175)
+<<<<<<< HEAD
+=======
+
+def muda_frame_funcionalidade(self, frame):
+    if frame == "Produto":
+        self.frame_funcionalidade.destroy()
+        Cadastro_Produto(self)
+    elif(frame == "Pet"):
+        self.frame_funcionalidade.destroy()
+        Cadastro_Pet(self)
+    elif(frame == "Clientes"):
+        self.frame_funcionalidade.destroy()
+        Cadastro_Cliente(self)
+    elif(frame == "Pets"):
+        self.frame_funcionalidade.destroy()
+        Venda_Pet(self)  
+    elif(frame == "Produtos"):
+        self.frame_funcionalidade.destroy()
+        Vendas(self)
+    elif(frame == "Encomenda"):
+        self.frame_funcionalidade.destroy()
+        Encomenda_Pet(self)  
+    elif(frame == "Nota"):
+        self.frame_funcionalidade.destroy()
+        Nota_fiscal(self)
+        
+def Logout(self):
+    self.atual_frame.destroy()
+    self.frame_funcionalidade.destroy()
+    login(self)
+
+def muda_tela_ator(self, lista):
+    for i in lista:
+            cargo = i[0]
+    if lista == []:
+        self.msgLimpar = messagebox.showerror('ERRO', 'Funcionário não encontrado. \n      Tente novamente.')
+    elif(cargo == 'ESTOQUISTA'):
+        self.atual_frame.destroy()  
+        Estoquista(self, i)
+    elif(cargo == 'RECEPCIONISTA'):
+        self.atual_frame.destroy()  
+        Recepcionista(self, i)
+    elif(cargo == 'CAIXA'):
+        self.atual_frame.destroy()
+        Caixa(self, i)
+
+# Mod by Erineldo 26/05
+# Correção de erros de nomenclatura
+def muda_lista_venda_pet(self, opcao):
+    if(opcao == "COD-PET"):
+        self.atual_lista.destroy()
+        lista_pets_venda(self)
+    elif(opcao == "COD-DONO"):
+        self.atual_lista.destroy()
+        lista_donos(self)
+    elif(opcao == "NA"):
+        self.atual_lista.destroy()
+>>>>>>> 66929dbe37d89b068634be2d5ae5653b2e6242d8
+
+def duploClick_CODPet(self):
+        limpa_campos_vendaPet_CODPet(self)
+        for i in self.lista1.selection():
+            col1, col2, col3, col4, col5 = self.lista1.item(i, 'values')
+            self.et_Codigo_pet.insert(END, col1)
+def duploClick_CODDono(self):
+        limpa_campos_vendaPet_CODDono(self)
+        for i in self.lista1.selection():
+            col1, col2, col3 = self.lista1.item(i, 'values')
+            self.et_Codigo_dono.insert(END, col1)
+
+def item_Selecionado(self):
+    for item in self.lista1.selection():
+        item_text = self.lista1.item(item, "values")
+        print(item_text)
 
 def lista_pets_venda(self):
         lists = cdb.Lists()
@@ -873,6 +976,8 @@ def lista_pets_venda(self):
         
         self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
         
+        self.lista1.bind('<Double-1>', lambda x: duploClick_CODPet(self))
+        
 def lista_donos(self):
         lists = cdb.Lists()
         self.FR_lista2 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
@@ -903,3 +1008,5 @@ def lista_donos(self):
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
         
         self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0) 
+        
+        self.lista1.bind('<Double-1>', lambda x: duploClick_CODDono(self))
