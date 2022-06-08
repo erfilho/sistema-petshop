@@ -76,26 +76,32 @@ class Factory():
         ctrl = self.controller
         # Ocorre o tratamento de exceções e a execução da tarefa principal da função
         try:
-            # Verifica se os campos estão de acordo com as especificações
-            if aux.valida_cod(self, codigo) != 0:
-                codigo = aux.valida_cod(self, codigo)
-            else:
-                raise Exception('Código inválido!')
+            # Atribui os valores validados as variaveis referentes
+            codigo = aux.valida_cod(codigo)
             cpf = aux.valida_cpf(cpf)
             cel = aux.valida_cel(cel)
             email = aux.valida_email(email)
+
             # Tabela referente a função
             tabela = "Clientes"
-            # Verifica se o código já está cadastrado
+            # Confirma se o usuário deseja realmente confirmar o cadastro
+            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                # Caso o cliente não confirme será gerada uma exceção
+                raise Exception('Cadastro cancelado!')
+            # Verifica se os campos estão de acordo com as especificações
             if aux.valida_cod(codigo) == False:
                 # Caso o código não esteja de acordo com as especificações será gerada uma exceção
                 raise Exception('O código não está de acordo com as especificações!')
             elif aux.valida_cpf(cpf) == False:
+                # Caso o cpf do cliente não esteja de acordo com as especificações será gerada uma exceção
                 raise Exception('O CPF não está de acordo com as especificações!')
             elif aux.valida_cel(cel) == False:
+                # Caso o celular do cliente não esteja de acordo com as especificações será gerada uma exceção
                 raise Exception('O celular não está de acordo com as especificações!')
             elif aux.valida_email(email) == False:
+                # Caso o email do cliente não esteja de acordo com as especificações será gerada uma exceção
                 raise Exception('O Email não está de acordo com as especificações!')
+            # Verifica se o código já está cadastrado
             elif ctrl.check_cod(tabela, codigo):
                 # Caso o código já esteja cadastrado irá ser gerada uma exceção
                 raise Exception("Código já cadastrado, tente novamente!")
@@ -135,8 +141,13 @@ class Factory():
         try:
             # Tabela referente a função
             tabela = "Produtos"
+            # Confirma se o usuário deseja realmente confirmar o cadastro
+            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                # Caso o cliente não confirme será gerada uma exceção
+                raise Exception('Cadastro cancelado!')
             # Verifica se os campos estão de acordo com as especificações
-            if aux.valida_cod(codigo) == False:
+            elif aux.valida_cod(codigo) == False:
+                # Caso o código não esteja de acordo com as especificações será gerada uma exceção
                 raise Exception('Código inválido!')
             # Verifica se o código já está cadastrado
             elif ctrl.check_cod(tabela, codigo):
@@ -170,8 +181,10 @@ class Factory():
             tabela = "PetCliente"
             # Verifica se os campos estão de acordo com as especificações
             if aux.valida_cod(codigo) == False:
+                # Caso o código não esteja de acordo com as especificações será gerada uma exceção
                 raise Exception('Código inválido!')
             elif aux.valida_cod(codigo_dono) == False:
+                # Caso o código não esteja de acordo com as especificações será gerada uma exceção
                 raise Exception('Código de dono inválido!')
             # Verifica se o código já está cadastrado
             elif ctrl.check_cod(tabela, codigo):
@@ -238,8 +251,12 @@ class Factory():
     def pet_fac(self, codigo, nome, idade, sexo, codigo_dono, raca, preco, checkbox):
         # Ocorre o tratamento de exceções e a execução da tarefa principal da função
         try:
+            # Confirma se o usuário deseja realmente confirmar o cadastro
+            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                # Caso o cliente não confirme será gerada uma exceção
+                raise Exception('Cadastro cancelado!')
             # Verifica qual o tipo de pet vai ser feito o cadastro
-            if checkbox == 1:
+            elif checkbox == 1:
                 # Se o checkbox estiver marcado significa que é um pet para venda
                 self.pet_venda_fac(codigo, nome, idade, sexo, raca, preco)
             else:
@@ -258,8 +275,11 @@ class Factory():
         try:
             # Tabela referente a função
             tabela = 'EncomendaPet'
+            # Confirma se o usuário deseja confirmar o cadastro
+            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                raise Exception('Cadastro cancelado!')
             # Verifica se os campos estão de acordo com as especificações
-            if aux.valida_cod(codigo) == False:
+            elif aux.valida_cod(codigo) == False:
                 raise Exception('Código inválido!')
             elif aux.valida_cod(codigo_cli) == False:
                 raise Exception('Código de cliente inválido!')
@@ -273,11 +293,11 @@ class Factory():
                     INSERT INTO {tabela} VALUES (
                         {codigo},
                         {codigo_cli},
-                        {raca},
-                        {sexo},
-                        {idade},
-                        {valor},
-                        {pet}
+                        '{raca}',
+                        '{sexo}',
+                        '{idade}',
+                        '{valor}',
+                        '{pet}'
                     );
                 """
                 # Função que vai executar o comando em sql
@@ -301,6 +321,7 @@ class Lists():
             campos = 'CODIGO, NOME_CLI, CELULAR_CLI'
             # Retorna os registros encontrados na pesquisa feita utilizada a função
             lista = be.search(tabela, campos, None, None)
+            # Irá retornar os registros encontrados
             return lista
         # Caso ocorra um erro, vai ser tratado aqui
         except Exception as erro:
@@ -318,6 +339,7 @@ class Lists():
             campos = 'CODIGO, IDADE_PET, SEXO_PET, RACA_PET, PRECO_PET'
             # Retorna os registros encontrados na pesquisa feita utilizada a função
             lista = be.search(tabela, campos, None, None)
+            # Irá retornar os registros encontrados
             return lista
         # Caso ocorra um erro, vai ser tratado aqui
         except Exception as erro:

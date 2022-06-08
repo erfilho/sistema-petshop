@@ -141,15 +141,16 @@ def valida_cpf(cpf):
             pattern = re.compile(r"^(\d{3}.){2}\d{3}-\d{2}$")
             # Verifica se o cpf se encontra no padrão
             if re.match(pattern, cpf):
-                # Caso seja, o cpf será retornado
+                # Caso esteja no padrão será retornado TRUE
                 return 1
-            # Caso não seja será lançada uma exceção
+            # Caso não seja será retornado FALSE
             else:
                 return 0
-        # Caso não seja será lançada uma exceção
+        # Caso não seja será retornado FALSE
         else:
             return 0
     except Exception as erro:
+        # Se ocorrer alguma exceção também será retornado FALSE
         return 0
 
 # Função que vai validar o número de telefone
@@ -162,16 +163,17 @@ def valida_cel(cel):
             pattern = re.compile(r"^\(\d{2}\)\d{5}\-\d{4}$")
             # Verifica se o número do celular se encontra no padrão
             if re.match(pattern, cel):
-                # Caso seja, o número do celular será retornado
+                # Caso esteja no padrão, será retornado TRUE
                 return 1
-            # Caso não seja será lançada uma exceção
+            # Caso não esteja, será retornado FALSE
             else:
                 return 0
-        # Caso não seja será lançada uma exceção
+        # Caso não esteja, será retornado FALSE
         else:
             return 0
     # Caso ocorra alguma exceção será tratada aqui
     except Exception as erro:
+        # Caso ocorra alguma, será retornado FALSE
         return 0
 
 # Função que vai validar o email
@@ -186,14 +188,15 @@ def valida_email(email):
             if re.match(pattern, email):
                 # Caso seja, será retornado verdadeiro
                 return 1
-            # Caso não seja será lançada uma exceção
             else:
+            # Caso não seja será retornado falso
                 return 0
-        # Caso não seja será retornado 0
         else:
+            # Caso não seja será retornado falso
             return 0
     # Caso ocorra alguma exceção será tratada aqui
     except Exception as erro:
+        # Se ocorrer alguma será retornado falso
         return 0
 
 # Função que vai validar o código
@@ -206,16 +209,17 @@ def valida_cod(cod):
             pattern = re.compile(r'^[0-9]{4}$')
             # Verifica se o código se encontra no padrão
             if re.match(pattern, cod):
-                # Caso se encontre retorna o código
+                # Caso se encontre retorna verdadeiro
                 return 1
-            # Caso não seja será lançada uma exceção
             else:
+                # Caso não seja será retornado falso
                 return 0
-        # Caso não tenha sido, será lançada uma exceção
         else:
+            # Caso não tenha sido, será retornado falso
             return 0
     # Caso ocorra alguma exceção seja tratada aqui
     except Exception as erro:
+        # Se ocorrer alguma será retornado falso
         return 0
 
 # Função auxiliar que mostra uma mensagem de erro
@@ -225,3 +229,9 @@ def show_erro(self, obj):
 # Função auxiliar que mostra uma mensagem informativa
 def show_info(self, obj):
     self.msg = messagebox.showinfo('OK', obj)
+
+# Função auxiliar que mostra uma mensagem de confirmação
+def show_ok(self, obj):
+    self.msg = messagebox.askyesno('Confirma ?', obj)
+    # Retorna o valor da confirmação, podendo ser verdadeiro, ou falso
+    return self.msg
