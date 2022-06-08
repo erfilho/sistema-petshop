@@ -27,7 +27,7 @@ def muda_tela(self, lista):
         else:
             raise Exception('Funcionário não encontrado!')
     except Exception as erro:
-        self.msgErro = messagebox.showerror('Erro!', erro)
+        self.msgErro = messagebox.showerror('Erro', erro)
 
 # Função que vai mudar a tela de cadastro de pets
 def muda_venda_pet(self, opcao):

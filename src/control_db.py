@@ -314,7 +314,8 @@ class Lists():
             # Tabela que vai ser feita a pesquisa
             tabela = 'PetVenda'
             # Campos que vão ser retornados na pesquisa
-            campos = 'CODIGO, NOME_PET, IDADE_PET, SEXO_PET, RACA_PET, PRECO_PET'
+            # Correção de erro, retornando mais dados do que o necessário
+            campos = 'CODIGO, IDADE_PET, SEXO_PET, RACA_PET, PRECO_PET'
             # Retorna os registros encontrados na pesquisa feita utilizada a função
             lista = be.search(tabela, campos, None, None)
             return lista
