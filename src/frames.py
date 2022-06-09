@@ -576,7 +576,7 @@ def Venda_Pet(self):
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
-    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0)
+    self.bt_limpar = Button(self.FR_root_ator_4, image= self.img_bt_limpar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.clean_venda_pet(self))
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Encomendar Pet
@@ -746,31 +746,31 @@ def Vendas(self):
     self.et_Codigo_encomenda = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo_encomenda.place(relx= 0.565, rely = 0.115, relheight= 0.075, relwidth=0.185)
 
-    self.lista1 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
-    self.lista1.heading("#0", text="")
-    self.lista1.heading("#1", text="Codigo")
-    self.lista1.heading("#2", text="Nome")
-    self.lista1.heading("#3", text="Valor")
+    self.lista_venda_1 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
+    self.lista_venda_1.heading("#0", text="")
+    self.lista_venda_1.heading("#1", text="Codigo")
+    self.lista_venda_1.heading("#2", text="Nome")
+    self.lista_venda_1.heading("#3", text="Valor")
     
-    self.lista1.column("#0",width=1)
-    self.lista1.column("#1",width=60)
-    self.lista1.column("#2",width=150)
-    self.lista1.column("#3",width=100)
+    self.lista_venda_1.column("#0",width=1)
+    self.lista_venda_1.column("#1",width=60)
+    self.lista_venda_1.column("#2",width=150)
+    self.lista_venda_1.column("#3",width=100)
     
-    self.lista1.place(relx = 0.0, rely = 0.0, relheight= 0.8, relwidth=1.0)
+    self.lista_venda_1.place(relx = 0.0, rely = 0.0, relheight= 0.8, relwidth=1.0)
     
-    self.lista2 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
-    self.lista2.heading("#0", text="")
-    self.lista2.heading("#1", text="")
-    self.lista2.heading("#2", text="")
-    self.lista2.heading("#3", text="Total")
+    self.lista_venda_2 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
+    self.lista_venda_2.heading("#0", text="")
+    self.lista_venda_2.heading("#1", text="")
+    self.lista_venda_2.heading("#2", text="")
+    self.lista_venda_2.heading("#3", text="Total")
     
-    self.lista2.column("#0",width=1)
-    self.lista2.column("#1",width=60)
-    self.lista2.column("#2",width=150)
-    self.lista2.column("#3",width=100)
+    self.lista_venda_2.column("#0",width=1)
+    self.lista_venda_2.column("#1",width=60)
+    self.lista_venda_2.column("#2",width=150)
+    self.lista_venda_2.column("#3",width=100)
     
-    self.lista2.place(relx = 0.0, rely = 0.8, relheight= 0.2, relwidth=1.0)
+    self.lista_venda_2.place(relx = 0.0, rely = 0.8, relheight= 0.2, relwidth=1.0)
     
     #Botões
     #Finalizar
@@ -804,31 +804,31 @@ def Nota_fiscal(self):
     
     self.img_ok = PhotoImage(file= Path(ROOT_DIR, "img", "botao_OK.png"))
     
-    self.lista1 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
-    self.lista1.heading("#0", text="")
-    self.lista1.heading("#1", text="Codigo")
-    self.lista1.heading("#2", text="Nome")
-    self.lista1.heading("#3", text="Valor")
+    self.lista_nota_1 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
+    self.lista_nota_1.heading("#0", text="")
+    self.lista_nota_1.heading("#1", text="Codigo")
+    self.lista_nota_1.heading("#2", text="Nome")
+    self.lista_nota_1.heading("#3", text="Valor")
     
-    self.lista1.column("#0",width=1)
-    self.lista1.column("#1",width=60)
-    self.lista1.column("#2",width=150)
-    self.lista1.column("#3",width=100)
+    self.lista_nota_1.column("#0",width=1)
+    self.lista_nota_1.column("#1",width=60)
+    self.lista_nota_1.column("#2",width=150)
+    self.lista_nota_1.column("#3",width=100)
     
-    self.lista1.place(relx = 0.0, rely = 0.0, relheight= 0.85, relwidth=1.0)
+    self.lista_nota_1.place(relx = 0.0, rely = 0.0, relheight= 0.85, relwidth=1.0)
     
-    self.lista2 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
-    self.lista2.heading("#0", text="")
-    self.lista2.heading("#1", text="")
-    self.lista2.heading("#2", text="")
-    self.lista2.heading("#3", text="Total")
+    self.lista_nota_2 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
+    self.lista_nota_2.heading("#0", text="")
+    self.lista_nota_2.heading("#1", text="")
+    self.lista_nota_2.heading("#2", text="")
+    self.lista_nota_2.heading("#3", text="Total")
     
-    self.lista2.column("#0",width=1)
-    self.lista2.column("#1",width=60)
-    self.lista2.column("#2",width=150)
-    self.lista2.column("#3",width=100)
+    self.lista_nota_2.column("#0",width=1)
+    self.lista_nota_2.column("#1",width=60)
+    self.lista_nota_2.column("#2",width=150)
+    self.lista_nota_2.column("#3",width=100)
     
-    self.lista2.place(relx = 0.00, rely = 0.85, relheight= 0.15, relwidth=1.0)
+    self.lista_nota_2.place(relx = 0.00, rely = 0.85, relheight= 0.15, relwidth=1.0)
     
     #Botões
     #Salvar
@@ -838,27 +838,27 @@ def Nota_fiscal(self):
 def lista_pets_venda(self):
         lists = cdb.Lists()
 
-        self.FR_lista1 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
-        self.FR_lista1.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
+        self.FR_lista_pet_venda = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+        self.FR_lista_pet_venda.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
         
-        self.atual_lista = self.FR_lista1
+        self.atual_lista = self.FR_lista_pet_venda
         
-        self.lista1 = ttk.Treeview(self.FR_lista1, height=3, columns=("col1", "col2", "col3", "col4", "col5"))
-        self.lista1.heading("#0", text="")
-        self.lista1.heading("#1", text="Codigo")
-        self.lista1.heading("#2", text="Idade")
-        self.lista1.heading("#3", text="Sexo")
-        self.lista1.heading("#4", text="Raça")
-        self.lista1.heading("#5", text="Valor")
+        self.lista_pet_venda = ttk.Treeview(self.FR_lista_pet_venda, height=3, columns=("col1", "col2", "col3", "col4", "col5"))
+        self.lista_pet_venda.heading("#0", text="")
+        self.lista_pet_venda.heading("#1", text="Codigo")
+        self.lista_pet_venda.heading("#2", text="Idade")
+        self.lista_pet_venda.heading("#3", text="Sexo")
+        self.lista_pet_venda.heading("#4", text="Raça")
+        self.lista_pet_venda.heading("#5", text="Valor")
         
         # Modded by Erineldo 27/05
         # Modificado tamanho das colunas
-        self.lista1.column("#0",width=0)
-        self.lista1.column("#1",width=25)
-        self.lista1.column("#2",width=30)
-        self.lista1.column("#3",width=20)
-        self.lista1.column("#4",width=40)
-        self.lista1.column("#5",width=30)
+        self.lista_pet_venda.column("#0",width=0)
+        self.lista_pet_venda.column("#1",width=25)
+        self.lista_pet_venda.column("#2",width=30)
+        self.lista_pet_venda.column("#3",width=20)
+        self.lista_pet_venda.column("#4",width=40)
+        self.lista_pet_venda.column("#5",width=30)
 
         # Inserir os dados na tabela
         # tree.insert('', tkinter.END, values=data)
@@ -866,40 +866,44 @@ def lista_pets_venda(self):
         # Adicionada a listagem de pets disponíveis para venda
         dados = lists.pets_venda_list()
         for pet_venda in dados:
-            self.lista1.insert('', tkinter.END, values=pet_venda)
+            self.lista_pet_venda.insert('', tkinter.END, values=pet_venda)
         
-        self.label_Codigo_venda_pet = Label(self.FR_lista1, text="Pets disponíveis para venda", font=fonte, background="#ffffff")
+        self.label_Codigo_venda_pet = Label(self.FR_lista_pet_venda, text="Pets disponíveis para venda", font=fonte, background="#ffffff")
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
         
-        self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
+        self.lista_pet_venda.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0)
+        
+        self.lista_pet_venda.bind('<Double-1>',lambda x: aux.duploClick_CODPet(self))
         
 def lista_donos(self):
         lists = cdb.Lists()
-        self.FR_lista2 = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
-        self.FR_lista2.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
+        self.FR_lista_dono = Frame(self.FR_root_ator_4, background = "#ffffff", highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
+        self.FR_lista_dono.place(relx = 0.33, rely = 0.1, relheight = 0.75, relwidth= 0.65)
         
-        self.atual_lista = self.FR_lista2
+        self.atual_lista = self.FR_lista_dono
         
-        self.lista1 = ttk.Treeview(self.FR_lista2, height=3, columns=("col1", "col2", "col3"))
-        self.lista1.heading("#0", text="")
-        self.lista1.heading("#1", text="Codigo")
-        self.lista1.heading("#2", text="Nome")
-        self.lista1.heading("#3", text="Contato")
+        self.lista_dono = ttk.Treeview(self.FR_lista_dono, height=3, columns=("col1", "col2", "col3"))
+        self.lista_dono.heading("#0", text="")
+        self.lista_dono.heading("#1", text="Codigo")
+        self.lista_dono.heading("#2", text="Nome")
+        self.lista_dono.heading("#3", text="Contato")
         
         # Modded by Erineldo 27/05
         # Modificado o tamanho das colunas
-        self.lista1.column("#0",width=1)
-        self.lista1.column("#1",width=60)
-        self.lista1.column("#2",width=120)
-        self.lista1.column("#3",width=130)
+        self.lista_dono.column("#0",width=1)
+        self.lista_dono.column("#1",width=60)
+        self.lista_dono.column("#2",width=120)
+        self.lista_dono.column("#3",width=130)
         
         # Modded by Erineldo 27/05
         # Listagem de clientes
         dados = lists.clientes_list()
         for cliente in dados:
-            self.lista1.insert('', tkinter.END, values=cliente)
+            self.lista_dono.insert('', tkinter.END, values=cliente)
         
-        self.label_Codigo_venda_pet = Label(self.FR_lista2, text="Lista Clientes Cadastrados", font=fonte, background="#ffffff")
+        self.label_Codigo_venda_pet = Label(self.FR_lista_dono, text="Lista Clientes Cadastrados", font=fonte, background="#ffffff")
         self.label_Codigo_venda_pet.place(relx= 0.2, rely = 0.0)
         
-        self.lista1.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0) 
+        self.lista_dono.place(relx = 0.0, rely = 0.1, relheight= 0.9, relwidth=1.0) 
+        
+        self.lista_dono.bind('<Double-1>',lambda x: aux.duploClick_CODDono(self))
