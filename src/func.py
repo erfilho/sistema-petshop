@@ -1,4 +1,5 @@
 # Importa o módulo de popup de mensagens do tkinter
+from contextlib import nullcontext
 from email import message_from_string
 from tkinter import messagebox
 # Importa o módulo de exibição das telas
@@ -131,6 +132,19 @@ def clean_vendas(self):
         self.et_Codigo_pet.delete(0, 'end')
         self.et_Codigo_encomenda.delete(0, 'end')
 
+# Função que vai limpar os campos da tela de vendas de pet
+def clean_venda_pet(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox == True):
+            self.et_Codigo_pet.delete(0, 'end')
+            self.et_Codigo_dono.delete(0, 'end')
+            self.et_Codigo_venda_pet.delete(0, 'end')
+    elif(opcao == 1):
+        self.et_Codigo_pet.delete(0, 'end')
+    elif(opcao == 2):
+        self.et_Codigo_dono.delete(0, 'end')
+
 # Função que vai validar o cpf
 def valida_cpf(cpf):
     # Aqui ocorre o tratamento de excessões
@@ -222,6 +236,20 @@ def valida_cod(cod):
         # Se ocorrer alguma será retornado falso
         return 0
 
+#Função que adiciona com dois clickes o código do pet no campo Código do Pet
+def duploClick_CODPet(self):
+    clean_venda_pet(self, 1)
+    for i in self.lista_pet_venda.selection():
+        col1, col2, col3, col4, col5 = self.lista_pet_venda.item(i, 'values')
+        self.et_Codigo_pet.insert('end', col1)
+
+#Função que adiciona com dois clickes o código do dono no campo Código do Dono
+def duploClick_CODDono(self):
+    clean_venda_pet(self, 2)
+    for i in self.lista_dono.selection():
+        col1, col2, col3 = self.lista_dono.item(i, 'values')
+        self.et_Codigo_dono.insert('end', col1)
+        
 # Função auxiliar que mostra uma mensagem de erro
 def show_erro(self, obj):
     self.msg = messagebox.showerror('Erro!', obj)
