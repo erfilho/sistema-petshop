@@ -244,8 +244,8 @@ def Cadastro_Produto(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    # Mod by Erineldo - Nomes de botões iguais
-    self.bt_cancelar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    # Mod by Erineldo - Adicionado função de cancelar
+    self.bt_cancelar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_produtos(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -361,7 +361,7 @@ def Cadastro_Pet(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_2, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar = Button(self.FR_root_ator_2, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_pet(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -504,7 +504,7 @@ def Cadastro_Cliente(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_3, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar = Button(self.FR_root_ator_3, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cliente(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -572,7 +572,7 @@ def Venda_Pet(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_venda(self), self.et_Codigo_pet.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -684,7 +684,7 @@ def Encomenda_Pet(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0,command= lambda: aux.muda_funcionalidade(self, "Pets"))
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0,command= lambda: [aux.cancel_encomenda(self), self.et_Codigo_encomenda.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
