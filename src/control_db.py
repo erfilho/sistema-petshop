@@ -309,6 +309,51 @@ class Factory():
             # Retorna uma mensagem com a causa do erro
             aux.show_erro(self, f"Erro cadastro de encomendas!\n{erro}")
 
+    # Fabrica de vendas de pets
+    def vendaPet_fac(self, codigo, codigo_pet, codigo_cli):
+        # Referencia a variável da classe controller para que fique um código mais limpo
+        ctrl = self.controller
+        # Aqui ocorre o tratamento de exceções e a execução da tarefa principal
+        try:
+            # Tabela referente a função
+            tabela = "VendaPet"
+            # Confirma se o usuário deseja salvar o cadastro
+            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                raise Exception('Cadastro cancelado!')
+            # Verifica se os campos estão de acordo com as especificações
+            elif aux.valida_cod(codigo) == False:
+                # Lança uma exceção se o código da venda estiver inválido
+                raise Exception('Código de venda inválido!')
+            elif aux.valida_cod(codigo_pet) == False:
+                # Lança uma exceção se o código do pet estiver inválido
+                raise Exception('Código de pet inválido!')
+            elif aux.valida_cod(codigo_cli) == False:
+                # Lança uma exceção se o codigo de cliente estiver inválido
+                raise Exception('Código do cliente inválido!')
+            # Verifica se o código já está cadastrado
+            elif ctrl.check_cod(tabela, codigo):
+                # Caso o código já esteja cadastrado será lançada uma exceção
+                raise Exception('Código de venda já cadastrado!')
+            # Caso esteja tudo correto, será executada a tarefa principal da função
+            else:
+                # Comando SQL que vai ser executado para a inserção na tabela acima
+                sql = f"""
+                    INSERT INTO {tabela} VALUES(
+                        {codigo},
+                        {codigo_cli},
+                        {codigo_pet}
+                    );
+                """
+                # Função que vai executar o comando em sql\
+                be.execute(sql)
+                # Retorna uma mensagem de sucesso
+                aux.show_info(self, f'Venda {codigo}, cadastrada com sucesso!')
+        # Caso ocorra alguma exceção será tratada aqui
+        except Exception as erro:
+            # Retorna uma mensagem com a causa do erro
+            aux.show_erro(self, f"Erro no cadastro de vendas!\n{erro}")
+
+
 # Classe que vai retornar os dados necessários para algumas aplicações
 class Lists():
     # Função que vai retornar a lista dos clientes

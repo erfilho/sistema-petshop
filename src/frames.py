@@ -512,6 +512,8 @@ def Cadastro_Cliente(self):
     self.bt_limpar.place(relx= 0.02, rely = 0.86, relheight= 0.13, relwidth=0.32)
 
 def Venda_Pet(self):
+    # Criação da variável que vai controlar os cadastros no banco de dados
+    factory = cdb.Factory()
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
     
@@ -568,7 +570,9 @@ def Venda_Pet(self):
     
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0)
+    # Add by Erineldo 10/06
+    # Adicionada a função de cadastro de vendas
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.vendaPet_fac(self.et_Codigo_venda_pet.get(), self.et_Codigo_pet.get(), self.et_Codigo_dono.get()))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
