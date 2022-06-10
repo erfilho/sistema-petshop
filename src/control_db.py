@@ -390,3 +390,57 @@ class Lists():
         except Exception as erro:
             # Caso ocorra uma exceção, vai ser retornada a causa do erro
             aux.show_erro(f"Erro!\n {erro}")
+    
+    # Função que vai retornar o produto
+    def produto_comum(self, campo, valor):
+        # Ocorrerá o tratamento de exceções
+        try:
+            # Tabela que vai ser feita a pesquisa
+            tabela = 'Produtos'
+            # Campos que vão ser retornados na pesquisa
+            # Correção de erro, retornando mais dados do que o necessário
+            campos = 'CODIGO, NOME_PROD, PRECO_PROD'
+            # Retorna os registros encontrados na pesquisa feita utilizada a função
+            lista = be.search(tabela, campos, campo, valor)
+            # Irá retornar os registros encontrados
+            return lista
+        # Caso ocorra um erro, vai ser tratado aqui
+        except Exception as erro:
+            # Caso ocorra uma exceção, vai ser retornada a causa do erro
+            aux.show_erro(f"Erro!\n {erro}")
+    
+    # Função que vai retornar o pet
+    def produto_pet(self, campo, valor):
+        # Ocorrerá o tratamento de exceções
+        try:
+            # Tabela que vai ser feita a pesquisa
+            tabela = 'PetVenda'
+            # Campos que vão ser retornados na pesquisa
+            # Correção de erro, retornando mais dados do que o necessário
+            campos = 'CODIGO, NOME_PET, PRECO_PET'
+            # Retorna os registros encontrados na pesquisa feita utilizada a função
+            lista = be.search(tabela, campos, campo, valor)
+            # Irá retornar os registros encontrados
+            return lista
+        # Caso ocorra um erro, vai ser tratado aqui
+        except Exception as erro:
+            # Caso ocorra uma exceção, vai ser retornada a causa do erro
+            aux.show_erro(f"Erro!\n {erro}")
+    
+    # Função que vai retornar a encomenda
+    def produto_encomenda(self, campo, valor):
+        # Ocorrerá o tratamento de exceções
+        try:
+            # Tabela que vai ser feita a pesquisa
+            tabela = 'EncomendaPet'
+            # Campos que vão ser retornados na pesquisa
+            # Correção de erro, retornando mais dados do que o necessário
+            campos = 'CODIGO, PET_ENC'
+            # Retorna os registros encontrados na pesquisa feita utilizada a função
+            lista = be.search(tabela, campos, campo, valor)
+            # Irá retornar os registros encontrados
+            return lista
+        # Caso ocorra um erro, vai ser tratado aqui
+        except Exception as erro:
+            # Caso ocorra uma exceção, vai ser retornada a causa do erro
+            aux.show_erro(f"Erro!\n {erro}")

@@ -2,8 +2,13 @@
 from contextlib import nullcontext
 from email import message_from_string
 from tkinter import messagebox
+import tkinter
+
+from numpy import double
 # Importa o módulo de exibição das telas
 import frames as frames
+# Importação do arquivo de controle do banco de dados
+import control_db as cdb
 # Importa o módulo para verificação de dados com expressões regulares
 import re
 
@@ -115,7 +120,7 @@ def clean_clientes(self):
 # Função que vai limpar os campos da tela de cadastro de encomendas
 def clean_encomendas(self):
     self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox == 'yes'):
+    if(self.msgBox):
         self.et_Codigo_encomenda.delete(0, 'end')
         self.et_Codigo_cli.delete(0, 'end')
         self.et_Raca.delete(0, 'end')
@@ -125,9 +130,14 @@ def clean_encomendas(self):
         self.et_Codigo_pet.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de vendas
-def clean_vendas(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox == 'yes'):
+def clean_vendas(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo_produto.delete(0, 'end')
+            self.et_Codigo_pet.delete(0, 'end')
+            self.et_Codigo_encomenda.delete(0, 'end')
+    elif(opcao == 1):
         self.et_Codigo_produto.delete(0, 'end')
         self.et_Codigo_pet.delete(0, 'end')
         self.et_Codigo_encomenda.delete(0, 'end')
@@ -136,7 +146,7 @@ def clean_vendas(self):
 def clean_venda_pet(self, opcao = 0):
     if(opcao == 0):
         self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-        if(self.msgBox == True):
+        if(self.msgBox):
             self.et_Codigo_pet.delete(0, 'end')
             self.et_Codigo_dono.delete(0, 'end')
             self.et_Codigo_venda_pet.delete(0, 'end')
@@ -145,6 +155,15 @@ def clean_venda_pet(self, opcao = 0):
     elif(opcao == 2):
         self.et_Codigo_dono.delete(0, 'end')
 
+#Função que limpa a tabela de vendas
+def clean_tabela_venda(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Cancelamento de venda', 'Deseja realmente cancelar a venda ?')
+        if(self.msgBox):
+            self.lista_venda_1.delete(*self.lista_venda_1.get_children())
+            self.lista_venda_2.delete(*self.lista_venda_2.get_children())
+    if(opcao == 1):
+        self.lista_venda_2.delete(*self.lista_venda_2.get_children())
 # Função que vai validar o cpf
 def valida_cpf(cpf):
     # Aqui ocorre o tratamento de excessões
@@ -242,14 +261,84 @@ def duploClick_CODPet(self):
     for i in self.lista_pet_venda.selection():
         col1, col2, col3, col4, col5 = self.lista_pet_venda.item(i, 'values')
         self.et_Codigo_pet.insert('end', col1)
-
+        
 #Função que adiciona com dois clickes o código do dono no campo Código do Dono
 def duploClick_CODDono(self):
     clean_venda_pet(self, 2)
     for i in self.lista_dono.selection():
         col1, col2, col3 = self.lista_dono.item(i, 'values')
         self.et_Codigo_dono.insert('end', col1)
-        
+      
+#Função que insere produtos na tabela de venda
+def adiciona_venda_produto(self, prod, pet, enc):
+    # Aqui ocorre o tratamento de excessões
+    try:
+        clean_vendas(self, 1)   #Limpa os campos de códigos após clicar em Adicionar.
+        if(prod != ''): #Verifica se o código do pet é diferente de vazio.
+            lista = cdb.Lists.produto_comum(self, 'CODIGO', prod)   #Recebe a lista com os dados do pet referentes ao código recebido.
+            if type(lista) is list: #Verifica se o retorno é o tipo lista.
+                if len(lista) > 0:  #verifica se a lista se a lista retornada está vazia.
+                    lista = list(lista[0])  #tranforma a tupla no interior da lista em um lista .
+                    lista.insert(1,'Produto') #insere o tipo do produto na lista.
+                    lista = [lista] #Tranforma a lista novamente em tupla.
+                    for i in lista:
+                        self.lista_venda_1.insert('', tkinter.END, values=i)    #Insere a lista nos campos da tabela.
+                else:
+                    self.msgBox = messagebox.showinfo('Produto não encotrado', 'O Produto não foi encontrado.') #retorena uma mensagem caso o código digitado não coresponda a algum produto.
+        elif(pet != ''):
+            lista = cdb.Lists.produto_pet(self, 'CODIGO', pet)
+            if type(lista) is list:
+                if len(lista) > 0:
+                    lista = list(lista[0])
+                    lista.insert(1,'Pet')
+                    lista = [lista]
+                    for i in lista:
+                        self.lista_venda_1.insert('', tkinter.END, values=i)
+                else:
+                    self.msgBox = messagebox.showinfo('Produto não encotrado', 'O Produto não foi encontrado.')
+        elif(enc != ''):
+            lista = cdb.Lists.produto_encomenda(self, 'CODIGO', enc)
+            if type(lista) is list:
+                if len(lista) > 0:
+                    lista = list(lista[0]) 
+                    if(lista[1] != ''):     #Verifica se o Pet já está disponível na Encomenda.
+                        lista2 = cdb.Lists.produto_pet(self, 'CODIGO', lista[1])    #Busca os dados do pet que está disponível na encomenda
+                        lista2 = list(lista2[0])
+                        #Constroi uma lista com dados expecíficos das lista anteriores
+                        lista3 = []
+                        lista3.insert(0, lista[0])
+                        lista3.insert(1, "Encomenda")
+                        lista3.insert(2, lista2[1])
+                        lista3.insert(3, lista2[2])
+                        lista3 = [lista3]
+                        for i in lista3:
+                            self.lista_venda_1.insert('', tkinter.END, values=i)
+                    else:
+                        self.msgBox = messagebox.showinfo('Pet indisponível', 'O Pet desta encomenda ainda não está disponível.') #Retorna uma mensagem caso o pet da encomenda ainda não entá disponível
+                else:
+                    self.msgBox = messagebox.showinfo('Produto não encotrado', 'O Produto não foi encontrado.')
+        else:
+            self.msgBox = messagebox.showinfo('Nenhum Produto Digitado', 'Digite o codigo do produto para adiciona-lo.')    #Retona uma mensagem caso nenhum código de produto ou encomenda seja digitado.
+    except Exception as erro:
+        # Se ocorrer alguma exceção também será retornado FALSE
+        return 0       
+
+#Função que calcula e insere o total da venda no capo total
+def total_venda(self):
+     # Aqui ocorre o tratamento de exceções
+    try:
+        valores = []
+        for i in self.lista_venda_1.get_children():
+            col1, col2, col3, col4 = self.lista_venda_1.item(i, 'values')
+            valores.append(col4)
+        valores = list(map(double, valores))
+        clean_tabela_venda(self, 1)
+        self.lista_venda_2.insert('', tkinter.END, values= sum(valores)) 
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+    
 # Função auxiliar que mostra uma mensagem de erro
 def show_erro(self, obj):
     self.msg = messagebox.showerror('Erro!', obj)

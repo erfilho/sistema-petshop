@@ -615,7 +615,7 @@ def Encomenda_Pet(self):
     #entry
     self.et_Codigo_encomenda = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo_encomenda .place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.43)
-    
+    self.et_Codigo_encomenda.focus()
     #Codigo do Cliente
     #label
     self.label_Codigo_cli = Label(self.FR_root_ator_4, text="Código do Cliente", font=fonte, background=fundo3)
@@ -726,7 +726,7 @@ def Vendas(self):
     self.et_Codigo_produto.place(relx= 0.065, rely = 0.115, relheight= 0.075, relwidth=0.185)
     self.et_Codigo_produto.focus()
     
-    #codigo do Produto
+    #codigo do Produto Pet
     #label
     self.label_Codigo_pet = Label(self.FR_root_ator_5, text="Código do Pet", font=(fonte, 10), background=fundo3)
     self.label_Codigo_pet.place(relx= 0.3, rely = 0.05)
@@ -750,30 +750,28 @@ def Vendas(self):
     self.et_Codigo_encomenda = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Codigo_encomenda.place(relx= 0.565, rely = 0.115, relheight= 0.075, relwidth=0.185)
 
-    self.lista_venda_1 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
+    self.lista_venda_1 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3", "col4"))
     self.lista_venda_1.heading("#0", text="")
     self.lista_venda_1.heading("#1", text="Codigo")
-    self.lista_venda_1.heading("#2", text="Nome")
-    self.lista_venda_1.heading("#3", text="Valor")
+    self.lista_venda_1.heading("#2", text="Tipo Produto")
+    self.lista_venda_1.heading("#3", text="Nome")
+    self.lista_venda_1.heading("#4", text="Valor")
     
     self.lista_venda_1.column("#0",width=1)
-    self.lista_venda_1.column("#1",width=60)
-    self.lista_venda_1.column("#2",width=150)
-    self.lista_venda_1.column("#3",width=100)
+    self.lista_venda_1.column("#1",anchor='c',width=60)
+    self.lista_venda_1.column("#2",anchor='c',width=100)
+    self.lista_venda_1.column("#3",anchor='c',width=150)
+    self.lista_venda_1.column("#4",anchor='c',width=100)
     
     self.lista_venda_1.place(relx = 0.0, rely = 0.0, relheight= 0.8, relwidth=1.0)
     
-    self.lista_venda_2 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1", "col2", "col3"))
+    self.lista_venda_2 = ttk.Treeview(self.FR_lista_compra, height=3, columns=("col1"))
     self.lista_venda_2.heading("#0", text="")
-    self.lista_venda_2.heading("#1", text="")
-    self.lista_venda_2.heading("#2", text="")
-    self.lista_venda_2.heading("#3", text="Total")
+    self.lista_venda_2.heading("#1", text="Total")
     
-    self.lista_venda_2.column("#0",width=1)
-    self.lista_venda_2.column("#1",width=60)
-    self.lista_venda_2.column("#2",width=150)
-    self.lista_venda_2.column("#3",width=100)
-    
+    self.lista_venda_2.column("#0",width=400)
+    self.lista_venda_2.column("#1", anchor='c', width=100)
+  
     self.lista_venda_2.place(relx = 0.0, rely = 0.8, relheight= 0.2, relwidth=1.0)
     
     #Botões
@@ -782,7 +780,7 @@ def Vendas(self):
     self.bt_finalizar.place(relx= 0.68, rely = 0.87, relheight= 0.11, relwidth=0.29)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_5, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0)
+    self.bt_cancelar = Button(self.FR_root_ator_5, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.clean_tabela_venda(self), self.et_Codigo_produto.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -792,7 +790,7 @@ def Vendas(self):
     #Adicionar
     # Modded by Erineldo 26/05
     # Corrigindo erros de nomenclatura bt_limpar->bt_adicionar
-    self.bt_adicionar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0)
+    self.bt_adicionar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0, command= lambda : [aux.adiciona_venda_produto(self, self.et_Codigo_produto.get(), self.et_Codigo_pet.get(), self.et_Codigo_encomenda.get()), aux.total_venda(self)])
     self.bt_adicionar.place(relx= 0.79, rely = 0.09, relheight= 0.115, relwidth=0.175)
 
 def Nota_fiscal(self):
