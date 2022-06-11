@@ -776,7 +776,7 @@ def Vendas(self):
     
     #Botões
     #Finalizar
-    self.bt_finalizar = Button(self.FR_root_ator_5, image= self.img_bt_finalizar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.muda_funcionalidade(self, "Nota"))
+    self.bt_finalizar = Button(self.FR_root_ator_5, image= self.img_bt_finalizar, borderwidth = 0, highlightthickness = 0, command= lambda: aux.finaliza_venda(self))
     self.bt_finalizar.place(relx= 0.68, rely = 0.87, relheight= 0.11, relwidth=0.29)
     
     #Cancelar
@@ -806,29 +806,27 @@ def Nota_fiscal(self):
     
     self.img_ok = PhotoImage(file= Path(ROOT_DIR, "img", "botao_OK.png"))
     
-    self.lista_nota_1 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
+    self.lista_nota_1 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3", 'col4'))
     self.lista_nota_1.heading("#0", text="")
     self.lista_nota_1.heading("#1", text="Codigo")
-    self.lista_nota_1.heading("#2", text="Nome")
-    self.lista_nota_1.heading("#3", text="Valor")
+    self.lista_nota_1.heading("#2", text="Tipo Produto")
+    self.lista_nota_1.heading("#3", text="Nome")
+    self.lista_nota_1.heading("#4", text="Valor")
     
     self.lista_nota_1.column("#0",width=1)
-    self.lista_nota_1.column("#1",width=60)
-    self.lista_nota_1.column("#2",width=150)
-    self.lista_nota_1.column("#3",width=100)
+    self.lista_nota_1.column("#1",anchor='c',width=60)
+    self.lista_nota_1.column("#2",anchor='c',width=100)
+    self.lista_nota_1.column("#3",anchor='c',width=150)
+    self.lista_nota_1.column("#4",anchor='c',width=100)
     
     self.lista_nota_1.place(relx = 0.0, rely = 0.0, relheight= 0.85, relwidth=1.0)
     
-    self.lista_nota_2 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1", "col2", "col3"))
+    self.lista_nota_2 = ttk.Treeview(self.FR_lista_nota, height=3, columns=("col1"))
     self.lista_nota_2.heading("#0", text="")
-    self.lista_nota_2.heading("#1", text="")
-    self.lista_nota_2.heading("#2", text="")
-    self.lista_nota_2.heading("#3", text="Total")
+    self.lista_nota_2.heading("#1", text="Total")
     
-    self.lista_nota_2.column("#0",width=1)
-    self.lista_nota_2.column("#1",width=60)
-    self.lista_nota_2.column("#2",width=150)
-    self.lista_nota_2.column("#3",width=100)
+    self.lista_nota_2.column("#0",width=400)
+    self.lista_nota_2.column("#1",anchor='c',width=100)
     
     self.lista_nota_2.place(relx = 0.00, rely = 0.85, relheight= 0.15, relwidth=1.0)
     

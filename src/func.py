@@ -68,7 +68,7 @@ def muda_funcionalidade(self, frame):
             self.frame_funcionalidade.destroy()
             frames.Encomenda_Pet(self)  
         elif(frame == "Nota"):
-            self.frame_funcionalidade.destroy()
+            self.frame_funcionalidade.pack_forget()
             frames.Nota_fiscal(self)
         else:
             raise Exception('Funcionalidade não encontrada, erro interno!')
@@ -301,7 +301,7 @@ def adiciona_venda_produto(self, prod, pet, enc):
             if type(lista) is list:
                 if len(lista) > 0:
                     lista = list(lista[0]) 
-                    if(lista[1] != ''):     #Verifica se o Pet já está disponível na Encomenda.
+                    if(lista[1] != None and lista[1] != ''):     #Verifica se o Pet já está disponível na Encomenda.
                         lista2 = cdb.Lists.produto_pet(self, 'CODIGO', lista[1])    #Busca os dados do pet que está disponível na encomenda
                         lista2 = list(lista2[0])
                         #Constroi uma lista com dados expecíficos das lista anteriores
@@ -338,7 +338,27 @@ def total_venda(self):
     except Exception as erro:
         # Se ocorrer alguma será retornado falso
         return 0
-    
+
+#Função que preenche a nota fiscal
+def finaliza_venda(self):
+     # Aqui ocorre o tratamento de exceções
+    try:
+        self.msgBox = messagebox.askyesno('Finalizar Venda', 'Deseja realmente finalizar a venda ?')
+        if(self.msgBox):
+            muda_funcionalidade(self, "Nota")
+            for i in self.lista_venda_1.get_children():
+                self.lista_nota_1.insert('', tkinter.END, values= self.lista_venda_1.item(i, 'values'))
+            valores = []
+            for i in self.lista_venda_1.get_children():
+                col1, col2, col3, col4 = self.lista_venda_1.item(i, 'values')
+                valores.append(col4)
+            valores = list(map(double, valores))
+            self.lista_nota_2.insert('', tkinter.END, values= sum(valores)) 
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
 # Função auxiliar que mostra uma mensagem de erro
 def show_erro(self, obj):
     self.msg = messagebox.showerror('Erro!', obj)
