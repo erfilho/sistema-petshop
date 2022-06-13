@@ -217,7 +217,7 @@ def valida_email(email):
 def valida_cod(cod):
     # Aqui ocorre o tratamento de exceções
     try:
-        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        # Verifica se realmente foi passado um código e está entre 1 e 4 dígitos
         if len(cod) > 0 and len(cod) < 5:
             # Cria o padrão para ser verificado o código
             pattern = re.compile(r'^(\d{0,4})$')
