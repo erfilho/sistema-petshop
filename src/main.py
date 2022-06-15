@@ -5,13 +5,16 @@ import frames as frames
 
 fundo1 = '#EF8D6A'
 
+lista = ['a','a', 'a']
+
 root = Tk()
          
 class Aplication(): 
     def __init__(self):
         self.root = root
         self.tela()
-        frames.Login(self)
+        #frames.Login(self)
+        frames.Caixa(self, lista)
         self.root.mainloop()               
     def tela(self):
         self.root.title("Petshop Mundocão")

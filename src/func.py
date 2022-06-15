@@ -135,11 +135,11 @@ def clean_vendas(self, opcao = 0):
         self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
         if(self.msgBox):
             self.et_Codigo_produto.delete(0, 'end')
-            self.et_Codigo_pet.delete(0, 'end')
+            self.et_Codigo_venda.delete(0, 'end')
             self.et_Codigo_encomenda.delete(0, 'end')
     elif(opcao == 1):
         self.et_Codigo_produto.delete(0, 'end')
-        self.et_Codigo_pet.delete(0, 'end')
+        self.et_Codigo_venda.delete(0, 'end')
         self.et_Codigo_encomenda.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de vendas de pet
@@ -270,7 +270,7 @@ def duploClick_CODDono(self):
         self.et_Codigo_dono.insert('end', col1)
       
 #Função que insere produtos na tabela de venda
-def adiciona_venda_produto(self, prod, pet, enc):
+def adiciona_venda_produto(self, prod, venda, enc):
     # Aqui ocorre o tratamento de excessões
     try:
         clean_vendas(self, 1)   #Limpa os campos de códigos após clicar em Adicionar.
@@ -285,15 +285,22 @@ def adiciona_venda_produto(self, prod, pet, enc):
                         self.lista_venda_1.insert('', tkinter.END, values=i)    #Insere a lista nos campos da tabela.
                 else:
                     self.msgBox = messagebox.showinfo('Produto não encotrado', 'O Produto não foi encontrado.') #retorena uma mensagem caso o código digitado não coresponda a algum produto.
-        elif(pet != ''):
-            lista = cdb.Lists.produto_pet(self, 'CODIGO', pet)
+        elif(venda != ''):
+            lista = cdb.Lists.produto_venda_pet(self, 'CODIGO', venda)
             if type(lista) is list:
                 if len(lista) > 0:
                     lista = list(lista[0])
-                    lista.insert(1,'Pet')
-                    lista = [lista]
-                    for i in lista:
-                        self.lista_venda_1.insert('', tkinter.END, values=i)
+                    if(lista[1] != None and lista[1] != ''): 
+                        lista2 = cdb.Lists.produto_pet(self, 'CODIGO', lista[1])
+                        lista2 = list(lista2[0])
+                        lista3 = []
+                        lista3.insert(0, lista[0])
+                        lista3.insert(1, "Venda Pet")
+                        lista3.insert(2, lista2[1])
+                        lista3.insert(3, lista2[2])
+                        lista3 = [lista3]
+                        for i in lista3:
+                            self.lista_venda_1.insert('', tkinter.END, values=i)
                 else:
                     self.msgBox = messagebox.showinfo('Produto não encotrado', 'O Produto não foi encontrado.')
         elif(enc != ''):
@@ -321,7 +328,7 @@ def adiciona_venda_produto(self, prod, pet, enc):
             self.msgBox = messagebox.showinfo('Nenhum Produto Digitado', 'Digite o codigo do produto para adiciona-lo.')    #Retona uma mensagem caso nenhum código de produto ou encomenda seja digitado.
     except Exception as erro:
         # Se ocorrer alguma exceção também será retornado FALSE
-        return 0       
+        return 0
 
 #Função que calcula e insere o total da venda no capo total
 def total_venda(self):
@@ -343,17 +350,21 @@ def total_venda(self):
 def finaliza_venda(self):
      # Aqui ocorre o tratamento de exceções
     try:
-        self.msgBox = messagebox.askyesno('Finalizar Venda', 'Deseja realmente finalizar a venda ?')
-        if(self.msgBox):
-            muda_funcionalidade(self, "Nota")
-            for i in self.lista_venda_1.get_children():
-                self.lista_nota_1.insert('', tkinter.END, values= self.lista_venda_1.item(i, 'values'))
-            valores = []
-            for i in self.lista_venda_1.get_children():
-                col1, col2, col3, col4 = self.lista_venda_1.item(i, 'values')
-                valores.append(col4)
-            valores = list(map(double, valores))
-            self.lista_nota_2.insert('', tkinter.END, values= sum(valores)) 
+        lista = self.lista_venda_1.get_children()
+        if(lista != ()):
+            self.msgBox = messagebox.askyesno('Finalizar Venda', 'Deseja realmente finalizar a venda ?')
+            if(self.msgBox):
+                muda_funcionalidade(self, "Nota")
+                for i in lista:
+                    self.lista_nota_1.insert('', tkinter.END, values= self.lista_venda_1.item(i, 'values'))
+                valores = []
+                for i in self.lista_venda_1.get_children():
+                    col1, col2, col3, col4 = self.lista_venda_1.item(i, 'values')
+                    valores.append(col4)
+                valores = list(map(double, valores))
+                self.lista_nota_2.insert('', tkinter.END, values= sum(valores)) 
+        else:
+            self.msgBox = messagebox.showinfo('Finalizar Venda', 'Adiciona produtos para poder proseguir com a venda.')
     # Caso ocorra alguma exceção seja tratada aqui
     except Exception as erro:
         # Se ocorrer alguma será retornado falso

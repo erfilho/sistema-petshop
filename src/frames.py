@@ -728,14 +728,14 @@ def Vendas(self):
     
     #codigo do Produto Pet
     #label
-    self.label_Codigo_pet = Label(self.FR_root_ator_5, text="Código do Pet", font=(fonte, 10), background=fundo3)
-    self.label_Codigo_pet.place(relx= 0.3, rely = 0.05)
+    self.label_Codigo_venda = Label(self.FR_root_ator_5, text="Código da venda", font=(fonte, 10), background=fundo3)
+    self.label_Codigo_venda.place(relx= 0.3, rely = 0.05)
     #imagem de fundo
-    self.fundo_Codigo_pet = Label(self.FR_root_ator_5, image= self.img_fundo)
-    self.fundo_Codigo_pet.place(relx= 0.3, rely = 0.1, relheight=0.11, relwidth=0.21)
+    self.fundo_Codigo_venda = Label(self.FR_root_ator_5, image= self.img_fundo)
+    self.fundo_Codigo_venda.place(relx= 0.3, rely = 0.1, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_Codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_Codigo_pet.place(relx= 0.315, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_venda = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_venda.place(relx= 0.315, rely = 0.115, relheight= 0.075, relwidth=0.185)
     
     #codigo de encomenda
     #label
@@ -780,7 +780,7 @@ def Vendas(self):
     self.bt_finalizar.place(relx= 0.68, rely = 0.87, relheight= 0.11, relwidth=0.29)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_5, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.clean_tabela_venda(self), self.et_Codigo_produto.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_5, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.clean_tabela_venda(self), aux.clean_vendas(self, 1), self.et_Codigo_produto.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -790,7 +790,7 @@ def Vendas(self):
     #Adicionar
     # Modded by Erineldo 26/05
     # Corrigindo erros de nomenclatura bt_limpar->bt_adicionar
-    self.bt_adicionar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0, command= lambda : [aux.adiciona_venda_produto(self, self.et_Codigo_produto.get(), self.et_Codigo_pet.get(), self.et_Codigo_encomenda.get()), aux.total_venda(self)])
+    self.bt_adicionar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0, command= lambda : [aux.adiciona_venda_produto(self, self.et_Codigo_produto.get(), self.et_Codigo_venda.get(), self.et_Codigo_encomenda.get()), aux.total_venda(self)])
     self.bt_adicionar.place(relx= 0.79, rely = 0.09, relheight= 0.115, relwidth=0.175)
 
 def Nota_fiscal(self):
