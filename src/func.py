@@ -154,6 +154,10 @@ def clean_venda_pet(self, opcao = 0):
         self.et_Codigo_pet.delete(0, 'end')
     elif(opcao == 2):
         self.et_Codigo_dono.delete(0, 'end')
+    elif(opcao == 3):
+        self.et_Codigo_pet.delete(0, 'end')
+        self.et_Codigo_dono.delete(0, 'end')
+        self.et_Codigo_venda_pet.delete(0, 'end')
 
 #Função que limpa a tabela de vendas
 def clean_tabela_venda(self, opcao = 0):
@@ -164,6 +168,14 @@ def clean_tabela_venda(self, opcao = 0):
             self.lista_venda_2.delete(*self.lista_venda_2.get_children())
     if(opcao == 1):
         self.lista_venda_2.delete(*self.lista_venda_2.get_children())
+
+#Cancela a venda de pet
+def cancel_venda_pet(self):
+    self.msgBox = messagebox.askyesno('Cancelar Venda', 'Deseja realmente cancelar a venda?')
+    if(self.msgBox):
+        frames.Venda_Pet(self)
+        self.msgBox = messagebox.showinfo('Cancelar Venda', 'Venda cancelada')
+
 # Função que vai validar o cpf
 def valida_cpf(cpf):
     # Aqui ocorre o tratamento de excessões
@@ -242,6 +254,73 @@ def valida_cod(cod):
             pattern = re.compile(r'^(\d{0,4})$')
             # Verifica se o código se encontra no padrão
             if re.match(pattern, cod):
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar o sexo do pet
+def Valida_sexo_pet(sexo):
+    # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(sexo) == 1:
+            # Verifica se o código se encontra no padrão
+            if sexo == 'M' or sexo == 'F':
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar o idade do pet
+def Valida_idade_pet(idade):
+   # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(idade) > 0 and len(idade) < 4:
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r'^(\d{0,4})$')
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, idade):
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar o preço
+def Valida_preco(preco):
+   # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(preco) > 0:
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r'^(\d{0,10}\.\d{0,2}|\d{0,10})$')
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, preco):
                 # Caso se encontre retorna verdadeiro
                 return 1
             else:

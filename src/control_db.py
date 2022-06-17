@@ -2,6 +2,7 @@
 import backend as be
 # Importa o arquivo de funções auxiliares
 import func as aux
+from tkinter import messagebox
 
 class Controler():
     # Variável que tem os comandos do backend
@@ -269,41 +270,58 @@ class Factory():
 
     # Fabrica de encomendas
     def encomenda_fac(self, codigo, codigo_cli, raca, sexo, idade, valor, pet):
+        
         # Referencia a variável da classe controller para que fique um código mais limpo
         ctrl = self.controller
         # Ocorre o tratamento de exceções e a execução da tarefa principal da função
         try:
-            # Tabela referente a função
-            tabela = 'EncomendaPet'
-            # Confirma se o usuário deseja confirmar o cadastro
-            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
-                raise Exception('Cadastro cancelado!')
-            # Verifica se os campos estão de acordo com as especificações
-            elif aux.valida_cod(codigo) == False:
-                raise Exception('Código inválido!')
-            elif aux.valida_cod(codigo_cli) == False:
-                raise Exception('Código de cliente inválido!')
-            # Verifica se o código já está cadastrado
-            elif ctrl.check_cod(tabela, codigo):
-                # Caso o código já esteja cadastrado, irá ser gerada uma exceção
-                raise Exception("Código já cadastrado, tente novamente!")
+            if(codigo != '' and codigo_cli != '' and raca != '' and idade != '' and valor !=''):
+                # Tabela referente a função
+                tabela = 'EncomendaPet'
+                # Confirma se o usuário deseja confirmar o cadastro
+                if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                    raise Exception('Cadastro cancelado!')
+                # Verifica se os campos estão de acordo com as especificações
+                elif aux.valida_cod(codigo) == False:
+                    raise Exception('Código inválido!')
+                elif aux.valida_cod(codigo_cli) == False:
+                    raise Exception('Código de cliente inválido!')
+                # Verifica se o código já está cadastrado
+                elif ctrl.check_cod("Clientes", codigo_cli) == 0:
+                    # Caso o código não esteja cadastrado, irá mostrar uma mensagem
+                    messagebox.showinfo('Cliente não encontrado', 'O Cliente não foi encontrado no banco de dados.')
+                elif ctrl.check_cod(tabela, codigo) == 1:
+                    # Caso o código não esteja cadastrado, irá mostrar uma mensagem
+                    messagebox.showinfo('Codigo de encomenda duplicado', 'Uma encomenda com o mesmo código já existe no banco.')
+                elif aux.Valida_sexo_pet(sexo) == False:
+                    # Caso o código já esteja cadastrado, irá ser gerada uma exceção
+                    messagebox.showinfo('Sexo inválido', 'Utilize F para Feminino ou M para Masculino')
+                elif aux.Valida_idade_pet(idade) == False:
+                    # Caso o código já esteja cadastrado, irá ser gerada uma exceção
+                    messagebox.showinfo('Idade inválida', 'Digite uma idade de pet válida.')
+                elif aux.Valida_preco(valor) == False:
+                    # Caso o código já esteja cadastrado, irá ser gerada uma exceção
+                    messagebox.showinfo('Valor inválido', 'Digite um valor máximo de pet válido.')
+                else:
+                    # Comando SQL que vai ser executado para a inserção na tabela acima
+                    sql = f"""
+                        INSERT INTO {tabela} VALUES (
+                            {codigo},
+                            {codigo_cli},
+                            '{raca}',
+                            '{sexo}',
+                            '{idade}',
+                            '{valor}',
+                            '{pet}'
+                        );
+                    """
+                    # Função que vai executar o comando em sql
+                    be.execute(sql)
+                    # Retorna uma mensagem de sucesso
+                    aux.show_info(self, f"Encomenda {codigo}, cadastrada com sucesso!")
+                    
             else:
-                # Comando SQL que vai ser executado para a inserção na tabela acima
-                sql = f"""
-                    INSERT INTO {tabela} VALUES (
-                        {codigo},
-                        {codigo_cli},
-                        '{raca}',
-                        '{sexo}',
-                        '{idade}',
-                        '{valor}',
-                        '{pet}'
-                    );
-                """
-                # Função que vai executar o comando em sql
-                be.execute(sql)
-                # Retorna uma mensagem de sucesso
-                aux.show_info(self, f"Encomenda {codigo}, cadastrada com sucesso!")
+                messagebox.showinfo('Campos vazios', 'Existem campos obrigatórios não preenchidos, verifique os dados.') 
         # Caso ocorra alguma exceção será tratada aqui
         except Exception as erro:
             # Retorna uma mensagem com a causa do erro
@@ -315,44 +333,51 @@ class Factory():
         ctrl = self.controller
         # Aqui ocorre o tratamento de exceções e a execução da tarefa principal
         try:
-            # Tabela referente a função
-            tabela = "VendaPet"
-            # Confirma se o usuário deseja salvar o cadastro
-            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
-                raise Exception('Cadastro cancelado!')
-            # Verifica se os campos estão de acordo com as especificações
-            elif aux.valida_cod(codigo) == False:
-                # Lança uma exceção se o código da venda estiver inválido
-                raise Exception('Código de venda inválido!')
-            elif aux.valida_cod(codigo_pet) == False:
-                # Lança uma exceção se o código do pet estiver inválido
-                raise Exception('Código de pet inválido!')
-            elif aux.valida_cod(codigo_cli) == False:
-                # Lança uma exceção se o codigo de cliente estiver inválido
-                raise Exception('Código do cliente inválido!')
-            # Verifica se o código já está cadastrado
-            elif ctrl.check_cod(tabela, codigo):
-                # Caso o código já esteja cadastrado será lançada uma exceção
-                raise Exception('Código de venda já cadastrado!')
-            # Caso esteja tudo correto, será executada a tarefa principal da função
+            if(codigo != '' and codigo_pet != '' and codigo_cli != ''):
+                # Tabela referente a função
+                tabela = "VendaPet"
+                # Confirma se o usuário deseja salvar o cadastro
+                if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                    return 0
+                # Verifica se os campos estão de acordo com as especificações
+                elif aux.valida_cod(codigo) == False:
+                    # Lança uma exceção se o código da venda estiver inválido
+                    raise Exception('Código de venda inválido!')
+                elif aux.valida_cod(codigo_pet) == False:
+                    # Lança uma exceção se o código do pet estiver inválido
+                    raise Exception('Código de pet inválido!')
+                elif aux.valida_cod(codigo_cli) == False:
+                    # Lança uma exceção se o codigo de cliente estiver inválido
+                    raise Exception('Código do cliente inválido!')
+                # Verifica os codigos estão presentes no banco.
+                elif ctrl.check_cod("PetVenda", codigo_pet) == 0:
+                    #se não existir, mostra uma mensagem
+                    messagebox.showinfo('Pet não encontrado', 'O Pet não foi encontrado no banco de dados.')
+                elif ctrl.check_cod("Clientes", codigo_cli) == 0:
+                    messagebox.showinfo('Cliente não encontrado', 'O Cliente não foi encontrado no banco de dados.')
+                elif ctrl.check_cod(tabela, codigo) == 1:
+                    messagebox.showinfo('Codigo de venda duplicado', 'Uma venda com mesmo código de venda já existe no banco.')
+                
+                # Caso esteja tudo correto, será executada a tarefa principal da função
+                else:
+                    # Comando SQL que vai ser executado para a inserção na tabela acima
+                    sql = f"""
+                        INSERT INTO {tabela} VALUES(
+                            {codigo},
+                            {codigo_cli},
+                            {codigo_pet}
+                        );
+                    """
+                    # Função que vai executar o comando em sql\
+                    be.execute(sql)
+                    # Retorna uma mensagem de sucesso
+                    aux.show_info(self, f'Venda {codigo}, cadastrada com sucesso!')
             else:
-                # Comando SQL que vai ser executado para a inserção na tabela acima
-                sql = f"""
-                    INSERT INTO {tabela} VALUES(
-                        {codigo},
-                        {codigo_cli},
-                        {codigo_pet}
-                    );
-                """
-                # Função que vai executar o comando em sql\
-                be.execute(sql)
-                # Retorna uma mensagem de sucesso
-                aux.show_info(self, f'Venda {codigo}, cadastrada com sucesso!')
+                messagebox.showinfo('Campos vazios', 'Preencha os campos para prosseguir com a venda') 
         # Caso ocorra alguma exceção será tratada aqui
         except Exception as erro:
             # Retorna uma mensagem com a causa do erro
             aux.show_erro(self, f"Erro no cadastro de vendas!\n{erro}")
-
 
 # Classe que vai retornar os dados necessários para algumas aplicações
 class Lists():

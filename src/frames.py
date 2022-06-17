@@ -543,7 +543,7 @@ def Venda_Pet(self):
     #bind da Entry
     self.et_Codigo_pet.bind('<FocusIn>',lista_pets_venda(self))
     self.et_Codigo_pet.bind('<Button-1>', lambda x: aux.muda_venda_pet(self, "COD-PET"))
-        
+    
     #label
     self.label_Codigo_dono = Label(self.FR_root_ator_4, text="Código do Dono", font=fonte, background=fundo3)
     self.label_Codigo_dono.place(relx= 0.05, rely = 0.21)
@@ -576,7 +576,7 @@ def Venda_Pet(self):
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_venda(self), self.et_Codigo_pet.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_venda_pet(self), self.et_Codigo_pet.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -593,7 +593,7 @@ def Encomenda_Pet(self):
     
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
-    self.LB_label1 = Label(self.FR_root_ator_4, text = "Encomeda de Pet", background = fundo3)
+    self.LB_label1 = Label(self.FR_root_ator_4, text = "Encomenda de Pet", background = fundo3)
     self.LB_label1.pack()
     
     self.frame_funcionalidade = self.FR_root_ator_4
