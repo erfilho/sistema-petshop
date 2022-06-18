@@ -118,9 +118,18 @@ def clean_clientes(self):
         self.et_Email.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de cadastro de encomendas
-def clean_encomendas(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_encomendas(self, opcao =0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo_encomenda.delete(0, 'end')
+            self.et_Codigo_cli.delete(0, 'end')
+            self.et_Raca.delete(0, 'end')
+            self.et_Sexo.delete(0, 'end')
+            self.et_Idade.delete(0, 'end')
+            self.et_Valor.delete(0, 'end')
+            self.et_Codigo_pet.delete(0, 'end')
+    elif (opcao == 1):
         self.et_Codigo_encomenda.delete(0, 'end')
         self.et_Codigo_cli.delete(0, 'end')
         self.et_Raca.delete(0, 'end')
@@ -175,6 +184,12 @@ def cancel_venda_pet(self):
     if(self.msgBox):
         frames.Venda_Pet(self)
         self.msgBox = messagebox.showinfo('Cancelar Venda', 'Venda cancelada')
+        
+def cancel_encomenda(self):
+    self.msgBox = messagebox.askyesno('Cancelar Encomenda', 'Deseja realmente cancelar a Encomenda?')
+    if(self.msgBox):
+        frames.Encomenda_Pet(self)
+        self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Encomenda cancelada.')
 
 # Função que vai validar o cpf
 def valida_cpf(cpf):

@@ -319,13 +319,16 @@ class Factory():
                     be.execute(sql)
                     # Retorna uma mensagem de sucesso
                     aux.show_info(self, f"Encomenda {codigo}, cadastrada com sucesso!")
+                    return True
                     
             else:
                 messagebox.showinfo('Campos vazios', 'Existem campos obrigatórios não preenchidos, verifique os dados.') 
+                return False
         # Caso ocorra alguma exceção será tratada aqui
         except Exception as erro:
             # Retorna uma mensagem com a causa do erro
             aux.show_erro(self, f"Erro cadastro de encomendas!\n{erro}")
+            return False
 
     # Fabrica de vendas de pets
     def vendaPet_fac(self, codigo, codigo_pet, codigo_cli):
@@ -372,12 +375,15 @@ class Factory():
                     be.execute(sql)
                     # Retorna uma mensagem de sucesso
                     aux.show_info(self, f'Venda {codigo}, cadastrada com sucesso!')
+                    return True
             else:
-                messagebox.showinfo('Campos vazios', 'Preencha os campos para prosseguir com a venda') 
+                messagebox.showinfo('Campos vazios', 'Preencha os campos para prosseguir com a venda')
+                return False
         # Caso ocorra alguma exceção será tratada aqui
         except Exception as erro:
             # Retorna uma mensagem com a causa do erro
             aux.show_erro(self, f"Erro no cadastro de vendas!\n{erro}")
+            return False
 
 # Classe que vai retornar os dados necessários para algumas aplicações
 class Lists():

@@ -572,7 +572,7 @@ def Venda_Pet(self):
     #Salvar
     # Add by Erineldo 10/06
     # Adicionada a função de cadastro de vendas
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.vendaPet_fac(self.et_Codigo_venda_pet.get(), self.et_Codigo_pet.get(), self.et_Codigo_dono.get()))
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: True if (factory.vendaPet_fac(self.et_Codigo_venda_pet.get(), self.et_Codigo_pet.get(), self.et_Codigo_dono.get()) != True) else aux.clean_venda_pet(self, 3))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -684,7 +684,7 @@ def Encomenda_Pet(self):
 
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.encomenda_fac(self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get(), self.et_Codigo_pet.get()))
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda:  True if (factory.encomenda_fac(self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get(), self.et_Codigo_pet.get()) != True) else aux.clean_encomendas(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
