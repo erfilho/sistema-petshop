@@ -95,9 +95,19 @@ def clean_produtos(self, opcao = 0):
         self.et_Preco.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de cadastro de pets
-def clean_pets(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_pets(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo.delete(0, 'end')
+            self.et_Nome.delete(0, 'end')
+            self.et_Idade.delete(0, 'end')
+            self.et_Sexo.delete(0, 'end')
+            self.et_Codigo_Dono.delete(0, 'end')
+            self.et_Raca.delete(0, 'end')
+            self.et_Preco.delete(0, 'end')
+            self.CB_pet_para_venda.deselect()
+    elif(opcao == 1):
         self.et_Codigo.delete(0, 'end')
         self.et_Nome.delete(0, 'end')
         self.et_Idade.delete(0, 'end')
@@ -204,6 +214,13 @@ def cancel_encomenda(self):
         frames.Encomenda_Pet(self)
         self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Encomenda cancelada.')
 
+#Cancela a cadastro pet     
+def cancel_cadastro_pet(self):
+    self.msgBox = messagebox.askyesno('Cancelar Cadastro', 'Deseja realmente cancelar o cadastro do pet?')
+    if(self.msgBox):
+        frames.Cadastro_Pet(self)
+        self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Cadastro cancelado.')
+
 # Função que vai validar o cpf
 def valida_cpf(cpf):
     # Aqui ocorre o tratamento de excessões
@@ -299,17 +316,12 @@ def valida_cod(cod):
 def Valida_sexo_pet(sexo):
     # Aqui ocorre o tratamento de exceções
     try:
-        # Verifica se realmente foi passado um código e está entre 4 dígitos
-        if len(sexo) == 1:
-            # Verifica se o código se encontra no padrão
-            if sexo == 'M' or sexo == 'F':
-                # Caso se encontre retorna verdadeiro
-                return 1
-            else:
-                # Caso não seja será retornado falso
-                return 0
+        # Verifica se o sexo é um valor valdpo
+        if sexo == 'M' or sexo == 'F' or sexo == '':
+            # Caso se encontre retorna verdadeiro
+            return 1
         else:
-            # Caso não tenha sido, será retornado falso
+            # Caso não seja será retornado falso
             return 0
     # Caso ocorra alguma exceção seja tratada aqui
     except Exception as erro:

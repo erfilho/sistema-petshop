@@ -164,6 +164,41 @@ def view(tabela):
     trans.disconnect()
     return rows
 
+# Função que vai retornar ma pesquis de uma encomenda que se encaixa em algum cadastro de pet
+def search_encomenda(raca, sexo, idade, valor):
+    trans = TransactionObject()
+    if(sexo != ''):
+        trans.connect()
+        sql = f"""  
+            SELECT CODIGO FROM EncomendaPet
+                WHERE   
+                RACA_ENC = '{raca}' AND
+                (SEXO_ENC = '{sexo}' OR SEXO_ENC = '') AND
+                IDADE_ENC >= '{idade}' AND
+                VALOR_ENC >= '{valor}' AND
+                PET_ENC = '';
+        """
+        trans.execute(sql)
+    else:
+        trans.connect()
+    
+        sql = f"""  
+            SELECT CODIGO FROM EncomendaPet
+                WHERE   RACA_ENC = '{raca}' AND
+                SEXO_ENC = '' AND
+                IDADE_ENC >= '{idade}' AND
+                VALOR_ENC >= '{valor}' AND
+                PET_ENC = '';
+                    
+            
+        """
+        trans.execute(sql)
+    
+    item = trans.fetchall()
+    trans.persist()
+    trans.disconnect()
+    return item
+
 # Função que vai retornar alguma pesquisa de uma tabela, recebendo o campo e o valor do campo
 def search(tabela, src_campos = None, campo = None, valor = None):
     trans = TransactionObject()
@@ -207,5 +242,17 @@ def delete(tabela, codigo = None):
     trans.persist()
     trans.disconnect()
 
+#Função que vai adiconar pet a uma encomenda já existente no banco
+def add_pet_encomenda(codigo_enc, codigo_pet):
+    trans = TransactionObject()
+    trans.connect()
+    sql = f"""
+        UPDATE  EncomendaPet 
+        SET PET_ENC = '{codigo_pet}'
+        WHERE CODIGO = '{codigo_enc}'
+    """
+    trans.execute(sql)
+    trans.persist()
+    trans.disconnect()
 
 initDB()
