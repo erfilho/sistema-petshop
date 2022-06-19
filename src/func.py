@@ -82,9 +82,14 @@ def logout(self):
     frames.Login(self)
 
 # Função que vai limpar os campos da tela de cadastro de produtos
-def clean_produtos(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_produtos(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo.delete(0, 'end')
+            self.et_Nome.delete(0, 'end')
+            self.et_Preco.delete(0, 'end')
+    elif (opcao == 1):
         self.et_Codigo.delete(0, 'end')
         self.et_Nome.delete(0, 'end')
         self.et_Preco.delete(0, 'end')
@@ -184,7 +189,15 @@ def cancel_venda_pet(self):
     if(self.msgBox):
         frames.Venda_Pet(self)
         self.msgBox = messagebox.showinfo('Cancelar Venda', 'Venda cancelada')
-        
+
+#Cancela cadastro de produtos
+def cancel_cad_produtos(self):
+    self.msgBox = messagebox.askyesno('Cancelar Cadastro', 'Deseja realmente cancelar o cadastro de produtos?')
+    if(self.msgBox):
+        frames.Cadastro_Produto(self)
+        self.msgBox = messagebox.showinfo('Cancelar Cadastro', 'Cadastro de produtos cancelado')
+
+#Cancela a encomenda de pet     
 def cancel_encomenda(self):
     self.msgBox = messagebox.askyesno('Cancelar Encomenda', 'Deseja realmente cancelar a Encomenda?')
     if(self.msgBox):

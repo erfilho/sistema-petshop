@@ -240,12 +240,12 @@ def Cadastro_Produto(self):
     #Botões
     #Salvar
     # Mod by Erineldo - Added cadastro produto
-    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.produtos_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Preco.get()))
+    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: True if (factory.produtos_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Preco.get()) != True) else aux.clean_produtos(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
     # Mod by Erineldo - Adicionado função de cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_produtos(self), self.et_Codigo.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cad_produtos(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar

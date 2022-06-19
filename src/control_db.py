@@ -140,37 +140,46 @@ class Factory():
         ctrl = self.controller
         # Ocorre o tratamento de exceções e a execução da tarefa principal da função
         try:
-            # Tabela referente a função
-            tabela = "Produtos"
-            # Confirma se o usuário deseja realmente confirmar o cadastro
-            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
-                # Caso o cliente não confirme será gerada uma exceção
-                raise Exception('Cadastro cancelado!')
-            # Verifica se os campos estão de acordo com as especificações
-            elif aux.valida_cod(codigo) == False:
-                # Caso o código não esteja de acordo com as especificações será gerada uma exceção
-                raise Exception('Código inválido!')
-            # Verifica se o código já está cadastrado
-            elif ctrl.check_cod(tabela, codigo):
-                # Caso o código já esteja cadastrado irá ser gerada uma exceção
-                raise Exception("Código já cadastrado, tente novamente!")
+            if(codigo != '' and nome != '' and preco != ''):
+                # Tabela referente a função
+                tabela = "Produtos"
+                # Confirma se o usuário deseja realmente confirmar o cadastro
+                if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                    # Caso o cliente não confirme será gerada uma exceção
+                    raise Exception('Cadastro cancelado!')
+                # Verifica se os campos estão de acordo com as especificações
+                elif aux.valida_cod(codigo) == False:
+                    # Caso o código não esteja de acordo com as especificações será gerada uma exceção
+                    raise Exception('Código inválido!')
+                # Verifica se o código já está cadastrado
+                elif ctrl.check_cod(tabela, codigo):
+                    # Caso o código já esteja cadastrado irá ser gerada uma exceção
+                    raise Exception("Código já cadastrado, tente novamente!")
+                elif aux.Valida_preco(preco) == False:
+                    # Caso o código já esteja cadastrado, irá ser gerada uma exceção
+                    messagebox.showinfo('Preço inválido', 'Digite um preço de produto válido.')
+                else:
+                    # Comando SQL que vai ser utilizado para a inserção na tabela acima
+                    sql = f"""
+                        INSERT INTO {tabela} VALUES(
+                            {codigo},
+                            '{nome}',
+                            '{preco}'
+                        );
+                    """
+                    # Função que vai executar o comando em sql
+                    be.execute(sql)
+                    # Retorna uma mensagem de sucesso
+                    aux.show_info(self, f"Produto {codigo}, cadastrado com sucesso!")
+                    return True
             else:
-                # Comando SQL que vai ser utilizado para a inserção na tabela acima
-                sql = f"""
-                    INSERT INTO {tabela} VALUES(
-                        {codigo},
-                        '{nome}',
-                        '{preco}'
-                    );
-                """
-                # Função que vai executar o comando em sql
-                be.execute(sql)
-                # Retorna uma mensagem de sucesso
-                aux.show_info(self, f"Produto {codigo}, cadastrado com sucesso!")
+                messagebox.showinfo('Campos vazios', 'Preencha os campos para prosseguir com o cadastro')
+                return False
         # Caso ocorra alguma exceção irá ser tratada aqui
         except Exception as erro:
             # Retorna uma mensagem com a causa do erro
             aux.show_erro(self, f"Erro cadastro de produtos!\n{erro}")
+            return False
 
     # Fabrica de pets de clientes
     def pet_cliente_fac(self, codigo, nome, idade, sexo, codigo_dono, raca):
