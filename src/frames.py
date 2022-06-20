@@ -500,11 +500,11 @@ def Cadastro_Cliente(self):
     
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.cliente_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_CPF.get(), self.et_Data_nascimento.get(), self.et_Logradouro.get(), self.et_Cidade.get(), self.et_Bairro.get(), self.et_UF.get(), self.et_Celular.get(), self.et_Email.get()))
+    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: True if (factory.cliente_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_CPF.get(), self.et_Data_nascimento.get(), self.et_Logradouro.get(), self.et_Cidade.get(), self.et_Bairro.get(), self.et_UF.get(), self.et_Celular.get(), self.et_Email.get()) != True) else aux.clean_clientes(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_3, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cliente(self), self.et_Codigo.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_3, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cadastro_cliente(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar

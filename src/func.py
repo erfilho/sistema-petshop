@@ -118,9 +118,21 @@ def clean_pets(self, opcao = 0):
         self.CB_pet_para_venda.deselect()
 
 # Função que vai limpar os campos da tela de cadastro de clientes
-def clean_clientes(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_clientes(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo.delete(0, 'end')
+            self.et_Nome.delete(0, 'end')
+            self.et_CPF.delete(0, 'end')
+            self.et_Data_nascimento.delete(0, 'end')
+            self.et_Logradouro.delete(0, 'end')
+            self.et_Cidade.delete(0, 'end')
+            self.et_Bairro.delete(0, 'end')
+            self.et_UF.delete(0, 'end')
+            self.et_Celular.delete(0, 'end')
+            self.et_Email.delete(0, 'end')
+    elif(opcao == 1):
         self.et_Codigo.delete(0, 'end')
         self.et_Nome.delete(0, 'end')
         self.et_CPF.delete(0, 'end')
@@ -221,6 +233,13 @@ def cancel_cadastro_pet(self):
         frames.Cadastro_Pet(self)
         self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Cadastro cancelado.')
 
+#Cancela a cadastro pet     
+def cancel_cadastro_cliente(self):
+    self.msgBox = messagebox.askyesno('Cancelar Cadastro', 'Deseja realmente cancelar o cadastro do cliente?')
+    if(self.msgBox):
+        frames.Cadastro_Cliente(self)
+        self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Cadastro cancelado.')
+
 # Função que vai validar o cpf
 def valida_cpf(cpf):
     # Aqui ocorre o tratamento de excessões
@@ -289,6 +308,52 @@ def valida_email(email):
         # Se ocorrer alguma será retornado falso
         return 0
 
+# Função que vai validar a unidade federativa
+def valida_UF(uf):
+    # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(uf) == 2 or uf == '':
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r'([A-Z])*$')
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, uf):
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar a data de nasciimento
+def valida_data_nascimento(data):
+    # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(data) > 0 or data == '':
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r"([0-2]{1}[0-9]{1}|3[0-1]{1})\/(0[0-9]{1}|1[0-2]{1})\/[0-9]{4}$")
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, data) or data == '':
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
 # Função que vai validar o código
 def valida_cod(cod):
     # Aqui ocorre o tratamento de exceções
@@ -313,7 +378,7 @@ def valida_cod(cod):
         return 0
 
 # Função que vai validar o sexo do pet
-def Valida_sexo_pet(sexo):
+def valida_sexo_pet(sexo):
     # Aqui ocorre o tratamento de exceções
     try:
         # Verifica se o sexo é um valor valdpo
@@ -329,7 +394,7 @@ def Valida_sexo_pet(sexo):
         return 0
 
 # Função que vai validar o idade do pet
-def Valida_idade_pet(idade):
+def valida_idade_pet(idade):
    # Aqui ocorre o tratamento de exceções
     try:
         # Verifica se realmente foi passado um código e está entre 4 dígitos
@@ -352,7 +417,7 @@ def Valida_idade_pet(idade):
         return 0
 
 # Função que vai validar o preço
-def Valida_preco(preco):
+def valida_preco(preco):
    # Aqui ocorre o tratamento de exceções
     try:
         # Verifica se realmente foi passado um código e está entre 4 dígitos

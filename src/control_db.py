@@ -95,62 +95,66 @@ class Factory():
         ctrl = self.controller
         # Ocorre o tratamento de exceções e a execução da tarefa principal da função
         try:
-            # Atribui os valores validados as variaveis referentes
-            codigo = aux.valida_cod(codigo)
-            cpf = aux.valida_cpf(cpf)
-            cel = aux.valida_cel(cel)
-            email = aux.valida_email(email)
-
-            # Tabela referente a função
-            tabela = "Clientes"
-            # Confirma se o usuário deseja realmente confirmar o cadastro
-            if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
-                # Caso o cliente não confirme será gerada uma exceção
-                raise Exception('Cadastro cancelado!')
-            # Verifica se os campos estão de acordo com as especificações
-            if aux.valida_cod(codigo) == False:
-                # Caso o código não esteja de acordo com as especificações será gerada uma exceção
-                raise Exception('O código não está de acordo com as especificações!')
-            elif aux.valida_cpf(cpf) == False:
-                # Caso o cpf do cliente não esteja de acordo com as especificações será gerada uma exceção
-                raise Exception('O CPF não está de acordo com as especificações!')
-            elif aux.valida_cel(cel) == False:
-                # Caso o celular do cliente não esteja de acordo com as especificações será gerada uma exceção
-                raise Exception('O celular não está de acordo com as especificações!')
-            elif aux.valida_email(email) == False:
-                # Caso o email do cliente não esteja de acordo com as especificações será gerada uma exceção
-                raise Exception('O Email não está de acordo com as especificações!')
-            # Verifica se o código já está cadastrado
-            elif ctrl.check_cod(tabela, codigo):
-                # Caso o código já esteja cadastrado irá ser gerada uma exceção
-                raise Exception("Código já cadastrado, tente novamente!")
-            elif ctrl.check_cpf(cpf):
-                # Caso o cpf já esteja cadastrado também irá ser gerada uma exceção
-                raise Exception("CPF já cadastrado, tente novamente!")
+            if(codigo != '' and nome != '' and cpf != '' and cel != '' and email != ''): 
+                # Tabela referente a função
+                tabela = "Clientes"
+                # Confirma se o usuário deseja realmente confirmar o cadastro
+                if aux.show_ok(self, 'Deseja confirmar o cadastro ?') == False:
+                    # Caso o cliente não confirme será gerada uma exceção
+                    raise Exception('Cadastro cancelado!')
+                # Verifica se os campos estão de acordo com as especificações
+                if aux.valida_cod(codigo) == False:
+                    # Caso o código não esteja de acordo com as especificações será gerada uma exceção
+                    raise Exception('O código não está de acordo com as especificações!')
+                elif aux.valida_cpf(cpf) == False:
+                    # Caso o cpf do cliente não esteja de acordo com as especificações será gerada uma exceção
+                    raise Exception('O CPF não está de acordo com as especificações!')
+                elif aux.valida_cel(cel) == False:
+                    # Caso o celular do cliente não esteja de acordo com as especificações será gerada uma exceção
+                    raise Exception('O celular não está de acordo com as especificações!')
+                elif aux.valida_email(email) == False:
+                    # Caso o email do cliente não esteja de acordo com as especificações será gerada uma exceção
+                    raise Exception('O Email não está de acordo com as especificações!')
+                # Verifica se o código já está cadastrado
+                elif ctrl.check_cod(tabela, codigo):
+                    # Caso o código já esteja cadastrado irá ser gerada uma exceção
+                    raise Exception("Código já cadastrado, tente novamente!")
+                elif ctrl.check_cpf(cpf):
+                    # Caso o cpf já esteja cadastrado também irá ser gerada uma exceção
+                    raise Exception("CPF já cadastrado, tente novamente!")
+                elif aux.valida_UF(uf) == 0:
+                    messagebox.showinfo('UF inválida', 'Digite uma Unidade Federativa válida.')
+                elif aux.valida_data_nascimento(data_n) == 0:
+                    messagebox.showinfo('Data inválida', 'Digite uma data de nascimento válida.')
+                else:
+                    # Comando SQL que vai ser executado para a inserção na tabela acima
+                    sql = f"""
+                        INSERT INTO {tabela} VALUES(
+                            {codigo}, 
+                            '{nome}', 
+                            '{cpf}', 
+                            '{data_n}', 
+                            '{logradouro}', 
+                            '{cidade}', 
+                            '{bairro}', 
+                            '{uf}',
+                            '{cel}', 
+                            '{email}' 
+                        );
+                    """
+                    # Função que vai executar o comando em sql
+                    be.execute(sql)
+                    # Retorna uma mensagem de sucesso
+                    aux.show_info(self, f"Cliente {codigo}, cadastrado com sucesso!")
+                    return True
             else:
-                # Comando SQL que vai ser executado para a inserção na tabela acima
-                sql = f"""
-                    INSERT INTO {tabela} VALUES(
-                        {codigo}, 
-                        '{nome}', 
-                        '{cpf}', 
-                        '{data_n}', 
-                        '{logradouro}', 
-                        '{cidade}', 
-                        '{bairro}', 
-                        '{uf}',
-                        '{cel}', 
-                        '{email}' 
-                    );
-                """
-                # Função que vai executar o comando em sql
-                be.execute(sql)
-                # Retorna uma mensagem de sucesso
-                aux.show_info(self, f"Cliente {codigo}, cadastrado com sucesso!")
+                messagebox.showinfo('Campos vazios', 'Existem campos obrigatóiros que não estão preenchidos.\nVerifique os dados.')
+                return False
         # Caso ocorra alguma exceção irá ser tratada aqui
         except Exception as erro:
             # Retorna uma mensagem com a causa do erro
             aux.show_erro(self, f"Erro cadastro de clientes!\n {erro}")
+            return False
 
     # Fabrica de produtos
     def produtos_fac(self, codigo, nome, preco):
@@ -173,7 +177,7 @@ class Factory():
                 elif ctrl.check_cod(tabela, codigo):
                     # Caso o código já esteja cadastrado irá ser gerada uma exceção
                     raise Exception("Código já cadastrado, tente novamente!")
-                elif aux.Valida_preco(preco) == False:
+                elif aux.valida_preco(preco) == False:
                     # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                     messagebox.showinfo('Preço inválido', 'Digite um preço de produto válido.')
                 else:
@@ -223,7 +227,7 @@ class Factory():
                     messagebox.showinfo('Dono não encontrado', 'O dono não foi encontrado no banco de dados.')
             else:
                 if (idade != ''):
-                    if aux.Valida_idade_pet(idade) == False:
+                    if aux.valida_idade_pet(idade) == False:
                         # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                         messagebox.showinfo('Idade inválida', 'Digite uma idade de pet válida.')
                     else:
@@ -281,15 +285,15 @@ class Factory():
             elif ctrl.check_cod(tabela, codigo):
                 # Caso o código já esteja cadastrado irá ser gerada uma exceção
                 raise Exception("Código já cadastrado, tente novamente!")
-            elif aux.Valida_preco(preco) == False:
+            elif aux.valida_preco(preco) == False:
                     # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                     messagebox.showinfo('Valor inválido', 'Digite um valor máximo de pet válido.')
-            elif aux.Valida_sexo_pet(sexo) == False:
+            elif aux.valida_sexo_pet(sexo) == False:
                 # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                 messagebox.showinfo('Sexo inválido', 'Utilize F para Feminino ou M para Masculino')
             else:
                 if(idade != ''):
-                    if aux.Valida_idade_pet(idade) == False:
+                    if aux.valida_idade_pet(idade) == False:
                         # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                          messagebox.showinfo('Idade inválido', 'Digite uma idade de pet válida.')
                     else:
@@ -391,13 +395,13 @@ class Factory():
                 elif ctrl.check_cod(tabela, codigo) == 1:
                     # Caso o código não esteja cadastrado, irá mostrar uma mensagem
                     messagebox.showinfo('Codigo de encomenda duplicado', 'Uma encomenda com o mesmo código já existe no banco.')
-                elif aux.Valida_sexo_pet(sexo) == False:
+                elif aux.valida_sexo_pet(sexo) == False:
                     # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                     messagebox.showinfo('Sexo inválido', 'Utilize F para Feminino ou M para Masculino')
-                elif aux.Valida_idade_pet(idade) == False:
+                elif aux.valida_idade_pet(idade) == False:
                     # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                     messagebox.showinfo('Idade inválida', 'Digite uma idade de pet válida.')
-                elif aux.Valida_preco(valor) == False:
+                elif aux.valida_preco(valor) == False:
                     # Caso o código já esteja cadastrado, irá ser gerada uma exceção
                     messagebox.showinfo('Valor inválido', 'Digite um valor máximo de pet válido.')
                 else:
