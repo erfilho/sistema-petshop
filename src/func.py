@@ -155,7 +155,6 @@ def clean_encomendas(self, opcao =0):
             self.et_Sexo.delete(0, 'end')
             self.et_Idade.delete(0, 'end')
             self.et_Valor.delete(0, 'end')
-            self.et_Codigo_pet.delete(0, 'end')
     elif (opcao == 1):
         self.et_Codigo_encomenda.delete(0, 'end')
         self.et_Codigo_cli.delete(0, 'end')
@@ -163,7 +162,6 @@ def clean_encomendas(self, opcao =0):
         self.et_Sexo.delete(0, 'end')
         self.et_Idade.delete(0, 'end')
         self.et_Valor.delete(0, 'end')
-        self.et_Codigo_pet.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de vendas
 def clean_vendas(self, opcao = 0):

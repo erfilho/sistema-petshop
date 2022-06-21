@@ -670,21 +670,10 @@ def Encomenda_Pet(self):
     #entry
     self.et_Valor = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Valor.place(relx= 0.545, rely = 0.115, relheight= 0.075, relwidth=0.43)
-    
-    #codigo pet
-    #label
-    self.label_codigo_pet = Label(self.FR_root_ator_4, text="Código do Pet", font=fonte, background=fundo3)
-    self.label_codigo_pet.place(relx= 0.6, rely = 0.21)
-    #imagem de fundo
-    self.fundo_codigo_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
-    self.fundo_codigo_pet.place(relx= 0.53, rely = 0.25, relheight=0.115, relwidth=0.46)
-    #entry
-    self.et_Codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_Codigo_pet.place(relx= 0.545, rely = 0.265, relheight= 0.075, relwidth=0.43)
 
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda:  True if (factory.encomenda_fac(self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get(), self.et_Codigo_pet.get()) != True) else aux.clean_encomendas(self, 1))
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda:  True if (factory.encomenda_fac(self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get()) != True) else aux.clean_encomendas(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar

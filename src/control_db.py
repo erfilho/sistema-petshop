@@ -371,7 +371,7 @@ class Factory():
             return False
 
     # Fabrica de encomendas
-    def encomenda_fac(self, codigo, codigo_cli, raca, sexo, idade, valor, pet):
+    def encomenda_fac(self, codigo, codigo_cli, raca, sexo, idade, valor):
         
         # Referencia a variável da classe controller para que fique um código mais limpo
         ctrl = self.controller
@@ -414,7 +414,7 @@ class Factory():
                             '{sexo}',
                             '{idade}',
                             '{valor}',
-                            '{pet}'
+                            ''
                         );
                     """
                     # Função que vai executar o comando em sql
