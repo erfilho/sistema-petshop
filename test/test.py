@@ -53,6 +53,57 @@ class CodTeste(unittest.TestCase):
         cods = ['abc1', '0 12', '01234', 'abcd']
         for i in cods:
             self.assertFalse(valida_cod(i))
+            
+class SexoTeste(unittest.TestCase):  
+    def teste_sexo_true(self):   
+        sexos = ['F', 'M', '']
+        for i in sexos:
+            self.assertTrue(valida_sexo_pet(i))
+    def teste_sexo_false(self):
+        sexos = ['a', '0', '01234', 'ab']        
+        for i in sexos:
+            self.assertFalse(valida_sexo_pet(i))
+                
+class PrecoTeste(unittest.TestCase):  
+    def teste_preco_true(self):   
+        precos = ['21', '131.45', '746']
+        for i in precos:
+            self.assertTrue(valida_preco(i))
+    def teste_preco_false(self):
+        precos = ['a', '0s', '012f4', 'a b']        
+        for i in precos:
+            self.assertFalse(valida_preco(i))
+                                
+class IdadeTeste(unittest.TestCase):  
+    def teste_idade_true(self):   
+        idade = ['21', '8', '100']
+        for i in idade:
+            self.assertTrue(valida_idade_pet(i))
+    def teste_idade_false(self):
+        idade = ['a', '0s', '012f4', 'a b']        
+        for i in idade:
+            self.assertFalse(valida_idade_pet(i))
+
+class DataNascimentoTeste(unittest.TestCase):  
+    def teste_dataNascimento_true(self):   
+        data_nascimento = ['21/01/2002', '25/12/2010']
+        for i in data_nascimento:
+            self.assertTrue(valida_data_nascimento(i))
+    def teste_dataNascimento_false(self):
+        data_nascimento = ['a', '0s', '012f4', 'a b']        
+        for i in data_nascimento:
+            self.assertFalse(valida_data_nascimento(i))                                           
+
+class UFTeste(unittest.TestCase):  
+    def teste_uf_true(self):   
+        uf = ['CE', 'MG']
+        for i in uf:
+            self.assertTrue(valida_UF(i))
+    def teste_uf_false(self):
+        uf = ['a', '0s', '012f4', 'a b', '00']        
+        for i in uf:
+            self.assertFalse(valida_UF(i))                                           
+                        
 
 if __name__ == "__main__":
     unittest.main()
