@@ -82,17 +82,32 @@ def logout(self):
     frames.Login(self)
 
 # Função que vai limpar os campos da tela de cadastro de produtos
-def clean_produtos(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_produtos(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo.delete(0, 'end')
+            self.et_Nome.delete(0, 'end')
+            self.et_Preco.delete(0, 'end')
+    elif (opcao == 1):
         self.et_Codigo.delete(0, 'end')
         self.et_Nome.delete(0, 'end')
         self.et_Preco.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de cadastro de pets
-def clean_pets(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_pets(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo.delete(0, 'end')
+            self.et_Nome.delete(0, 'end')
+            self.et_Idade.delete(0, 'end')
+            self.et_Sexo.delete(0, 'end')
+            self.et_Codigo_Dono.delete(0, 'end')
+            self.et_Raca.delete(0, 'end')
+            self.et_Preco.delete(0, 'end')
+            self.CB_pet_para_venda.deselect()
+    elif(opcao == 1):
         self.et_Codigo.delete(0, 'end')
         self.et_Nome.delete(0, 'end')
         self.et_Idade.delete(0, 'end')
@@ -103,9 +118,21 @@ def clean_pets(self):
         self.CB_pet_para_venda.deselect()
 
 # Função que vai limpar os campos da tela de cadastro de clientes
-def clean_clientes(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_clientes(self, opcao = 0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo.delete(0, 'end')
+            self.et_Nome.delete(0, 'end')
+            self.et_CPF.delete(0, 'end')
+            self.et_Data_nascimento.delete(0, 'end')
+            self.et_Logradouro.delete(0, 'end')
+            self.et_Cidade.delete(0, 'end')
+            self.et_Bairro.delete(0, 'end')
+            self.et_UF.delete(0, 'end')
+            self.et_Celular.delete(0, 'end')
+            self.et_Email.delete(0, 'end')
+    elif(opcao == 1):
         self.et_Codigo.delete(0, 'end')
         self.et_Nome.delete(0, 'end')
         self.et_CPF.delete(0, 'end')
@@ -118,16 +145,23 @@ def clean_clientes(self):
         self.et_Email.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de cadastro de encomendas
-def clean_encomendas(self):
-    self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
-    if(self.msgBox):
+def clean_encomendas(self, opcao =0):
+    if(opcao == 0):
+        self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
+        if(self.msgBox):
+            self.et_Codigo_encomenda.delete(0, 'end')
+            self.et_Codigo_cli.delete(0, 'end')
+            self.et_Raca.delete(0, 'end')
+            self.et_Sexo.delete(0, 'end')
+            self.et_Idade.delete(0, 'end')
+            self.et_Valor.delete(0, 'end')
+    elif (opcao == 1):
         self.et_Codigo_encomenda.delete(0, 'end')
         self.et_Codigo_cli.delete(0, 'end')
         self.et_Raca.delete(0, 'end')
         self.et_Sexo.delete(0, 'end')
         self.et_Idade.delete(0, 'end')
         self.et_Valor.delete(0, 'end')
-        self.et_Codigo_pet.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de vendas
 def clean_vendas(self, opcao = 0):
@@ -135,11 +169,11 @@ def clean_vendas(self, opcao = 0):
         self.msgBox = messagebox.askyesno('Limpar os campos', 'Deseja realmente limpar os campos ?')
         if(self.msgBox):
             self.et_Codigo_produto.delete(0, 'end')
-            self.et_Codigo_pet.delete(0, 'end')
+            self.et_Codigo_venda.delete(0, 'end')
             self.et_Codigo_encomenda.delete(0, 'end')
     elif(opcao == 1):
         self.et_Codigo_produto.delete(0, 'end')
-        self.et_Codigo_pet.delete(0, 'end')
+        self.et_Codigo_venda.delete(0, 'end')
         self.et_Codigo_encomenda.delete(0, 'end')
 
 # Função que vai limpar os campos da tela de vendas de pet
@@ -154,6 +188,10 @@ def clean_venda_pet(self, opcao = 0):
         self.et_Codigo_pet.delete(0, 'end')
     elif(opcao == 2):
         self.et_Codigo_dono.delete(0, 'end')
+    elif(opcao == 3):
+        self.et_Codigo_pet.delete(0, 'end')
+        self.et_Codigo_dono.delete(0, 'end')
+        self.et_Codigo_venda_pet.delete(0, 'end')
 
 #Função que limpa a tabela de vendas
 def clean_tabela_venda(self, opcao = 0):
@@ -164,6 +202,42 @@ def clean_tabela_venda(self, opcao = 0):
             self.lista_venda_2.delete(*self.lista_venda_2.get_children())
     if(opcao == 1):
         self.lista_venda_2.delete(*self.lista_venda_2.get_children())
+
+#Cancela a venda de pet
+def cancel_venda_pet(self):
+    self.msgBox = messagebox.askyesno('Cancelar Venda', 'Deseja realmente cancelar a venda?')
+    if(self.msgBox):
+        frames.Venda_Pet(self)
+        self.msgBox = messagebox.showinfo('Cancelar Venda', 'Venda cancelada')
+
+#Cancela cadastro de produtos
+def cancel_cad_produtos(self):
+    self.msgBox = messagebox.askyesno('Cancelar Cadastro', 'Deseja realmente cancelar o cadastro de produtos?')
+    if(self.msgBox):
+        frames.Cadastro_Produto(self)
+        self.msgBox = messagebox.showinfo('Cancelar Cadastro', 'Cadastro de produtos cancelado')
+
+#Cancela a encomenda de pet     
+def cancel_encomenda(self):
+    self.msgBox = messagebox.askyesno('Cancelar Encomenda', 'Deseja realmente cancelar a Encomenda?')
+    if(self.msgBox):
+        frames.Encomenda_Pet(self)
+        self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Encomenda cancelada.')
+
+#Cancela a cadastro pet     
+def cancel_cadastro_pet(self):
+    self.msgBox = messagebox.askyesno('Cancelar Cadastro', 'Deseja realmente cancelar o cadastro do pet?')
+    if(self.msgBox):
+        frames.Cadastro_Pet(self)
+        self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Cadastro cancelado.')
+
+#Cancela a cadastro pet     
+def cancel_cadastro_cliente(self):
+    self.msgBox = messagebox.askyesno('Cancelar Cadastro', 'Deseja realmente cancelar o cadastro do cliente?')
+    if(self.msgBox):
+        frames.Cadastro_Cliente(self)
+        self.msgBox = messagebox.showinfo('Cancelar Encomenda', 'Cadastro cancelado.')
+
 # Função que vai validar o cpf
 def valida_cpf(cpf):
     # Aqui ocorre o tratamento de excessões
@@ -232,6 +306,52 @@ def valida_email(email):
         # Se ocorrer alguma será retornado falso
         return 0
 
+# Função que vai validar a unidade federativa
+def valida_UF(uf):
+    # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(uf) == 2 or uf == '':
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r'([A-Z])*$')
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, uf):
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar a data de nasciimento
+def valida_data_nascimento(data):
+    # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(data) > 0 or data == '':
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r"([0-2]{1}[0-9]{1}|3[0-1]{1})\/(0[0-9]{1}|1[0-2]{1})\/[0-9]{4}$")
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, data) or data == '':
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
 # Função que vai validar o código
 def valida_cod(cod):
     # Aqui ocorre o tratamento de exceções
@@ -242,6 +362,68 @@ def valida_cod(cod):
             pattern = re.compile(r'^(\d{0,4})$')
             # Verifica se o código se encontra no padrão
             if re.match(pattern, cod):
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar o sexo do pet
+def valida_sexo_pet(sexo):
+    # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se o sexo é um valor valdpo
+        if sexo == 'M' or sexo == 'F' or sexo == '':
+            # Caso se encontre retorna verdadeiro
+            return 1
+        else:
+            # Caso não seja será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar o idade do pet
+def valida_idade_pet(idade):
+   # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(idade) > 0 and len(idade) < 4:
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r'^(\d{0,4})$')
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, idade):
+                # Caso se encontre retorna verdadeiro
+                return 1
+            else:
+                # Caso não seja será retornado falso
+                return 0
+        else:
+            # Caso não tenha sido, será retornado falso
+            return 0
+    # Caso ocorra alguma exceção seja tratada aqui
+    except Exception as erro:
+        # Se ocorrer alguma será retornado falso
+        return 0
+
+# Função que vai validar o preço
+def valida_preco(preco):
+   # Aqui ocorre o tratamento de exceções
+    try:
+        # Verifica se realmente foi passado um código e está entre 4 dígitos
+        if len(preco) > 0:
+            # Cria o padrão para ser verificado o código
+            pattern = re.compile(r'^(\d{0,10}\.\d{0,2}|\d{0,10})$')
+            # Verifica se o código se encontra no padrão
+            if re.match(pattern, preco):
                 # Caso se encontre retorna verdadeiro
                 return 1
             else:
@@ -270,7 +452,7 @@ def duploClick_CODDono(self):
         self.et_Codigo_dono.insert('end', col1)
       
 #Função que insere produtos na tabela de venda
-def adiciona_venda_produto(self, prod, pet, enc):
+def adiciona_venda_produto(self, prod, venda, enc):
     # Aqui ocorre o tratamento de excessões
     try:
         clean_vendas(self, 1)   #Limpa os campos de códigos após clicar em Adicionar.
@@ -285,15 +467,22 @@ def adiciona_venda_produto(self, prod, pet, enc):
                         self.lista_venda_1.insert('', tkinter.END, values=i)    #Insere a lista nos campos da tabela.
                 else:
                     self.msgBox = messagebox.showinfo('Produto não encotrado', 'O Produto não foi encontrado.') #retorena uma mensagem caso o código digitado não coresponda a algum produto.
-        elif(pet != ''):
-            lista = cdb.Lists.produto_pet(self, 'CODIGO', pet)
+        elif(venda != ''):
+            lista = cdb.Lists.produto_venda_pet(self, 'CODIGO', venda)
             if type(lista) is list:
                 if len(lista) > 0:
                     lista = list(lista[0])
-                    lista.insert(1,'Pet')
-                    lista = [lista]
-                    for i in lista:
-                        self.lista_venda_1.insert('', tkinter.END, values=i)
+                    if(lista[1] != None and lista[1] != ''): 
+                        lista2 = cdb.Lists.produto_pet(self, 'CODIGO', lista[1])
+                        lista2 = list(lista2[0])
+                        lista3 = []
+                        lista3.insert(0, lista[0])
+                        lista3.insert(1, "Venda Pet")
+                        lista3.insert(2, lista2[1])
+                        lista3.insert(3, lista2[2])
+                        lista3 = [lista3]
+                        for i in lista3:
+                            self.lista_venda_1.insert('', tkinter.END, values=i)
                 else:
                     self.msgBox = messagebox.showinfo('Produto não encotrado', 'O Produto não foi encontrado.')
         elif(enc != ''):
@@ -321,7 +510,7 @@ def adiciona_venda_produto(self, prod, pet, enc):
             self.msgBox = messagebox.showinfo('Nenhum Produto Digitado', 'Digite o codigo do produto para adiciona-lo.')    #Retona uma mensagem caso nenhum código de produto ou encomenda seja digitado.
     except Exception as erro:
         # Se ocorrer alguma exceção também será retornado FALSE
-        return 0       
+        return 0
 
 #Função que calcula e insere o total da venda no capo total
 def total_venda(self):
@@ -343,17 +532,21 @@ def total_venda(self):
 def finaliza_venda(self):
      # Aqui ocorre o tratamento de exceções
     try:
-        self.msgBox = messagebox.askyesno('Finalizar Venda', 'Deseja realmente finalizar a venda ?')
-        if(self.msgBox):
-            muda_funcionalidade(self, "Nota")
-            for i in self.lista_venda_1.get_children():
-                self.lista_nota_1.insert('', tkinter.END, values= self.lista_venda_1.item(i, 'values'))
-            valores = []
-            for i in self.lista_venda_1.get_children():
-                col1, col2, col3, col4 = self.lista_venda_1.item(i, 'values')
-                valores.append(col4)
-            valores = list(map(double, valores))
-            self.lista_nota_2.insert('', tkinter.END, values= sum(valores)) 
+        lista = self.lista_venda_1.get_children()
+        if(lista != ()):
+            self.msgBox = messagebox.askyesno('Finalizar Venda', 'Deseja realmente finalizar a venda ?')
+            if(self.msgBox):
+                muda_funcionalidade(self, "Nota")
+                for i in lista:
+                    self.lista_nota_1.insert('', tkinter.END, values= self.lista_venda_1.item(i, 'values'))
+                valores = []
+                for i in self.lista_venda_1.get_children():
+                    col1, col2, col3, col4 = self.lista_venda_1.item(i, 'values')
+                    valores.append(col4)
+                valores = list(map(double, valores))
+                self.lista_nota_2.insert('', tkinter.END, values= sum(valores)) 
+        else:
+            self.msgBox = messagebox.showinfo('Finalizar Venda', 'Adiciona produtos para poder proseguir com a venda.')
     # Caso ocorra alguma exceção seja tratada aqui
     except Exception as erro:
         # Se ocorrer alguma será retornado falso

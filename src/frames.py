@@ -240,12 +240,12 @@ def Cadastro_Produto(self):
     #Botões
     #Salvar
     # Mod by Erineldo - Added cadastro produto
-    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.produtos_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Preco.get()))
+    self.bt_salvar = Button(self.FR_root_ator_1, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: True if (factory.produtos_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Preco.get()) != True) else aux.clean_produtos(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
     # Mod by Erineldo - Adicionado função de cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_produtos(self), self.et_Codigo.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_1, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cad_produtos(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -357,11 +357,11 @@ def Cadastro_Pet(self):
 
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.pet_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Idade.get(), self.et_Sexo.get(), self.et_Codigo_Dono.get(), self.et_Raca.get(), self.et_Preco.get(), self.valor_Checkbox.get()))
+    self.bt_salvar = Button(self.FR_root_ator_2, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: True if (factory.pet_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_Idade.get(), self.et_Sexo.get(), self.et_Codigo_Dono.get(), self.et_Raca.get(), self.et_Preco.get(), self.valor_Checkbox.get()) != True) else aux.clean_pets(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_2, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_pet(self), self.et_Codigo.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_2, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cadastro_pet(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -500,11 +500,11 @@ def Cadastro_Cliente(self):
     
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.cliente_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_CPF.get(), self.et_Data_nascimento.get(), self.et_Logradouro.get(), self.et_Cidade.get(), self.et_Bairro.get(), self.et_UF.get(), self.et_Celular.get(), self.et_Email.get()))
+    self.bt_salvar = Button(self.FR_root_ator_3, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: True if (factory.cliente_fac(self.et_Codigo.get(), self.et_Nome.get(), self.et_CPF.get(), self.et_Data_nascimento.get(), self.et_Logradouro.get(), self.et_Cidade.get(), self.et_Bairro.get(), self.et_UF.get(), self.et_Celular.get(), self.et_Email.get()) != True) else aux.clean_clientes(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_3, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cliente(self), self.et_Codigo.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_3, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_cadastro_cliente(self), self.et_Codigo.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -543,7 +543,7 @@ def Venda_Pet(self):
     #bind da Entry
     self.et_Codigo_pet.bind('<FocusIn>',lista_pets_venda(self))
     self.et_Codigo_pet.bind('<Button-1>', lambda x: aux.muda_venda_pet(self, "COD-PET"))
-        
+    
     #label
     self.label_Codigo_dono = Label(self.FR_root_ator_4, text="Código do Dono", font=fonte, background=fundo3)
     self.label_Codigo_dono.place(relx= 0.05, rely = 0.21)
@@ -572,11 +572,11 @@ def Venda_Pet(self):
     #Salvar
     # Add by Erineldo 10/06
     # Adicionada a função de cadastro de vendas
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.vendaPet_fac(self.et_Codigo_venda_pet.get(), self.et_Codigo_pet.get(), self.et_Codigo_dono.get()))
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: True if (factory.vendaPet_fac(self.et_Codigo_venda_pet.get(), self.et_Codigo_pet.get(), self.et_Codigo_dono.get()) != True) else aux.clean_venda_pet(self, 3))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_venda(self), self.et_Codigo_pet.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_4, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.cancel_venda_pet(self), self.et_Codigo_pet.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -593,7 +593,7 @@ def Encomenda_Pet(self):
     
     self.FR_root_ator_4 = Frame(self.root, background = fundo3, highlightbackground = "#000000", borderwidth=0.01, highlightthickness=2)
     self.FR_root_ator_4.place(relx = 0.337, rely = 0.0, relheight = 1.0, relwidth= 0.663)
-    self.LB_label1 = Label(self.FR_root_ator_4, text = "Encomeda de Pet", background = fundo3)
+    self.LB_label1 = Label(self.FR_root_ator_4, text = "Encomenda de Pet", background = fundo3)
     self.LB_label1.pack()
     
     self.frame_funcionalidade = self.FR_root_ator_4
@@ -670,21 +670,10 @@ def Encomenda_Pet(self):
     #entry
     self.et_Valor = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
     self.et_Valor.place(relx= 0.545, rely = 0.115, relheight= 0.075, relwidth=0.43)
-    
-    #codigo pet
-    #label
-    self.label_codigo_pet = Label(self.FR_root_ator_4, text="Código do Pet", font=fonte, background=fundo3)
-    self.label_codigo_pet.place(relx= 0.6, rely = 0.21)
-    #imagem de fundo
-    self.fundo_codigo_pet = Label(self.FR_root_ator_4, image= self.img_fundo)
-    self.fundo_codigo_pet.place(relx= 0.53, rely = 0.25, relheight=0.115, relwidth=0.46)
-    #entry
-    self.et_Codigo_pet = Entry(self.FR_root_ator_4, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_Codigo_pet.place(relx= 0.545, rely = 0.265, relheight= 0.075, relwidth=0.43)
 
     #Botões
     #Salvar
-    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda: factory.encomenda_fac(self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get(), self.et_Codigo_pet.get()))
+    self.bt_salvar = Button(self.FR_root_ator_4, image= self.img_bt_salvar, borderwidth = 0, highlightthickness = 0, command= lambda:  True if (factory.encomenda_fac(self.et_Codigo_encomenda.get(), self.et_Codigo_cli.get(), self.et_Raca.get(), self.et_Sexo.get(), self.et_Idade.get(), self.et_Valor.get()) != True) else aux.clean_encomendas(self, 1))
     self.bt_salvar.place(relx= 0.65, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Cancelar
@@ -728,14 +717,14 @@ def Vendas(self):
     
     #codigo do Produto Pet
     #label
-    self.label_Codigo_pet = Label(self.FR_root_ator_5, text="Código do Pet", font=(fonte, 10), background=fundo3)
-    self.label_Codigo_pet.place(relx= 0.3, rely = 0.05)
+    self.label_Codigo_venda = Label(self.FR_root_ator_5, text="Código da venda", font=(fonte, 10), background=fundo3)
+    self.label_Codigo_venda.place(relx= 0.3, rely = 0.05)
     #imagem de fundo
-    self.fundo_Codigo_pet = Label(self.FR_root_ator_5, image= self.img_fundo)
-    self.fundo_Codigo_pet.place(relx= 0.3, rely = 0.1, relheight=0.11, relwidth=0.21)
+    self.fundo_Codigo_venda = Label(self.FR_root_ator_5, image= self.img_fundo)
+    self.fundo_Codigo_venda.place(relx= 0.3, rely = 0.1, relheight=0.11, relwidth=0.21)
     #entry
-    self.et_Codigo_pet = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
-    self.et_Codigo_pet.place(relx= 0.315, rely = 0.115, relheight= 0.075, relwidth=0.185)
+    self.et_Codigo_venda = Entry(self.FR_root_ator_5, bd = 0, bg = "#ffffff", highlightthickness = 0, font= fonte)
+    self.et_Codigo_venda.place(relx= 0.315, rely = 0.115, relheight= 0.075, relwidth=0.185)
     
     #codigo de encomenda
     #label
@@ -780,7 +769,7 @@ def Vendas(self):
     self.bt_finalizar.place(relx= 0.68, rely = 0.87, relheight= 0.11, relwidth=0.29)
     
     #Cancelar
-    self.bt_cancelar = Button(self.FR_root_ator_5, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.clean_tabela_venda(self), self.et_Codigo_produto.focus()])
+    self.bt_cancelar = Button(self.FR_root_ator_5, image= self.img_bt_cancelar, borderwidth = 0, highlightthickness = 0, command= lambda: [aux.clean_tabela_venda(self), aux.clean_vendas(self, 1), self.et_Codigo_produto.focus()])
     self.bt_cancelar.place(relx= 0.34, rely = 0.86, relheight= 0.13, relwidth=0.32)
     
     #Limpar
@@ -790,7 +779,7 @@ def Vendas(self):
     #Adicionar
     # Modded by Erineldo 26/05
     # Corrigindo erros de nomenclatura bt_limpar->bt_adicionar
-    self.bt_adicionar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0, command= lambda : [aux.adiciona_venda_produto(self, self.et_Codigo_produto.get(), self.et_Codigo_pet.get(), self.et_Codigo_encomenda.get()), aux.total_venda(self)])
+    self.bt_adicionar = Button(self.FR_root_ator_5, image= self.img_bt_adicionar, borderwidth = 0, highlightthickness = 0, command= lambda : [aux.adiciona_venda_produto(self, self.et_Codigo_produto.get(), self.et_Codigo_venda.get(), self.et_Codigo_encomenda.get()), aux.total_venda(self)])
     self.bt_adicionar.place(relx= 0.79, rely = 0.09, relheight= 0.115, relwidth=0.175)
 
 def Nota_fiscal(self):
